@@ -1,0 +1,124 @@
+<script setup>
+import {onMounted} from "vue";
+import '../assets/bootstrap/js/bootstrap.min.js'
+onMounted(()=>{
+  (function() {
+    "use strict"; // Start of use strict
+
+    var mainNav = document.querySelector('#mainNav');
+
+    if (mainNav) {
+
+      var navbarCollapse = mainNav.querySelector('.navbar-collapse');
+
+      if (navbarCollapse) {
+
+        var collapse = new bootstrap.Collapse(navbarCollapse, {
+          toggle: false
+        });
+
+        var navbarItems = navbarCollapse.querySelectorAll('a');
+
+        // Closes responsive menu when a scroll trigger link is clicked
+        for (var item of navbarItems) {
+          item.addEventListener('click', function (event) {
+            collapse.hide();
+          });
+        }
+      }
+
+      // Collapse Navbar
+      var collapseNavbar = function() {
+
+        var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
+        if (scrollTop > 100) {
+          mainNav.classList.add("navbar-shrink");
+        } else {
+          mainNav.classList.remove("navbar-shrink");
+        }
+      };
+      // Collapse now if page is not at top
+      collapseNavbar();
+      // Collapse the navbar when page is scrolled
+      document.addEventListener("scroll", collapseNavbar);
+    }
+
+  })(); // End of use strict
+
+})
+
+</script>
+
+<template>
+  <section id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
+  <nav class="navbar navbar-expand-md fixed-top navbar-light" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="#">Brand</a><button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item nav-link"><a class="nav-link active" href="#about">About</a></li>
+          <li class="nav-item nav-link"><a class="nav-link" href="#download">download</a></li>
+          <li class="nav-item nav-link"><a class="nav-link" href="#contact">contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="masthead" style="background-image:url('assets/img/intro-bg.jpg');">
+    <div class="intro-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1 class="brand-heading">grayscale</h1>
+            <p class="intro-text">A free, responsive, one page Bootstrap theme.<br>Created with love.</p><a class="btn btn-link btn-circle" role="button" href="#about"><i class="fa fa-angle-double-down animated"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="text-center content-section" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>About grayscale</h2>
+          <p>Grayscale is a free Bootstrap theme. It can be yours right now, simply download the template on&nbsp;<a href="#">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
+          <p>This theme features stock photos by&nbsp;<a href="#">Gratisography</a>&nbsp;along with a custom Google Maps skin courtesy of&nbsp;<a href="#">Snazzy Maps</a>.</p>
+          <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with SASS and LESS files for easy customization!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="text-center download-section content-section" id="download" style="background-image:url('assets/img/downloads-bg.jpg');">
+    <div class="container">
+      <div class="col-lg-8 mx-auto">
+        <h1>Download Grayscale</h1>
+        <p>You can download Grayscale for free on the preview page.</p><button class="btn btn-primary btn-lg btn-default" type="button">visit download page</button>
+      </div>
+    </div>
+  </section>
+  <section class="text-center content-section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Contact us</h2>
+          <p>Feel free to leave us a comment on the<a href="#">&nbsp;Grayscale template overview page</a>&nbsp;to give some feedback about this theme!</p>
+          <ul class="list-inline banner-social-buttons">
+            <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button"><i class="fa fa-google-plus fa-fw"></i><span class="network-name">&nbsp; Google+</span></button></li>
+            <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button"><i class="fa fa-twitter fa-fw"></i><span class="network-name">&nbsp;Twitter</span></button></li>
+            <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button"><i class="fa fa-github fa-fw"></i><span class="network-name">&nbsp;github</span></button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="map-clean"><iframe allowfullscreen="" frameborder="0" src="https://cdn.bootstrapstudio.io/placeholders/map.html" width="100%" height="450"></iframe></div>
+  <footer>
+    <div class="container text-center">
+      <p>Copyright ©&nbsp;Brand 2023</p>
+    </div>
+  </footer>
+  </section>
+</template>
+
+<style scoped>
+
+</style>
