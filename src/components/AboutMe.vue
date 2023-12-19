@@ -29,9 +29,9 @@
     <article class="d-flex position-absolute w-100 bottom-0 mb-5 text-light">
       <div class="justify-content-center m-auto text-center">
         <div class="d-flex m-0 p-0">
-          <button class="col-6 me-1 btn btn-outline-light border-0 shadow d-inline-block" style="width: max-content;">
+          <a class="col-6 me-1 btn btn-outline-light border-0 shadow d-inline-block" style="width: max-content;" href="#experiences">
             <i class="fa-solid fa-certificate"></i> Experiences
-          </button>
+          </a>
           <a class="col-6 ms-1 btn btn-outline-light border-0 shadow" href="#contact">
             <i class="fa-solid fa-phone"></i> Contact
           </a>

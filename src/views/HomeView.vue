@@ -1,9 +1,8 @@
 <template>
 <section class="">
   <article>
-    <nav class="position-fixed text-light z-2">
-      pars
-    </nav>
+    <nav-bar />
+    <scrol-top />
     <hi-card />
     <about-me />
     <experiences-card />
@@ -18,9 +17,11 @@ import HiCard from "@/components/HiCard.vue";
 import AboutMe from "@/components/AboutMe.vue";
 import ContactMe from "@/components/ContactMe.vue";
 import ExperiencesCard from "@/components/ExperiencesCard.vue";
+import ScrolTop from "@/components/ScrolTop.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: 'HomeView',
-  components: {ExperiencesCard, ContactMe, AboutMe, HiCard},
+  components: {NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
 }
 </script>

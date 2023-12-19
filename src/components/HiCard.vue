@@ -2,7 +2,7 @@
 </script>
 
 <template>
-<section class="d-flex bg-light" style="background: url('/img/bishop.jpg') no-repeat center; object-fit: contain; height: 100vh">
+<section class="d-flex bg-light z-2" style="background: url('/img/bishop.jpg') no-repeat center; object-fit: contain; height: 100vh">
 <article class="m-auto justify-content-center text-center">
   <div class="row">
     <div class="col-12 col-md-6">
