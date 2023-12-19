@@ -10,7 +10,7 @@
         Education & Certificates
         <hr>
         <div class="d-flex mb-3">
-          <div class="rounded-circle border border-2 border-info d-flex" style="width: 75px; height: 75px">
+          <div class="rounded-circle border border-2 border-info d-flex" style="min-width: 75px; min-height: 75px;max-width: 75px; max-height: 75px">
             <i class="fa-solid fa-school-flag m-auto text-center" style="font-size: 30px"></i>
           </div>
           <div class="ms-2 my-auto">
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="d-flex mb-3">
-          <div class="rounded-circle border border-2 border-info d-flex" style="width: 75px; height: 75px">
+          <div class="rounded-circle border border-2 border-info d-flex" style="min-width: 75px; min-height: 75px;max-width: 75px; max-height: 75px">
             <i class="fa-solid fa-school-flag m-auto text-center" style="font-size: 30px"></i>
           </div>
           <div class="ms-2 my-auto">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="d-flex mb-3">
-          <div class="rounded-circle border border-2 border-info-subtle d-flex" style="width: 75px; height: 75px">
+          <div class="rounded-circle border border-2 border-info-subtle d-flex" style="min-width: 75px; min-height: 75px;max-width: 75px; max-height: 75px">
             <i class="fa-solid fa-certificate m-auto text-center" style="font-size: 30px"></i>
           </div>
           <div class="ms-2 my-auto">
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="d-flex mb-3">
-          <div class="rounded-circle border border-2 border-info-subtle d-flex" style="width: 75px; height: 75px">
+          <div class="rounded-circle border border-2 border-info-subtle d-flex" style="min-width: 75px; min-height: 75px;max-width: 75px; max-height: 75px">
             <i class="fa-solid fa-certificate m-auto text-center" style="font-size: 30px"></i>
           </div>
           <div class="ms-2 my-auto">
@@ -70,7 +70,7 @@
         Projects
         <hr>
         <div class="d-flex mb-3">
-          <div class="rounded-circle border border-2 border-info-subtle d-flex" style="min-width: 75px; min-height: 75px">
+          <div class="rounded-circle border border-2 border-info-subtle d-flex" style="min-width: 75px; min-height: 75px;max-width: 75px; max-height: 75px">
             <i class="fa-solid fa-gear m-auto text-center" style="font-size: 30px"></i>
           </div>
           <div class="ms-2 my-auto">
