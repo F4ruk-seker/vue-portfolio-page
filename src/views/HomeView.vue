@@ -9,6 +9,7 @@
     <contact-me />
   </article>
 </section>
+<my-foter />
 </template>
 
 <script>
@@ -19,9 +20,10 @@ import ContactMe from "@/components/ContactMe.vue";
 import ExperiencesCard from "@/components/ExperiencesCard.vue";
 import ScrolTop from "@/components/ScrolTop.vue";
 import NavBar from "@/components/NavBar.vue";
+import MyFoter from "@/components/MyFoter.vue";
 
 export default {
   name: 'HomeView',
-  components: {NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
+  components: {MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
 }
 </script>
