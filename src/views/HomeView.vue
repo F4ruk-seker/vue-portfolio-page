@@ -25,5 +25,8 @@ import MyFoter from "@/components/MyFoter.vue";
 export default {
   name: 'HomeView',
   components: {MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
+  mounted() {
+    document.title = 'Faruk Şeker | Software developer'
+  }
 }
 </script>

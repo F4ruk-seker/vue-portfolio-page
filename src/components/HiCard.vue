@@ -10,17 +10,19 @@
         <img class="rounded" alt="faruk şeker " src="https://github.com/F4ruk-seker.png">
       </div>
     </div>
-    <div class="col-12 col-md-6  m-auto">
-      <h1 class="fw-bold text-info">
-        Software developer
-      </h1>
-      <p class="fw-semibold text-light">
-        Hello, I am a web developer
-      </p>
-      <hr class="text-light mx-5">
-      <p class="text-light">
-        FARUK ŞEKER
-      </p>
+    <div class="col-12 col-md-6 m-auto">
+      <div class="mt-2 mt-lg-0">
+        <h1 class="fw-bold text-info">
+          Software developer
+        </h1>
+        <p class="fw-semibold text-light">
+          Hello, I am a web developer
+        </p>
+        <hr class="text-light mx-5">
+        <p class="text-light">
+          FARUK ŞEKER
+        </p>
+      </div>
     </div>
   </div>
 </article>
