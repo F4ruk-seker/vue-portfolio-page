@@ -1,5 +1,4 @@
 <script setup>
-
 </script>
 
 <template>
@@ -16,20 +15,30 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link fw-bold text-light active" aria-current="page" href="#">Home</a>
+            <a class="nav-link fw-bold text-light active" aria-current="page"
+            href="/#"
+            >Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-bold text-light" aria-current="About" href="#about">About</a>
+            <a class="nav-link fw-bold text-light" aria-current="About" href="/#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-bold text-light" aria-current="Experiences" href="#experiences">Experiences</a>
+            <a class="nav-link fw-bold text-light" aria-current="Experiences" href="/#experiences">Experiences</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-bold text-light" aria-current="Contact" href="#contact">Contact</a>
+            <a class="nav-link fw-bold text-light" aria-current="Contact" href="/#contact">Contact</a>
           </li>
         </ul>
         <div class="w-100"></div>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link
+                class="nav-link fw-bold text-light" aria-current="projects"
+                :to="{
+              name:'projects'
+                }"
+            >Projects</router-link>
+          </li>
           <li class="nav-item">
             <a class="nav-link fw-bold text-light" aria-current="Game" href="#Game">Game</a>
           </li>
