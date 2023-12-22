@@ -10,8 +10,10 @@ const message_context = ref({
 
 const on_sending = ref(false)
 
-function send_message() {
-  MessageSender.send_message(message_context.value)
+async function send_message() {
+  on_sending.value = true
+  await MessageSender.send_message(message_context.value)
+  on_sending.value = false
 }
 
 </script>
