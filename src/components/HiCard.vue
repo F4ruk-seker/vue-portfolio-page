@@ -1,4 +1,10 @@
-<script setup>
+<script>
+
+export default {
+  name: 'HiCard',
+  props: ['context', 'view_count'],
+}
+
 </script>
 
 <template>
@@ -7,27 +13,16 @@
   <div class="row">
     <div class="col-12 col-md-6">
       <div class="ratio ratio-1x1">
-        <img class="rounded" alt="faruk şeker " src="https://github.com/F4ruk-seker.png">
+        <img class="rounded" alt="faruk şeker " :src="context?.hi_card_pp?.toString()">
       </div>
     </div>
     <div class="col-12 col-md-6 m-auto">
-      <div class="mt-2 mt-lg-0">
-        <h1 class="fw-bold text-info">
-          Software developer
-        </h1>
-        <p class="fw-semibold text-light">
-          Hello, I am a web developer
-        </p>
-        <hr class="text-light mx-5">
-        <p class="text-light">
-          FARUK ŞEKER
-        </p>
-      </div>
+      <div class="mt-2 mt-lg-0" v-html="context?.hi_card_message"></div>
     </div>
   </div>
 </article>
 <article class="position-absolute text-light bottom-0 m-1">
-  <i class="fa-solid fa-eye"></i> 250
+  <i class="fa-solid fa-eye"></i> {{ view_count }}
 </article>
 <article class="position-absolute text-light bottom-0 text-center w-100 mb-5 z-1">
   <a class="btn btn-outline-light border-0 shadow" href="#about">

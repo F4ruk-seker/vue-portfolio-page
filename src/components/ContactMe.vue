@@ -1,4 +1,18 @@
 <script setup>
+import { ref } from 'vue'
+import MessageSender from "@/composable/MessageSender";
+
+const message_context = ref({
+  name:'',
+  email: '',
+  message: ''
+})
+
+const on_sending = ref(false)
+
+function send_message() {
+  MessageSender.send_message(message_context.value)
+}
 
 </script>
 
@@ -8,20 +22,27 @@
     <div class="rounded shadow" style="border: 2px solid rgba(255,255,255,0.53)">
      <div class="row">
        <div class="col-12 col-md-6 px-5 py-4">
-         <form class="w-100 card-body text-light" style="background: transparent!important;">
+         <form class="w-100 card-body text-light" @submit.prevent="send_message" style="background: transparent!important;">
            <div class="mb-3">
              <label for="name_input" class="form-label">Name<span class="text-danger ms-1">*</span></label>
-             <input type="text" class="form-control" id="name_input" placeholder="name" required>
+             <input v-model="message_context.name" type="text" class="form-control text-light fw-bold" id="name_input" placeholder="name" required>
            </div>
            <div class="mb-3">
              <label for="email_input" class="form-label">Email<span class="text-danger ms-1">*</span></label>
-             <input type="text" class="form-control" id="email_input" placeholder="email@example.com" required>
+             <input v-model="message_context.email" type="text" class="form-control" id="email_input" placeholder="email@example.com" required>
            </div>
            <div class="mb-3">
              <label for="message" class="form-label">Email<span class="text-danger ms-1">*</span></label>
-             <textarea class="form-control" id="message_input" placeholder="How Can I Help You?" required></textarea>
+             <textarea v-model="message_context.message" class="form-control" id="message_input" placeholder="How Can I Help You?" required></textarea>
            </div>
-           <button class="btn btn-outline-light float-end">Send</button>
+           <button class="btn btn-outline-light float-end" type="submit">
+             <span v-if="on_sending" class="spinner-border spinner-border-sm text-light" role="status">
+               <span class="visually-hidden">Loading...</span>
+             </span>
+            <span v-else>
+             Send
+            </span>
+           </button>
          </form>
        </div>
        <div class="col-12 col-md-6 d-flex" style="border-color:rgba(255,255,255,0.53)!important;border-width: 2px!important;background: rgba(2,0,36,.5);
