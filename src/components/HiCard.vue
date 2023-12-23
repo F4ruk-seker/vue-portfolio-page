@@ -1,5 +1,4 @@
 <script>
-
 export default {
   name: 'HiCard',
   props: ['context', 'view_count'],
@@ -8,12 +7,12 @@ export default {
 </script>
 
 <template>
-<section class="d-flex bg-light z-2" style="background: url('/img/bishop.jpg') no-repeat center; object-fit: contain; height: 100vh">
+<section class="d-flex bg-light z-2" :style="'background: url(' + context?.hi_card_background + ') no-repeat center; object-fit: contain; height: 100vh'">
 <article class="m-auto justify-content-center text-center container">
   <div class="row">
     <div class="col-12 col-md-6">
       <div class="ratio ratio-1x1">
-        <img class="rounded" alt="faruk şeker " :src="context?.hi_card_pp?.toString()">
+        <img class="rounded" alt="faruk şeker" loading="lazy" :src="context?.hi_card_pp?.toString()">
       </div>
     </div>
     <div class="col-12 col-md-6 m-auto">
@@ -21,7 +20,7 @@ export default {
     </div>
   </div>
 </article>
-<article class="position-absolute text-light bottom-0 m-1">
+<article class="position-absolute text-light bottom-0 m-3 fw-semibold">
   <i class="fa-solid fa-eye"></i> {{ view_count }}
 </article>
 <article class="position-absolute text-light bottom-0 text-center w-100 mb-5 z-1">
@@ -33,6 +32,15 @@ export default {
 </template>
 
 <style scoped>
+
+.lazy-background {
+  display: flex;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: contain;
+  height: 100vh;
+}
+
 ul li:after {
   margin-right: .25rem;
   content: ",";

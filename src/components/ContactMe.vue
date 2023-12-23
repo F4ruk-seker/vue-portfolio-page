@@ -60,6 +60,9 @@ background: linear-gradient(90deg, rgba(2,0,36,.01) 0%, rgba(2,171,228,1) 50%, r
 </template>
 
 <style scoped>
+#contact{
+  font-family: 'FontAwesome';
+}
 input{
   background: transparent!important;
   border-color: rgba(255,255,255,0.53)!important;

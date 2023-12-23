@@ -38,7 +38,6 @@ export default {
     on_load: true
   }},
   mounted() {
-    document.title = 'Faruk Şeker | Software developer'
     this.get_page_context()
   },methods:{
     get_page_context(){
@@ -52,3 +51,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.lazy-background {
+  display: flex;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: contain;
+  height: 100vh;
+}
+</style>
