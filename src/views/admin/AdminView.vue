@@ -2,6 +2,7 @@
 
 import AdminNavbar from "@/components/admin/AdminNavbar.vue";
 import AdminASide from "@/components/admin/AdminASide.vue";
+
 </script>
 
 <template>

@@ -12,6 +12,8 @@ const store = createStore({
       return state.AuthStatus
     },
     get_user(state){
+      console.log('state.user')
+      console.log(state.user)
       return state.user
     },
     get_email(state){
@@ -58,9 +60,11 @@ const store = createStore({
           context.commit('change_auth_status', {status:false})
         }
       })
-
-
+    },
+    set_user(context, user){
+      context.commit('set_user', {user:user})
     }
+
   }
 
 

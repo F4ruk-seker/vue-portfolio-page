@@ -1,7 +1,6 @@
 // AuthService.js
 import axios from 'axios';
 
-
 class AuthService {
     save_session(token){
         sessionStorage.setItem('access', token.access)
@@ -17,6 +16,9 @@ class AuthService {
             )
             if (response.status === 200){
                 const token = await response.data
+                console.log('set lo')
+                // store.
+                // store.commit('set_user', {user:token})
                 this.save_session(token)
                 return token
             }
@@ -34,7 +36,6 @@ class AuthService {
             axios.get(`user/`).then((response) => {
                 return response.data
             })
-
 
         }catch (e) {
             console.log('error')
