@@ -28,7 +28,6 @@ class AuthService {
     }
     logout() {
         sessionStorage.clear()
-        console.log('clea')
     }
     check_user_status(){
         try {

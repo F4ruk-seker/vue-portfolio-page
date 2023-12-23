@@ -2,13 +2,14 @@
 import NavBar from "@/components/NavBar.vue";
 import {ref} from 'vue'
 import AuthService from "@/composable/AuthService";
+import { useRouter } from 'vue-router'
+
 
 const username = ref('')
 const password = ref('')
-
 const otp_code = ref('')
-
 const otp_form = ref(false)
+const router = useRouter()
 
 async function send_login() {
   const login_data = await AuthService.login({
@@ -17,7 +18,7 @@ async function send_login() {
   if  (login_data.has_otp){
     otp_form.value = true
   }else {
-    alert('go admin')
+      router.push({'name': 'admin-home'})
   }
 }
 

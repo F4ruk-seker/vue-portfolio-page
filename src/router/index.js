@@ -24,10 +24,29 @@ const routes = [
     name: 'login',
     component: () => import(/* webpackChunkName: "md" */ '../views/login/LoginView.vue')
   },
+
   {
-    path: '/md',
-    name: 'md',
-    component: () => import(/* webpackChunkName: "md" */ '../views/MD_EditView.vue')
+    path: '/admin',
+    name: 'admin',
+    component: () => import(/* webpackChunkName: "md" */ '../views/admin/AdminView.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'admin-home',
+        component: () => import(/* webpackChunkName: "md" */ '../views/admin/AdminMain.vue')
+      },
+      {
+        path: 'page',
+        name: 'admin-page',
+        component: () => import(/* webpackChunkName: "admin-page" */ '../views/admin/PageList.vue')
+      },
+      {
+        path: 'page/:page_name/edit',
+        name: 'admin-page-edit',
+        component: () => import(/* webpackChunkName: "admin-page" */ '../views/admin/PageEdit.vue'),
+        props: true
+      },
+    ]
   }
 ]
 
