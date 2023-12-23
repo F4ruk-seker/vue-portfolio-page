@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import { VMarkdownEditor } from 'vue3-markdown'
-import 'vue3-markdown/dist/style.css'
 
 const content = ref('')
 const handleUpload = (file) => {

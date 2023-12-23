@@ -35,7 +35,7 @@
             <router-link
                 class="nav-link fw-bold text-light" aria-current="projects"
                 :to="{
-              name:'projects'
+                   name:'projects'
                 }"
             >Projects</router-link>
           </li>
@@ -46,7 +46,7 @@
             <a class="nav-link fw-bold text-light" aria-current="Blog" href="#blog">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-bold text-light" aria-current="Game" href="#Game">Login</a>
+            <router-link class="nav-link fw-bold text-light" aria-current="Login" :to="{'name':'login'}" >Login</router-link>
           </li>
         </ul>
       </div>
