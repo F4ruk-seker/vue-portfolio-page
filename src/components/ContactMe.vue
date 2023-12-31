@@ -1,25 +1,30 @@
-<script setup>
+<script>
 import { ref } from 'vue'
 import MessageSender from "@/composable/MessageSender";
 
-const message_context = ref({
-  name:'',
-  email: '',
-  message: ''
-})
+export default {
+  setup(){
+    const message_context = ref({
+      name:'',
+      email: '',
+      message: ''
+    })
 
-const on_sending = ref(false)
-const show_sent_successfully_message = ref(false)
-async function send_message() {
-  on_sending.value = true
-  show_sent_successfully_message.value = await MessageSender.send_message(message_context.value)
-  on_sending.value = false
+    const on_sending = ref(false)
+    const show_sent_successfully_message = ref(false)
+    return {message_context, on_sending, show_sent_successfully_message}
+  }, methods:{
+    async send_message() {
+      this.on_sending.value = true
+      this.show_sent_successfully_message.value = await MessageSender.send_message(this.message_context.value)
+      this.on_sending.value = false
+    }
+  }, props: ['contact_me_background']
 }
-
 </script>
 
 <template>
-<section id="contact" class="d-flex" style="background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1703990690/portfolio/tengyart-unsplash_reipri.jpg') center; background-size: cover; height: 100vh">
+<section id="contact" class="d-flex" :style="'background: url('+ contact_me_background +') center; background-size: cover; height: 100vh'">
   <article class="justify-content-center m-auto container " style="background: transparent!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);">
     <div class="rounded shadow" style="border: 2px solid rgba(255,255,255,0.53)">
      <div class="row">

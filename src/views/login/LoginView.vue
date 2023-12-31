@@ -31,7 +31,7 @@ function send_otp() {
 
 <template>
 <NavBar />
-<section class="d-flex" style="background: url('/img/jade-stephens-T-unsplash.jpg') no-repeat center; object-fit: cover; height: 100vh">
+<section class="d-flex" style="background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1703990688/portfolio/jade-stephens-T-unsplash_zeheas.jpg') no-repeat center; object-fit: cover; height: 100vh">
   <article class="justify-content-center  m-auto col-12 col-sm-10 col-md-4 col-lg-3" style="background: transparent!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);">
     <form @submit.prevent="send_login" v-if="!otp_form" class="border rounded p-3 shadow" style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
       <div class="mb-3">

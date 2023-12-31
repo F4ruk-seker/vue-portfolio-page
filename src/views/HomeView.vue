@@ -5,8 +5,8 @@
     <scrol-top />
     <hi-card :context="page.context" :view_count="page.view" />
     <about-me :context="page.context" />
-    <experiences-card />
-    <contact-me />
+    <experiences-card :context="page.context"/>
+    <contact-me :contact_me_background="page.context.contact_me_background" />
   </article>
   <article v-else>
     <load-card />

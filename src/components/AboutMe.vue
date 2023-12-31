@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <section id="about" class="d-flex position-relative" style="background: url('/img/antoine-rault-unsplash.jpg') no-repeat bottom; object-fit: fill; height: 100vh">
+  <section id="about" class="d-flex position-relative" :style="'background: url('+ context.about_me_background + ') no-repeat bottom; object-fit: fill; height: 100vh'">
     <article class="container m-auto overflow-y-auto" style="max-height: 80vh">
      <div v-html="context?.abaout_me_text"></div>
     </article>
