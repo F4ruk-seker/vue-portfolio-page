@@ -18,7 +18,9 @@ async function send_login() {
   if  (login_data.has_otp){
     otp_form.value = true
   }else {
-      router.push({'name': 'admin-home'})
+      if (login_data){
+        router.push({'name': 'admin-home'})
+      }
   }
 }
 

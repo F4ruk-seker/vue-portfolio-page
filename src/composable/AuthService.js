@@ -21,11 +21,8 @@ class AuthService {
             )
             if (response.status === 200){
                 const token = await response.data
-                console.log('set lo')
-                // store.
-                // store.commit('set_user', {user:token})
                 this.save_session(token)
-                return token
+                return {has_otp:token.has_otp}
             }
             return false
         }catch (e) {
