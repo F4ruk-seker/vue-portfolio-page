@@ -19,7 +19,7 @@ async function send_message() {
 </script>
 
 <template>
-<section id="contact" class="d-flex" style="background: url('/img/tengyart-unsplash.jpg') center; background-size: cover; height: 100vh">
+<section id="contact" class="d-flex" style="background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1703990690/portfolio/tengyart-unsplash_reipri.jpg') center; background-size: cover; height: 100vh">
   <article class="justify-content-center m-auto container " style="background: transparent!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);">
     <div class="rounded shadow" style="border: 2px solid rgba(255,255,255,0.53)">
      <div class="row">
