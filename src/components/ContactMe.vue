@@ -9,10 +9,10 @@ const message_context = ref({
 })
 
 const on_sending = ref(false)
-
+const show_sent_successfully_message = ref(false)
 async function send_message() {
   on_sending.value = true
-  await MessageSender.send_message(message_context.value)
+  show_sent_successfully_message.value = await MessageSender.send_message(message_context.value)
   on_sending.value = false
 }
 
@@ -31,12 +31,13 @@ async function send_message() {
            </div>
            <div class="mb-3">
              <label for="email_input" class="form-label">Email<span class="text-danger ms-1">*</span></label>
-             <input v-model="message_context.email" type="text" class="form-control" id="email_input" placeholder="email@example.com" required>
+             <input v-model="message_context.email" type="email" class="form-control" id="email_input" placeholder="email@example.com" required>
            </div>
            <div class="mb-3">
              <label for="message" class="form-label">Email<span class="text-danger ms-1">*</span></label>
              <textarea v-model="message_context.message" class="form-control" id="message_input" placeholder="How Can I Help You?" required></textarea>
            </div>
+           <strong v-show="show_sent_successfully_message" class="text-success">Message sent</strong>
            <button class="btn btn-outline-light float-end" type="submit">
              <span v-if="on_sending" class="spinner-border spinner-border-sm text-light" role="status">
                <span class="visually-hidden">Loading...</span>

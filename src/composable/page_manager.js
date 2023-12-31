@@ -21,13 +21,17 @@ class PageManager{
         if (!this.has_error){
             if (!this.context.disable_ceo){
                 document.title = this.context.title
+
             }
-            console.log(this.context)
         }
     }
 
     get_context (){
         return this.context
+    }
+
+    load_meta(){
+
     }
 }
 
