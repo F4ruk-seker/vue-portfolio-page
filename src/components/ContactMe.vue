@@ -1,25 +1,24 @@
 <script>
-import { ref } from 'vue'
 import MessageSender from "@/composable/MessageSender";
 
 export default {
-  setup(){
-    const message_context = ref({
-      name:'',
-      email: '',
-      message: ''
-    })
-
-    const on_sending = ref(false)
-    const show_sent_successfully_message = ref(false)
-    return {message_context, on_sending, show_sent_successfully_message}
-  }, methods:{
+ data: ()=>{return{
+   message_context:{
+     name:'',
+     email: '',
+     message: '',
+   },
+    on_sending: false,
+    show_sent_successfully_message: false,
+  }},
+  methods:{
     async send_message() {
-      this.on_sending.value = true
-      this.show_sent_successfully_message.value = await MessageSender.send_message(this.message_context.value)
-      this.on_sending.value = false
+      this.on_sending = true
+      this.show_sent_successfully_message = await MessageSender.send_message(this.message_context)
+      this.on_sending = false
     }
-  }, props: ['contact_me_background']
+  },
+  props: ['contact_me_background']
 }
 </script>
 
