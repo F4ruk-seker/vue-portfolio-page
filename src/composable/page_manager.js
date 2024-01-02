@@ -11,6 +11,7 @@ class PageManager{
             this.context = response.data
             console.log('response.data')
             console.log(response.data)
+            document.get
         } catch (e) {
             this.has_error = true
             Promise.reject(e)
@@ -22,6 +23,8 @@ class PageManager{
             if (!this.context.disable_ceo){
                 document.title = this.context.title
 
+                // const d = document.getElementsByName('description')[0]
+                // console.log(d.content = "p")
             }
         }
     }

@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        Business & Projects <a class="fw-bold text-info text-decoration-none">More</a>
+        Business & Projects <a class="fw-bold text-info text-decoration-none" href="#toMorePage">More</a>
         <hr>
         <div class="d-flex mb-3">
           <div class="rounded-circle border border-2 border-info-subtle d-flex p-3 shadow" style="width: min-content; height: min-content">

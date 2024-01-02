@@ -4,10 +4,11 @@ import router from './router'
 import { store } from './store'
 import axios from "axios";
 import AuthService from "@/composable/AuthService";
-
+// import VueMeta from 'vue-meta'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
-
+import {createHead} from "@vueuse/head";
+const head = createHead()
 // import 'vue3-markdown/dist/style.css'
 
 
@@ -50,5 +51,7 @@ axios.interceptors.response.use(
 createApp(App)
     .use(store)
     .use(router)
+    .use(head)
     .mount('#app')
 
+await router.isReady()

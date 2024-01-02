@@ -13,15 +13,10 @@
   </article>
 </section>
 <my-foter />
-  <meta name="description" content="Free Web tutorials">
-  <meta name="keywords" content="HTML, CSS, JavaScript">
-  <meta name="author" content="John Doe">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </template>
 
 <script>
 import PageManager from "@/composable/page_manager";
-
 
 import HiCard from "@/components/HiCard.vue";
 import AboutMe from "@/components/AboutMe.vue";
@@ -32,6 +27,12 @@ import NavBar from "@/components/NavBar.vue";
 import MyFoter from "@/components/MyFoter.vue";
 import LoadCard from "@/components/LoadCard.vue";
 
+/*
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+*/
 export default {
   name: 'HomeView',
   components: {LoadCard, MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
@@ -51,8 +52,9 @@ export default {
         this.page = PageManager.get_context()
         this.on_load = false
       })
-    }
+    },
   }
+
 }
 </script>
 
