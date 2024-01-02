@@ -1,5 +1,6 @@
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+
 const vd = ref([32, 23, 0, 48, 28, 2, 50, 46, 17, 2, 43, 35, 3, 47, 1, 18, 32, 1, 20, 32, 0, 29, 0, 19, 38, 38, 10, 25, 6, 7, 13])
 let filteredVd = vd.value.filter(val => val !== 0);
 
@@ -14,16 +15,16 @@ let scale = mostVisited - leastVisited;
 let regionCount = 4;
 let regionLength = scale / regionCount;
 
-function get_region_color(region){
+function get_region_color(region) {
   console.log(region)
   console.log(regionLength)
-  if (region === 0){
+  if (region === 0) {
     return 'non-color'
-  } else if (regionLength > region ){
+  } else if (regionLength > region) {
     return 'first-color'
-  } else if (regionLength * 2 > region){
+  } else if (regionLength * 2 > region) {
     return 'second-color'
-  } else if (regionLength * 3 > region){
+  } else if (regionLength * 3 > region) {
     return 'third-color'
   } else {
     return 'fourth-color'
@@ -31,75 +32,93 @@ function get_region_color(region){
 
 }
 
+const daysInMonth = vd.value.length // Ayın toplam gün sayısını buraya ayarlayın
+// const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const weeks = ref([])
+onMounted(() => {
+  generateCalendar();
+})
+
+function generateCalendar() {
+  let days = Array.from({length: daysInMonth}, (_, i) => i + 1);
+  weeks.value = chunkArray(days, 7);
+}
+
+function chunkArray(arr, size) {
+  return Array.from({length: Math.ceil(arr.length / size)}, (_, i) => arr.slice(i * size, i * size + size));
+}
+
+
 </script>
 
 <template>
-  <strong>Color plate</strong>
-  <div class="container d-flex border">
-    <div class="w-100 d-flex">
-      <strong class="justify-content-center m-auto" style="font-size: 46px">Ocak 2023</strong>
-    </div>
-    <div class="w-100">
-      <div class="justify-content-center m-auto">
-        <ul class="list-unstyled d-flex m-0">
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Monday</li>
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Tuesday</li>
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Wednesday</li>
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Thursday</li>
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Friday</li>
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Saturday</li>
-          <li class="item border-bottom border-dark m-1 text-center fw-semibold text-dark bg-light-subtle">Sunday</li>
-        </ul>
-        <ul class="list-unstyled d-flex flex-wrap justify-content-start m-auto">
-          <li v-for="(v, index) in vd" v-bind:key="index" :class="'text-center item rounded m-1 ' + get_region_color(v)">
-            <span class="fw-bold text-light ">{{ index + 1 }}:{{ v }}</span>
-          </li>
-        </ul>
-        <hr class="m-1" style="">
-        <ul class="list-unstyled d-flex m-0">
-          <li class="item rounded border border-dark bg-secondary m-1 text-center fw-bold text-light">Less</li>
-          <li class="item rounded border border-dark non-color m-1 " ></li>
-          <li class="item rounded border border-dark first-color m-1" ></li>
-          <li class="item rounded border border-dark second-color m-1" ></li>
-          <li class="item rounded border border-dark third-color m-1" ></li>
-          <li class="item rounded border border-dark fourth-color m-1" ></li>
-          <li class="item rounded border border-dark bg-info m-1 text-center fw-bold text-light" >More</li>
-        </ul>
-      </div>
+  <strong class="w-100">Color plate</strong>
+  <div class="justify-content-center m-auto">
+    <ul class="list-unstyled calendar justify-content-start p-0 d-flex m-0 mb-2" style="font-size: 12px">
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">PZT</li>
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">SLI</li>
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">ÇAR</li>
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">PER</li>
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">CUM</li>
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">CUM</li>
+      <li class="day rounded border border-dark bg-light text-center fw-bold text-dark">PZT</li>
+    </ul>
+
+    <div class="calendar fw-semibold text-light">
+      <div v-for="(day, index) in daysInMonth" :key="index"
+           :class="'day rounded border ' + get_region_color(vd[index])">
+        <span>{{ day }}</span>
+        <span>{{ vd[index] }}</span>
       </div>
     </div>
+
+    <hr class="m-1" style="">
+    <ul class="list-unstyled justify-content-start p-0 d-flex my-1 w-100">
+      <li class="rounded-start non-color" style="height: 26px; width: 36px"></li>
+      <li class="first-color" style="height: 26px; width: 36px"></li>
+      <li class="second-color " style="height: 26px; width: 36px"></li>
+      <li class="third-color " style="height: 26px; width: 36px"></li>
+      <li class="rounded-end fourth-color " style="height: 26px; width: 36px"></li>
+    </ul>
+  </div>
+
 </template>
 
 <style scoped>
-li{
-  width: 46px;
-  height: 26px;
-  background-color: cyan;
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 36px);
+  gap: 5px;
 }
 
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
+.day {
+  width: 36px;
+  height: 26px;
+//border: 1px solid #ccc; box-sizing: border-box;
+  text-align: center;
+//line-height: 50px;
 }
 
-.item {
-  width: calc(14.2857% - 10px); /* Her satırda 7 öğe için */
-  min-width: 26px;
-  //width: calc(14.2857%); /* Her satırda 7 öğe için */
-  height: 26px;
-  //width: 46px;
-  box-sizing: border-box;
-}
-.non-color{
-  background: rgb(66, 61, 61);
-}
-span{
-  visibility: hidden;
-  top: 0;
-}
-.item:hover span{
+.day span:first-child{
+  display: block;
   visibility: visible;
+}
+.day span:last-child{
+  display: none;
+  visibility: hidden;
+}
+
+.day:hover span:first-child{
+  display: none;
+  visibility: hidden;
+}
+.day:hover span:last-child{
+  display: block;
+  visibility: visible;
+}
+
+.non-color {
+  background: var(--bs-secondary);
 }
 
 .first-color {

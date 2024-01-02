@@ -38,7 +38,7 @@ export default {
              <input v-model="message_context.email" type="email" class="form-control" id="email_input" placeholder="email@example.com" required>
            </div>
            <div class="mb-3">
-             <label for="message" class="form-label">Email<span class="text-danger ms-1">*</span></label>
+             <label for="message_input" class="form-label">Email<span class="text-danger ms-1">*</span></label>
              <textarea v-model="message_context.message" class="form-control" id="message_input" placeholder="How Can I Help You?" required></textarea>
            </div>
            <strong v-show="show_sent_successfully_message" class="text-success">Message sent</strong>
