@@ -85,9 +85,9 @@ async function fetch_page() {
             <div class="w-100 border-end">
               <div class="row m-0 p-0">
                 <div class="col-2">IS User</div><div class="col-10"><i class="fa-solid fa-check"></i></div>
-                <div class="col-2">Country</div><div class="col-10">{{view.Country ? view.Country:'unknown'}}</div>
-                <div class="col-2">City</div><div class="col-10">{{view.City ? view.City:'unknown'}}</div>
-                <div class="col-2">City</div><div class="col-10">{{view['Time Zone'] ? view['Time Zone']:'unknown'}}</div>
+                <div class="col-2">Country</div><div class="col-10">{{view.ip_data.Country ? view.ip_data.Country:'unknown'}}</div>
+                <div class="col-2">City</div><div class="col-10">{{view.ip_data.City ? view.ip_data.City:'unknown'}}</div>
+                <div class="col-2">City</div><div class="col-10">{{view.ip_data['Time Zone'] ? view.ip_data['Time Zone']:'unknown'}}</div>
               </div>
             </div>
             <div class="w-100 border-end">
