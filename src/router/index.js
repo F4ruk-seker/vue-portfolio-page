@@ -45,10 +45,17 @@ const routes = [
         name: 'admin-page-edit',
         component: () => import(/* webpackChunkName: "admin-page" */ '../views/admin/PageEdit.vue'),
         props: true
-      },{
+      },
+      {
         path: 'dashboard',
         name: 'admin-dashboard',
         component: () => import(/* webpackChunkName: "admin-page" */ '../views/admin/dashboard/DashBoardView.vue')
+      },
+      {
+        path: 'dashboard/:page_name/',
+        name: 'admin-dashboard-page',
+        component: () => import(/* webpackChunkName: "admin-dashboard-page" */ '../views/admin/dashboard/PageAnalyticsView.vue'),
+        props: true
       },
     ]
   }
