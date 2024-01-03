@@ -1,47 +1,51 @@
-<script setup>
-// page/<str:name>/analytics/
-import {useRoute} from "vue-router";
+<script>
 import axios from "axios";
-import {onMounted, ref} from "vue";
 import Monthly_plot from "@/components/admin/dashboard/monthly_plot.vue";
 
-const route = useRoute()
-const page_name = route.params.page_name
-const show_views = ref(true)
 
-const month = ref({
-  '1':'Janauary',
-  '2':'February',
-  '3':'March',
-  '4':'April',
-  '5':'May',
-  '6':'June',
-  '7':'July',
-  '8':'August',
-  '9':'September',
-  '10':'October',
-  '11':'November',
-  '12':'December'		})
-const page = ref()
+export default {
+  name: 'PageAnalyticsView',
+  components: {Monthly_plot},
+  props: ['page_name'],
+  data:()=>{return{
+    show_views: true,
+    page: null,
+    month: {
+        '1':'Janauary',
+        '2':'February',
+        '3':'March',
+        '4':'April',
+        '5':'May',
+        '6':'June',
+        '7':'July',
+        '8':'August',
+        '9':'September',
+        '10':'October',
+        '11':'November',
+        '12':'December'},
 
-onMounted(async ()=>{
-  await fetch_page()
-})
-
-async function fetch_page() {
-  try {
-    const response = await axios.get('admin/page/' + page_name + '/analytics/' )
-    page.value = response.data
-  } catch (e) {
-    Promise.reject(e)
+  }},
+  methods:{
+    async fetch_page() {
+      try {
+        const response = await axios.get('admin/page/' + this.page_name + '/analytics/' )
+        this.page = response.data
+      } catch (e) {
+        Promise.reject(e)
+      }
+    }
+  },
+  async mounted() {
+      await this.fetch_page()
   }
 }
+
+// page/<str:name>/analytics/
 </script>
 
 <template>
 <section class="h-100 d-flex container">
   <article v-if="page" class="justify-content-center m-auto w-100 h-100">
-
     <div class="d-flex w-100">
       <div class="w-50 h-25 justify-content-center m-auto">
         <img class="h-100 rounded" style="width: 200px; height: 200px" alt="page" :src="page.image">
@@ -63,7 +67,7 @@ async function fetch_page() {
             <div class="col-4" v-for="(page_view_list, month_index,index) in mhv" v-bind:key="index">
               {{month_index}}
               {{ month[month_index] }}
-              <monthly_plot :page_view="page_view_list" />
+              <Monthly_plot  :page_view="page_view_list" />
             </div>
           </div>
         </div>

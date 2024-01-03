@@ -31,8 +31,10 @@ function fetch_page_list(){
         <li>
           <router-link
               class="btn btn-outline-primary fw-bold mt-1"
-            :to="{name:'admin-dashboard-page', page_name:page.name}"
-          >Görüntülenme datası</router-link>
+              :to="{ name: 'admin-dashboard-page', params:{page_name: page.name}}"
+          >
+            Detaylar
+          </router-link>
         </li>
       </ul>
     </div>
