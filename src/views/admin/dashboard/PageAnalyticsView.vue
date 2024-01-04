@@ -32,8 +32,6 @@ export default {
       try {
         const response = await axios.get('admin/page/' + this.page_name + '/analytics/' )
         this.page = response.data
-        console.log(response.data.view[0])
-
         this.page.view.reverse();
       } catch (e) {
         Promise.reject(e)
@@ -84,7 +82,7 @@ export default {
       <div v-else class="mb-3">
           <ul class="list-unstyled d-flex w-100 m-1 border-bottom fw-bold">
             <li class="w-25 text-start">#</li>
-            <li class="w-100 text-start" style="width: min-content">visit_time</li>
+            <li class="w-100 text-start" style="width: min-content" @click="this.page.view.reverse()">visit_time</li>
             <li class="w-100 text-center">method</li>
             <li class="w-100 text-center">
               IP
