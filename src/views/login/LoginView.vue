@@ -35,11 +35,11 @@ function send_otp() {
   <article class="justify-content-center  m-auto col-12 col-sm-10 col-md-4 col-lg-3" style="background: transparent!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);">
     <form @submit.prevent="send_login" v-if="!otp_form" class="border rounded p-3 shadow" style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
       <div class="mb-3">
-        <label for="email_input" class="form-label text-light fw-bold">Email<span class="text-danger ms-1">*</span></label>
-        <input v-model="username" type="text" class="form-control text-light fw-bold shadow" id="email_input" placeholder="username" required  style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
+        <label for="email_input" class="form-label text-light fw-bold">Username<span class="text-danger ms-1">*</span></label>
+        <input v-model="username" type="text" autocapitalize="off" autofocus autocomplete="on" class="form-control text-light fw-bold shadow" id="email_input" placeholder="username" required  style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
       </div>
       <div class="mb-3">
-        <label for="password_input" class="form-label">Name<span class="text-dangertext-light fw-bold ms-1">*</span></label>
+        <label for="password_input" class="form-label">Password<span class="text-dangertext-light fw-bold ms-1">*</span></label>
         <input v-model="password" type="password" class="form-control text-light fw-bold shadow" id="password_input" placeholder="password" required name="password" autocomplete="on" style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
       </div>
       <hr>
