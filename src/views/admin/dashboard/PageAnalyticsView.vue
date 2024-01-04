@@ -8,7 +8,9 @@ export default {
   components: {Monthly_plot},
   props: ['page_name'],
   data:()=>{return{
+    hide_ip: false,
     show_views: true,
+    page_data:null,
     page: null,
     month: {
         '1':'Janauary',
@@ -30,9 +32,16 @@ export default {
       try {
         const response = await axios.get('admin/page/' + this.page_name + '/analytics/' )
         this.page = response.data
+        console.log(response.data.view[0])
+
+        this.page.view.reverse();
       } catch (e) {
         Promise.reject(e)
       }
+    },
+
+    formatDate(date) {
+      return new Date(date).toLocaleDateString();
     }
   },
   async mounted() {
@@ -73,19 +82,30 @@ export default {
         </div>
       </div>
       <div v-else class="mb-3">
-        <ul class="list-unstyled d-flex w-100 m-1 border-bottom">
-          <li class="w-100 text-start">#</li>
-          <li class="w-100 text-center" style="width: min-content">visit_time</li>
-          <li class="w-100 text-center">method</li>
-          <li class="w-100 text-center">Country</li>
-          <li class="w-100 text-center">OHAC</li>
-          <li><i class="fa-brands fa-nfc-directional"></i></li>
-        </ul>
-        <div v-for="(view, index) in page.view" v-bind:key="view.id" class="w-100">
-          <ul class="list-unstyled d-flex w-100 m-1 border-bottom" style="cursor: pointer" @click="view.toggle = !view.toggle">
-            <li class="w-100 text-start">{{index+1}}</li>
-            <li class="w-100 text-center" style="width: min-content">{{ view.visit_time }}</li>
+          <ul class="list-unstyled d-flex w-100 m-1 border-bottom fw-bold">
+            <li class="w-25 text-start">#</li>
+            <li class="w-100 text-start" style="width: min-content">visit_time</li>
+            <li class="w-100 text-center">method</li>
+            <li class="w-100 text-center">
+              IP
+              <button @click="hide_ip=!hide_ip" class="btn btn-light btn-sm">
+                <span v-if="hide_ip"><i class="fa-solid fa-eye"></i></span>
+                <span v-else><i class="fa-solid fa-eye-slash"></i></span>
+              </button>
+            </li>
+            <li class="w-100 text-center">Country</li>
+            <li class="w-100 text-center">OHAC</li>
+            <li><i class="fa-brands fa-nfc-directional"></i></li>
+          </ul>
+        <div v-for="(view, index) in page.view" v-bind:key="view.id" class="w-100 m-0 p-0">
+          <ul class="list-unstyled d-flex w-100 m-1 border-bottom fw-bold" style="cursor: pointer" @click="view.toggle = !view.toggle">
+            <li class="w-25 text-start">{{index+1}}</li>
+            <li class="w-100 text-start">{{ view.visit_time }}</li>
             <li class="w-100 text-center">{{ view.request_type ? view.request_type:'unknown' }}</li>
+            <li class="w-100 text-center">
+              <span v-if="hide_ip" class="text-danger">xxxx.xxxx.xxxx.xxxx</span>
+              <span v-else>{{ view.ip_address ? view.ip_address:'unknown' }}</span>
+            </li>
             <li class="w-100 text-center">{{ view.ip_data.Country ? view.ip_data.Country:'unknown' }}</li>
             <li class="w-100 text-center">{{ view.reload_count_in_a_clock ? view.reload_count_in_a_clock:'NaN' }}</li>
             <li>
@@ -125,8 +145,9 @@ export default {
               <strong>Request Detail</strong>
               <div class="row m-0 p-0">
                 <div class="col-3">TYPE</div><div class="col-9">{{ view.request_type ? view.request_type:'unknown' }}</div>
-                <div class="col-3">query_string</div><div class="col-9">{{ view.query_string ? view.query_string:'unknown'}}</div>
-                <div class="col-3">data:</div><div class="col-9">{{ view.request_data ? view.request_data:'unknown'}}</div>
+                <div class="col-3">QUERY STRING</div><div class="col-9">{{ view.query_string ? view.query_string:'unknown'}}</div>
+                <div class="col-3">HTTP_SEC_CH_UA:</div><div class="col-9">{{ view.http_sec_ch_ua ? view.http_sec_ch_ua:'unknown'}}</div>
+                <div class="col-3">DATA:</div><div class="col-9">{{ view.request_data ? view.request_data:'unknown'}}</div>
               </div>
             </div>
           </div>
