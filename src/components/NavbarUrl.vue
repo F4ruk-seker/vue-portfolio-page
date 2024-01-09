@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-<div>
+<div style="min-width: max-content">
   <a v-if="navbar_item.url_type === 'hashtag'" class="nav-link fw-bold text-light d-flex " :aria-current="navbar_item.text" :href="'/'+navbar_item.internal_url" >
     <i v-if="navbar_item.icon_position === 'start'" :class="navbar_item.icon + ' my-auto'"></i>
     <span :class="get_span_text_class(navbar_item) + 'mx-1'"> {{ navbar_item.text }}</span>
