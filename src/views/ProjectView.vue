@@ -3,12 +3,15 @@
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 
+
+import { VMarkdownView } from 'vue3-markdown'
 export default {
   name: 'ProjectView',
-  components: {NavBar},
+  components: {NavBar, VMarkdownView},
   props: ['slug'],
   data:()=>{return{
     project: null,
+    read_with_light: false
   }},
   methods: {
     async get_project(){
@@ -36,7 +39,7 @@ export default {
 <template>
 <nav-bar />
 <section class="bg-dark d-flex pt-5" id="project" >
-  <article class="justify-content-center container m-auto my-3 rounded border border-light p-0  fw-bold text-light overflow-y-auto mh-100" style="background-color: rgba(var(--bs-dark-rgb), .5); max-height: 90%">
+  <article class="justify-content-center container m-auto my-3 rounded border border-light p-0 fw-bold text-light mh-100" style="background-color: rgba(var(--bs-dark-rgb), .5); max-height: 90%">
     <div class="terminal">
       <div class="terminal-header border-light border-bottom p-1 d-flex">
         <div style="min-width: max-content">TERMINAL@SSH > PROJECT</div>
@@ -47,9 +50,27 @@ export default {
           <i class="fa-regular fa-rectangle-xmark"></i>
         </div>
       </div>
-      <div class="terminal-body mh-100"></div>
-      <div class="terminal-footer">
-        footer
+      <div class="terminal-body overflow-y-auto mh-100 d-flex">
+        <div v-if="!project" class="justify-content-center m-auto">
+          <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div class="justify-content-center m-auto p-4" v-else>
+          <VMarkdownView :content="project.context" />
+        </div>
+      </div>
+      <div class="terminal-footer border-light border-top">
+        <ul class="list-unstyled d-flex my-0 py-1 w-100">
+          <li class=""></li>
+          <li class="w-100"></li>
+          <li class="d-flex float-end me-1">
+            <button class="btn btn-sm btn-light" @click="read_with_light=!read_with_light">
+              <span v-if="read_with_light"><i class="fa-solid fa-sun"></i></span>
+              <span v-else><i class="fa-solid fa-moon"></i></span>
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </article>
@@ -57,6 +78,7 @@ export default {
 </template>
 
 <style scoped>
+
 #project{
   margin: 0;
   padding:0;
