@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import {onMounted, ref} from "vue";
+import NavbarUrl from "@/components/NavbarUrl.vue";
 
 
 const navbar = ref(null)
@@ -19,19 +20,6 @@ async function fetch_navbar(){
   }
 }
 
-function get_span_text_class(navbar_item){
-  if (navbar_item.hide_text_on_mobile && navbar_item.hide_text_on_pc){
-    return ' d-none '
-  } else if (navbar_item.hide_text_on_mobile) {
-    return ' d-none d-md-block '
-  } else if (navbar_item.hide_text_on_pc){
-    return ' d-block d-md-none '
-  } else {
-    return ' d-block '
-  }
-
-}
-
 </script>
 
 <template>
@@ -48,55 +36,17 @@ function get_span_text_class(navbar_item){
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
           <li class="nav-item position-relative" v-for="navbar_item in navbar.items.start" v-bind:key="navbar_item.id">
-            <a v-if="navbar_item.url_type === 'hashtag'" class="nav-link fw-bold text-light d-flex " :aria-current="navbar_item.text" :href="'/'+navbar_item.internal_url" >
-              <i v-if="navbar_item.icon_position === 'start'" :class="navbar_item.icon + ' my-auto'"></i>
-              <span :class="get_span_text_class(navbar_item) + 'mx-1'"> {{ navbar_item.text }}</span>
-              <i v-if="navbar_item.icon_position === 'end'" :class="navbar_item.icon + ' my-auto'"></i>
-            </a>
-
-            <router-link v-else-if="navbar_item.url_type === 'internal'" class="nav-link fw-bold text-light label-span" :to="navbar_item.internal_url" >
-              <i v-if="navbar_item.icon_position === 'start'" :class="navbar_item.icon + ' my-auto'"></i>
-              <span :class="get_span_text_class(navbar_item) + 'mx-1'"> {{ navbar_item.text }}</span>
-              <i v-if="navbar_item.icon_position === 'end'" :class="navbar_item.icon + ' my-auto'"></i>
-            </router-link>
-
-            <a v-else-if="navbar_item.url_type === 'external'" class="nav-link fw-bold text-light" :aria-current="navbar_item.text" :href="navbar_item.external_url" target="_blank">
-              <i v-if="navbar_item.icon_position === 'start'" :class="navbar_item.icon + ' my-auto'"></i>
-              <span :class="get_span_text_class(navbar_item) + 'mx-1'"> {{ navbar_item.text }}</span>
-              <i v-if="navbar_item.icon_position === 'end'" :class="navbar_item.icon + ' my-auto'"></i>
-            </a>
-
-            <span v-if="navbar_item.display_text_on_hover_pc" class="ms-1 my-auto p-1 fw-semibold bg-primary-subtle rounded label-span">{{ navbar_item.text }}</span>
-
+            <navbar-url :navbar_item="navbar_item"/>
           </li>
         </ul>
         <ul class="navbar-nav justify-content-center w-100 ">
-          <li class="mx-2 d-flex position-relative">
-            <i class="fa-solid fa-user my-auto"></i>
-            <span class="ms-1 my-auto p-1 fw-semibold bg-primary-subtle rounded label-span">Freelance</span>
-          </li>
-          <li class="mx-2 d-flex position-relative">
-            <i class="fa-brands fa-instagram my-auto"></i>
-            <span class="ms-1 my-auto p-1 fw-semibold bg-primary-subtle rounded label-span">Instagram</span>
+          <li class="nav-item position-relative" v-for="navbar_item in navbar.items.center" v-bind:key="navbar_item.id">
+            <navbar-url :navbar_item="navbar_item"/>
           </li>
         </ul>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link
-                class="nav-link fw-bold text-light" aria-current="projects"
-                :to="{
-                   name:'projects'
-                }"
-            >Projects</router-link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold text-light" aria-current="Game" href="#Game">Game</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold text-light" aria-current="Blog" href="#blog">Blog</a>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link fw-bold text-light" aria-current="Login" :to="{'name':'login'}" >Login</router-link>
+          <li class="nav-item position-relative" v-for="navbar_item in navbar.items.end" v-bind:key="navbar_item.id">
+            <navbar-url :navbar_item="navbar_item"/>
           </li>
         </ul>
       </div>
@@ -107,18 +57,5 @@ function get_span_text_class(navbar_item){
 </template>
 
 <style scoped>
-.label-span{
-  display: none;
-}
-@media (min-width: 768px) {
-  li:hover .label-span{
-    position: absolute;
-    top: 2rem;
-    display: block!important;
-    margin:auto;
-  }
-  li .label-span{
-    border-top-left-radius: 0!important;
-  }
-}
+
 </style>
