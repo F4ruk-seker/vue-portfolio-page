@@ -12,7 +12,7 @@ export default {
   <div class="row">
     <div class="col-12 col-md-6">
       <div class="ratio ratio-1x1">
-        <img class="rounded" alt="faruk şeker" loading="lazy" :src="context?.hi_card_pp?.toString()">
+        <img class="rounded" alt="faruk şeker" loading="lazy" :src="context?.hi_card_pp?.toString()" style="object-fit: cover">
       </div>
     </div>
     <div class="col-12 col-md-6 m-auto">
