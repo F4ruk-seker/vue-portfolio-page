@@ -50,7 +50,7 @@ async function fetch_projects(){
 </script>
 
 <template>
-<section class="bg-dark d-flex" style="height: 100vh; flex-direction: column; background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1675594103/portfolyo/page/baner/Cef_Screenshot_2023.01.21_-_22.01.00.54_nikxtg.png') no-repeat center">
+<section class="bg-dark d-flex" style="height: 100vh; flex-direction: column; background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1704822805/portfolyo/anim/eb50875a68b04b0480fa929af2c7547c_q577h8.gif') no-repeat center;background-size: cover;object-fit: contain;">
   <nav-bar />
   <section class="d-flex mt-5 pt-3 " style="flex-grow: 1;">
     <article class="h-100 justify-content-center container border border-light rounded p-2 m-auto" style="background-color: rgba(var(--bs-dark-rgb), .5)">
@@ -70,7 +70,7 @@ async function fetch_projects(){
             </li>
             <li class="my-auto col-3 col-lg-2 col-xxl-1 text-info">{{project.year}}-{{project.monthName}}-{{project.day}}</li>
             <li class="my-auto col text-light" >{{project.title}}</li>
-            <li class="my-auto col-2 text-light" >READ TIME</li>
+            <li class="my-auto col-2 text-light" >{{ (project.word_count/200).toFixed(2) }}</li>
           </ul>
         </li>
       </ul>
