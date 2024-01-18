@@ -47,7 +47,8 @@ export default {
   },methods:{
     get_page_context(){
       const page_name = this.$route.name
-      PageManager.get_page_context(page_name).then(()=>{
+      const fullPath = this.$route.fullPath
+      PageManager.get_page_context(page_name, fullPath).then(()=>{
         PageManager.load_page_context()
         this.page = PageManager.get_context()
         this.on_load = false

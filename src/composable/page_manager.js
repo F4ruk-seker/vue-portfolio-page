@@ -5,9 +5,9 @@ class PageManager{
         this.has_error = false
         this.context = {}
     }
-    async get_page_context(page_name){
+    async get_page_context(page_name, fullPath='/'){
         try {
-            const response = await axios.get('page/' + page_name + '/')
+            const response = await axios.get('page/' + page_name + fullPath, )
             this.context = response.data
             console.log('response.data')
             console.log(response.data)
