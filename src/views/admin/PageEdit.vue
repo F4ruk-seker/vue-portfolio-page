@@ -1,7 +1,7 @@
 <script setup>
 import {useRoute} from "vue-router";
 import axios from "axios";
-import {onMounted, ref} from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 
 const route = useRoute()
 const page = ref({})
@@ -23,6 +23,21 @@ async function save_page(){
   await axios.put('admin/page/' + route.params.page_name + '/', page.value)
   on_save.value = false
 }
+onMounted(() => {
+  document.addEventListener("keydown", keyboard_on_save);
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener("keydown", keyboard_on_save);
+})
+
+function keyboard_on_save(e) {
+  if (!(e.keyCode === 83 && e.ctrlKey)) {
+    return;
+  }
+  e.preventDefault();
+  save_page()
+}
 
 // MD = "1", "MD"
 // LIST = "2", "List"
@@ -32,31 +47,35 @@ async function save_page(){
 </script>
 
 <template>
-<header class="w-100 bg-dark-subtle border-bottom pb-1">
-  <article class="container justify-content-end d-flex">
-    <router-link
-        class="btn btn-secondary d-inline-block"
-        style="min-width: max-content"
-        :to="{
+<!--header class="bg-danger border-bottom position-sticky w-100 justify-content-center m-auto" >
+  <article class="bg-dark-subtle justify-content-center d-flex position-fixed z-2 w-100" style="top: 5vh; left: 0">
+    <div class="col-2"> </div>
+    <div class="d-flex col-10 justify-content-center z-1" >
+     <router-link
+         class="btn btn-secondary d-inline-block"
+         style="min-width: max-content"
+         :to="{
           name: 'admin-page'
         }"
-    >
-      <i class="fa-solid fa-arrow-left me-1"></i>back
-    </router-link>
-    <div class="w-100"></div>
-    <button class="btn btn-primary" @click="save_page" type="button">
+     >
+       <i class="fa-solid fa-arrow-left me-1"></i>back
+     </router-link>
+     <div class="w-100 text-center my-auto fw-bold text-light">{{ page.title }}</div>
+     <button class="btn btn-primary" @click="save_page" type="button" :disabled="on_save">
       <span v-if="on_save">
         <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
         <span class="visually-hidden">Saving...</span>
       </span>
-      <span v-else>
+       <span v-else>
         Save
       </span>
-    </button>
+     </button>
+
+    </div>
   </article>
-</header>
-<section>
-  <article class="bg-dark-subtle d-flex" style="min-height: 50vh">
+</header-->
+<section class="z-1">
+  <form @submit.prevent class="bg-dark-subtle d-flex" style="min-height: 50vh">
     <div class="justify-content-center container m-auto">
       <strong>Page Settings</strong>
       <hr>
@@ -109,7 +128,7 @@ async function save_page(){
         </ul>
       </div>
     </div>
-  </article>
+  </form>
   <article class="bg-light">
     <div class="d-flex">
       <strong>Context</strong>
@@ -120,7 +139,7 @@ async function save_page(){
         <strong>{{content.name}}</strong>
         <hr class="p-1 m-1">
 
-        <div v-if="content.field_type === '5'" class="d-flex border rounded position-relative p-2">
+        <div v-if="content.field_type === '5'" class="d-flex border rounded position-relative p-2 z-0">
           <textarea class="w-100 form-control" style="max-height: 30vh; min-height: 30vh" v-model="content.field_value"></textarea>
           <div :class="'w-100 overflow-y-auto ' + (content?.use_dark ? 'bg-light' : 'bg-dark') " style="border: 1px dashed var(--bs-secondary);max-height: 30vh;" v-html="content.field_value"></div>
           <div class="position-absolute bottom-0 end-0">

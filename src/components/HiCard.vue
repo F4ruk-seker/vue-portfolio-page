@@ -32,7 +32,6 @@ export default {
 </template>
 
 <style scoped>
-
 .lazy-background {
   display: flex;
   background-repeat: no-repeat;

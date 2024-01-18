@@ -84,56 +84,61 @@ export default {
 
 <template>
 <nav-bar />
-<section class="bg-dark d-flex pt-5" id="project" >
-  <article class="justify-content-center container m-auto my-3 rounded border border-light p-0 fw-bold text-light mh-100" style="background-color: rgba(var(--bs-dark-rgb), .5); max-height: 90%">
-    <div class="terminal">
-      <div class="terminal-head border-light border-bottom p-1 d-flex">
-        <div class="d-none d-md-block ms-1" style="min-width: max-content">TERMINAL@SSH > PROJECT</div>
-        <div class="w-100 text-center position-absolute text-center">{{project ? project.title:'project title'}}</div>
-        <div class="w-100"></div>
-        <div class="z-1" style="min-width: max-content;">
-          <button class="btn btn-sm btn-light bg-transparent fw-bold text-light me-1">
-            <i class="fa-solid fa-window-minimize"></i>
-          </button>
-          <button class="btn btn-sm btn-light bg-transparent fw-bold text-light mx-2">
-            <i class="fa-regular fa-window-restore"></i>
-          </button>
-          <router-link
-              class="btn btn-sm btn-danger bg-transparent text-danger"
-             :to="{
+<section class="bg-dark d-flex pt-5 position-relative " id="project" >
+  <div class="row m-0 p-0 justify-content-center mh-100">
+    <article class="col-12 col-xl-8 px-1 py-2 m-0">
+      <div class="terminal justify-content-center rounded border border-light p-0 fw-bold text-light "  style="background-color: rgba(var(--bs-dark-rgb), .5)">
+        <div class="terminal-head border-light border-bottom p-1 d-flex">
+          <div class="d-none d-md-block ms-1" style="min-width: max-content">TERMINAL@SSH > PROJECT</div>
+          <div class="w-100 text-center position-absolute text-center">{{project ? project.title:'project title'}}</div>
+          <div class="w-100"></div>
+          <div class="z-1" style="min-width: max-content;">
+            <button class="btn btn-sm btn-light bg-transparent fw-bold text-light me-1">
+              <i class="fa-solid fa-window-minimize"></i>
+            </button>
+            <button class="btn btn-sm btn-light bg-transparent fw-bold text-light mx-2">
+              <i class="fa-regular fa-window-restore"></i>
+            </button>
+            <router-link
+                class="btn btn-sm btn-danger bg-transparent text-danger"
+                :to="{
               name:'projects'
              }"
-          >
-            <i class="fa-regular fa-rectangle-xmark"></i>
-          </router-link>
-        </div>
-      </div>
-      <div class="terminal-body overflow-y-auto mh-100 d-flex" :style="'font-size:' + read_size + 'px'  ">
-        <div v-if="!project" class="justify-content-center m-auto">
-          <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">Loading...</span>
+            >
+              <i class="fa-regular fa-rectangle-xmark"></i>
+            </router-link>
           </div>
         </div>
-        <div class="justify-content-center m-auto p-4" v-else>
-          <VMarkdownView :content="project.context" />
+        <div class="terminal-body overflow-y-scroll mh-100 d-flex" :style="'font-size:' + read_size + 'px'  ">
+          <div v-if="!project" class="justify-content-center m-auto">
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <div class="justify-content-center m-auto p-4" v-else>
+            <VMarkdownView :content="project.context" />
+          </div>
+        </div>
+        <div class="terminal-footer border-light border-top">
+          <ul class="list-unstyled d-flex my-0 py-1 w-100">
+            <li class="ms-2 my-auto" style="min-width: max-content">{{ project ? get_date(project.created):'YYYY-MM-DD' }}</li>
+            <li class="w-100"></li>
+            <li class="d-flex float-end me-1">
+              <button class="btn btn-sm btn-light bg-transparent fw-bold text-light me-1" @click="read_size = read_size - 10"><i class="fa-solid fa-minus"></i></button>
+              <button class="btn btn-sm btn-light bg-transparent fw-bold text-light me-1" @click="read_size = 10 + read_size"><i class="fa-solid fa-plus"></i></button>
+              <button class="btn btn-sm btn-light bg-transparent fw-bold text-light" @click="read_with_light=!read_with_light">
+                <span v-if="read_with_light"><i class="fa-solid fa-sun"></i></span>
+                <span v-else><i class="fa-solid fa-moon"></i></span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="terminal-footer border-light border-top">
-        <ul class="list-unstyled d-flex my-0 py-1 w-100">
-          <li class="ms-2 my-auto" style="min-width: max-content">{{ project ? get_date(project.created):'YYYY-MM-DD' }}</li>
-          <li class="w-100"></li>
-          <li class="d-flex float-end me-1">
-            <button class="btn btn-sm btn-light bg-transparent fw-bold text-light me-1" @click="read_size = read_size - 10"><i class="fa-solid fa-minus"></i></button>
-            <button class="btn btn-sm btn-light bg-transparent fw-bold text-light me-1" @click="read_size = 10 + read_size"><i class="fa-solid fa-plus"></i></button>
-            <button class="btn btn-sm btn-light bg-transparent fw-bold text-light" @click="read_with_light=!read_with_light">
-              <span v-if="read_with_light"><i class="fa-solid fa-sun"></i></span>
-              <span v-else><i class="fa-solid fa-moon"></i></span>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </article>
+    </article>
+    <article class="col-12 col-xl-4 px-1 py-2 m-0">
+      <div class="terminal justify-content-center rounded border border-light p-0 fw-bold text-light mh-100"></div>
+    </article>
+  </div>
 </section>
 </template>
 
