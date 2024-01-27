@@ -1,4 +1,5 @@
 <script setup>
+import NavbarStable from "@/components/NavbarStable.vue";
 import ScrolTop from "@/components/ScrolTop.vue";
 import axios from "axios";
 import {onMounted, ref} from "vue";
@@ -12,10 +13,12 @@ import {onMounted, ref} from "vue";
 
 onMounted(fetch_projects)
 const projects = ref([])
+const filter_keys = ref({})
+
 async function fetch_projects(){
   await axios.get('project/all/').then((response)=>{
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
-    response.data.forEach((project) => {
+      response.data.result.forEach((project) => {
       project.created = new Date(project.created);
 
       // Separate date properties and write as name
@@ -47,24 +50,26 @@ async function fetch_projects(){
       project.monthName = monthName;
     });
 
-    projects.value = response.data;
+    projects.value = response.data.result;
+    filter_keys.value = response.data.filter_keys
   })
 }
 
 </script>
 
 <template>
-<section class="row m-0 p-0" style="height: 100vh;">
-  <article class="col-12 col-md-4 col-xl-3 border">
+<navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" />
+<section class="row my-0 mx-2 p-0 pt-1" style="height: 95%;">
+  <article class="col-12 col-md-4 col-xl-3 border-end">
     <h2 class="pt-3">Filter</h2>
     <hr>
     <strong style="font-size: 24px;">Languages</strong>
     <ul class="list-unstyled tree-list">
-      <li class="d-flex">
+      <li class="d-flex" v-for="(language, index) in filter_keys.languages" v-bind:key="index">
         <hr class="my-auto fw-bold" style="width: 10px; height:2px">
         <label class="my-auto">
           <input class="mx-1" type="checkbox">
-          Python
+          {{ language.name }}
         </label>
       </li>
     </ul>
@@ -87,7 +92,7 @@ async function fetch_projects(){
           <button class="btn btn-light rounded d-block d-md-none">
             <i class="fa-solid fa-filter"></i>
           </button>
-          <span class="my-auto" style="width: max-content;">10 Result</span>
+          <span class="my-auto" style="width: max-content;">{{projects.length}} Result</span>
         </div>
         <div class="w-100 mx-2 position-relative">
           <input class="form-control rounded-5" style="padding-right: 48px;">
@@ -107,12 +112,32 @@ async function fetch_projects(){
         </div>
     </div>
     <hr>
-    <div class="row">
-      .
-    </div>
+    <ul class="row list-unstyled overflow-y-scroll" style="height: 80vh;">
+      <li class="col-6 col-md-6 col-lg-4 col-xl-3" v-for="project in projects" v-bind:key="project.id">
+        <div class="m-1 card">
+            
+          <img v-if="project.ceo_image_url" src class="card-img-top" alt="...">
+          <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
+            <p class="p-0 m-auto justify-content-center text-info-emphasis">
+              <i class="fa-solid fa-image"></i>
+            </p>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{ project.ceo_description }}</p>
+            
+            <div class="d-flex justify-content-between">
+              <div><i class="fa-regular fa-clock"></i><p class="m-0 ms-1 p-0 d-inline-block">{{ (project.word_count/200).toFixed(2) }}</p></div>
+              <router-link :to="{name:'project', params:{slug:project.slug}}" href="#" class="btn btn-primary">Read</router-link>
+            </div>
+
+          </div>
+      </div></li>
+    </ul>
+<scrol-top />
+
   </article>
 </section>
-<scrol-top />
 
 </template>
 
@@ -141,4 +166,6 @@ section{
   width: 30px;
   height: 30px;
 }
+
+
 </style>

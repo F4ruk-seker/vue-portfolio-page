@@ -80,9 +80,6 @@ class AuthService {
     async email_confirmation_token_control(token, census_token) {
         try {
             const response = await axios.get(`confirmation/${token}/?census_token=${census_token}`)
-            console.log(response)
-            console.log(response.data)
-            console.log(response.status)
             return response.status
         } catch (e) {
             return 0
