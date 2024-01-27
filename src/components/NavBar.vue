@@ -36,17 +36,17 @@ async function fetch_navbar(){
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
           <li class="nav-item position-relative" v-for="navbar_item in navbar.items.start" v-bind:key="navbar_item.id">
-            <navbar-url :navbar_item="navbar_item"/>
+            <navbar-url :navbar_item="navbar_item" text_color="light"/>
           </li>
         </ul>
         <ul class="navbar-nav justify-content-center w-100 ">
           <li class="nav-item position-relative" v-for="navbar_item in navbar.items.center" v-bind:key="navbar_item.id">
-            <navbar-url :navbar_item="navbar_item"/>
+            <navbar-url :navbar_item="navbar_item" text_color="light"/>
           </li>
         </ul>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item position-relative" v-for="navbar_item in navbar.items.end" v-bind:key="navbar_item.id">
-            <navbar-url :navbar_item="navbar_item"/>
+            <navbar-url :navbar_item="navbar_item" text_color="light"/>
           </li>
         </ul>
       </div>
