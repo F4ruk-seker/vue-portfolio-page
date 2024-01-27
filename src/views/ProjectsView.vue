@@ -1,10 +1,14 @@
 <script setup>
-import NavBar from "@/components/NavBar.vue";
 import ScrolTop from "@/components/ScrolTop.vue";
 import axios from "axios";
 import {onMounted, ref} from "vue";
-import router from "@/router";
+// import router from "@/router";
 // import TagHeadSearch from "@/components/TagHeadSearch.vue";
+
+/*
+          @click="router.push({name:'project', params:{slug:project.slug}})"
+
+*/
 
 onMounted(fetch_projects)
 const projects = ref([])
@@ -50,37 +54,91 @@ async function fetch_projects(){
 </script>
 
 <template>
-<section class="bg-dark d-flex" style="height: 100vh; flex-direction: column; background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1704822805/portfolyo/anim/eb50875a68b04b0480fa929af2c7547c_q577h8.gif') no-repeat center;background-size: cover;object-fit: contain;">
-  <nav-bar />
-  <section class="d-flex mt-5 pt-3 " style="flex-grow: 1;">
-    <article class="h-100 justify-content-center container border border-light rounded p-2 m-auto" style="background-color: rgba(var(--bs-dark-rgb), .5)">
-      <div class="text-center w-100 m-auto">
-        <strong class="fw-bold text-light " style="font-size: 24px">PROJECTS</strong>
-      </div>
-      <ul class="list-unstyled justify-content-center mt-2">
-        <li
-            style="cursor: pointer"
-            v-for="(project, index) in projects" v-bind:key="index"
-            @click="router.push({name:'project', params:{slug:project.slug}})"
-            class="border-light border-bottom fw-bold py-2"
-        >
-          <ul class="list-unstyled row p-0 m-0">
-            <li class="rounded border me-2 col-1" style="width: 36px!important; height: 36px">
+<section class="row m-0 p-0" style="height: 100vh;">
+  <article class="col-12 col-md-4 col-xl-3 border">
+    <h2 class="pt-3">Filter</h2>
+    <hr>
+    <strong style="font-size: 24px;">Languages</strong>
+    <ul class="list-unstyled tree-list">
+      <li class="d-flex">
+        <hr class="my-auto fw-bold" style="width: 10px; height:2px">
+        <label class="my-auto">
+          <input class="mx-1" type="checkbox">
+          Python
+        </label>
+      </li>
+    </ul>
 
-            </li>
-            <li class="my-auto col-3 col-lg-2 col-xxl-1 text-info">{{project.year}}-{{project.monthName}}-{{project.day}}</li>
-            <li class="my-auto col text-light" >{{project.title}}</li>
-            <li class="my-auto col-2 text-light" >{{ (project.word_count/200).toFixed(2) }}</li>
-          </ul>
-        </li>
-      </ul>
-    </article>
-  </section>
+    <strong style="">Tool & Framework</strong>
+    <ul class="list-unstyled tree-list">
+      <li class="d-flex">
+        <hr style="width: 10px; height:">
+        <label class="my-auto">
+          <input class="mx-1" type="checkbox">
+          Django
+        </label>
+      </li>
+    </ul>
+
+  </article>
+  <article class="col pt-3">
+    <div class="d-flex justify-content-between mt-1 position-relative">
+        <div class="d-flex">
+          <button class="btn btn-light rounded d-block d-md-none">
+            <i class="fa-solid fa-filter"></i>
+          </button>
+          <span class="my-auto" style="width: max-content;">10 Result</span>
+        </div>
+        <div class="w-100 mx-2 position-relative">
+          <input class="form-control rounded-5" style="padding-right: 48px;">
+          <div class="d-flex position-absolute btn-search">
+            <button class="btn btn-danger rounded-circle h-100 w-100 ps-2 pt-1">
+              <i class="fa-solid fa-magnifying-glass justify-content-center m-auto"></i>
+            </button>
+          </div>
+        </div>
+        <div class="d-flex">
+          <button class="btn btn-light rounded">
+            <i class="fa-solid fa-grip"></i>
+          </button>
+          <button class="btn btn-light rounded">
+            <i class="fa-solid fa-list"></i>
+          </button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+      .
+    </div>
+  </article>
 </section>
-  <scrol-top />
+<scrol-top />
 
 </template>
 
 <style scoped>
-
+section{
+  font-size: 22px;
+}
+#project-list{
+  height: 100vh;
+  flex-direction: column;
+  background: no-repeat center;
+  background-size: cover;
+  object-fit: contain;
+}
+.tree-list{
+  margin-left: 5px;
+  border-left: 2px solid var(--bs-success);
+}
+.tree-list hr{
+  border-width: 4px;
+  color: var(--bs-success);
+}
+.btn-search{
+  top: 4px;
+  right: 4px;
+  width: 30px;
+  height: 30px;
+}
 </style>
