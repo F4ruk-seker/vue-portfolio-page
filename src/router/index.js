@@ -65,6 +65,17 @@ const routes = [
         component: () => import(/* webpackChunkName: "admin-dashboard-page" */ '../views/admin/dashboard/PageAnalyticsView.vue'),
         props: true
       },
+      {
+        path: 'projects',
+        name: 'admin-projects',
+        component: () => import(/* webpackChunkName: "admin-projects" */ '../views/admin/project/ProjectListView.vue')
+      },
+      {
+        path: 'project/:slug',
+        name: 'admin-project',
+        component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/project/ProjectEditView.vue'),
+        props: true
+      },
     ]
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }

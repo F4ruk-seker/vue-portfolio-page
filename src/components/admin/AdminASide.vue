@@ -33,6 +33,19 @@
       </span>
     </router-link>
     </li>
+    <li>
+    <router-link
+        class="btn btn-light rounded-0 w-100"
+      :to="{name:'admin-projects'}"
+    >
+      <span class="justify-content-center m-auto d-flex">
+        <i class="fa-solid fa-tarp my-auto"></i>
+        <span class="d-none d-md-block ms-1">
+          Projects
+        </span>
+      </span>
+    </router-link>
+    </li>
   </ul>
 </aside>
 </template>
