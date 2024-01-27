@@ -34,7 +34,7 @@ export default {
     <span :class="get_span_text_class(navbar_item) + 'mx-1'"> {{ navbar_item.text }}</span>
     <i v-if="navbar_item.icon_position === 'end'" :class="navbar_item.icon + ' my-auto'"></i>
   </router-link>
-  <a v-else-if="navbar_item.url_type === 'external'" class="'nav-link fw-bold text-' + text_color" :aria-current="navbar_item.text" :href="navbar_item.external_url" target="_blank">
+  <a v-else-if="navbar_item.url_type === 'external'" :class="'nav-link fw-bold text-' + text_color" :aria-current="navbar_item.text" :href="navbar_item.external_url" target="_blank">
     <i v-if="navbar_item.icon_position === 'start'" :class="navbar_item.icon + ' my-auto'"></i>
     <span :class="get_span_text_class(navbar_item) + 'mx-1'"> {{ navbar_item.text }}</span>
     <i v-if="navbar_item.icon_position === 'end'" :class="navbar_item.icon + ' my-auto'"></i>
