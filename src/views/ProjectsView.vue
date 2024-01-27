@@ -116,7 +116,7 @@ async function fetch_projects(){
       <li class="col-6 col-md-6 col-lg-4 col-xl-3" v-for="project in projects" v-bind:key="project.id">
         <div class="m-1 card">
             
-          <img v-if="project.ceo_image_url" src class="card-img-top" alt="...">
+          <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" alt="...">
           <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
             <p class="p-0 m-auto justify-content-center text-info-emphasis">
               <i class="fa-solid fa-image"></i>
