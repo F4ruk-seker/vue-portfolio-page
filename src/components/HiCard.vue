@@ -2,7 +2,24 @@
 export default {
   name: 'HiCard',
   props: ['context', 'view_count'],
+  methods:{
+    random_choose(choices) {
+      console.log(choices)
+      const r = choices[Math.floor(choices.length * Math.random())];
+      console.log(Math.floor(choices.length * Math.random()))
+      return r
+    },
+    get_profile_photo(photo){
+      if (photo){
+        if (photo.split(',').length > 1){
+          return this.random_choose(photo.split(','))
+        } 
+        return photo
+      }
+    }
+  }
 }
+
 
 </script>
 
@@ -12,7 +29,7 @@ export default {
   <div class="row">
     <div class="col-12 col-md-6">
       <div class="ratio ratio-1x1">
-        <img class="rounded" alt="faruk şeker" loading="lazy" :src="context?.hi_card_pp?.toString()" style="object-fit: cover">
+        <img class="rounded" alt="faruk şeker" loading="lazy" :src="get_profile_photo(context.hi_card_pp)" style="object-fit: cover">
       </div>
     </div>
     <div class="col-12 col-md-6 m-auto">
