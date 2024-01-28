@@ -60,6 +60,19 @@ function toggle_label() {
       </span>
     </router-link>
     </li>
+    <li>
+    <router-link
+        class="btn btn-light rounded-0 w-100"
+      :to="{name:'admin-tag-manage'}"
+    >
+      <span class="m-auto d-flex">
+        <i class="fa-solid fa-tag my-auto"></i>
+        <span v-if="show_label" class="d-none d-md-block ms-1">
+          Projects
+        </span>
+      </span>
+    </router-link>
+    </li>
   </ul>
 </aside>
 </template>

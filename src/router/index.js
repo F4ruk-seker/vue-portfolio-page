@@ -75,7 +75,11 @@ const routes = [
         name: 'admin-project',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/project/ProjectEditView.vue'),
         props: true
-      },
+      },{
+        path: 'tags',
+        name: 'admin-tag-manage',
+        component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/tag/TagEditView.vue'),
+      }
     ]
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
