@@ -29,7 +29,6 @@ export default{
 <template>
   <nav
       :class="'navbar navbar-expand-lg w-100 position-sticky z-2 shadow text-' + text_color "
-      style="height: 5%;"
   >
     <div v-if="navbar" class="container">
       <a :class="'navbar-brand logo fw-bold d-block d-lg-none text-' + text_color" href="#">Faruk Şeker</a>

@@ -11,7 +11,9 @@ export default {
   data:()=>{return{
     project: null,
     read_with_light: false,
-    read_size: 20
+    read_size: 20,
+    navbarHeight: 0,
+    sectionHeight: 'calc(100vh - 0px)',
   }},
   methods: {
     get_date(date){
@@ -76,6 +78,14 @@ export default {
   async mounted() {
     await this.get_project()
     await this.resize_images()
+       // Navbar yüksekliğini al ve section yüksekliğini güncelle
+       this.$nextTick(() => {
+      const navbar = document.querySelector('navbar-stable');
+      if (navbar) {
+        this.navbarHeight = navbar.offsetHeight;
+        this.sectionHeight = `calc(100vh - ${this.navbarHeight}px)`;
+      }
+    });
   },
 }
 
@@ -83,9 +93,9 @@ export default {
 </script>
 
 <template>
-<navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" />
-<section class="row my-0 mx-2 p-0 pt-1" style="height: 95%;">
-  <article class="col-12 col-md-4 col-xl-3 border-end">
+<section class="row my-0 mx-2 p-0" style="height: 100vh;">
+  <navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" />
+  <article class="col-12 col-md-4 col-xl-3 h-100 border-end">
     <label>Comment:</label>
     <textarea class="form-control" type="text" placeholder="something..."></textarea>
     <div class="d-flex mt-2">
@@ -95,21 +105,42 @@ export default {
     <hr>
     no comment yet
   </article>
-  <article class="col">
-    <div class="overflow-y-scroll d-flex" style="height: 90vh;">
+  <article class="col h-100 m-0 p-0">
+    <div class="" >
     <div v-if="!project" class="justify-content-center m-auto">
       <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <div class="justify-content-center m-auto p-4" v-else>
-      <VMarkdownView :content="project.context" class="w-100" />
+    <div v-else class="justify-content-center m-auto">
+      <div class="d-flex bg-light px-3 mb-1">
+        
+        <button class="btn btn-light rounded-0 border d-flex me-1">
+          <span class="justify-content-center m-auto">
+            <i class="fa-solid fa-arrow-left"></i>
+          </span>
+        </button>
+
+        <button class="d-block d-md-none btn btn-light rounded-0 border d-flex me-1">
+          <span class="justify-content-center m-auto">
+          <i class="fa-solid fa-comment"></i>
+          </span>
+        </button>
+
+        <button class="btn btn-light rounded-0 border d-flex me-1">
+          <span class="justify-content-center m-auto">
+            <i class="fa-regular fa-heart"></i>
+          </span>
+        </button>
+      
+      </div>
+      <div class="px-3">
+        <VMarkdownView :content="project.context" class="w-100" />
+      </div>
     </div>
   </div>
   </article>
 </section>
-{{project ? project.title:'project title'}}
-
 <!--section class="bg-dark d-flex pt-5 position-relative " id="project" >
   <div class="row m-0 p-0 justify-content-center mh-100">
     <article class="col-12 col-xl-8 px-1 py-2 m-0">
@@ -191,12 +222,5 @@ export default {
   justify-content: center;
 }
 
-.terminal-body {
-  font-family: 'Hedvig Letters Sans', sans-serif;
-  //font-family: 'Saira Extra Condensed', sans-serif;
-  flex-grow: 1; /* Orta div, boş alanı kaplar */
-  display: flex;
-  width: 100%; /* Genişlik olarak ekranı kaplar */
-  height: 100%; /* Yükseklik olarak ekranı kaplar */
-}
+
 </style>
