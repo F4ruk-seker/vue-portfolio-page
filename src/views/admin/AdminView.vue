@@ -8,10 +8,10 @@ import AdminASide from "@/components/admin/AdminASide.vue";
 <template>
 <admin-navbar />
 <section class="d-flex" style="height: 95vh">
-  <article class="col-2">
+  <article class="" style="min-width: max-content;">
     <admin-a-side />
   </article>
-  <article class="col-10 overflow-y-scroll position-relative">
+  <article class="w-100 overflow-y-scroll position-relative">
     <router-view />
   </article>
 </section>

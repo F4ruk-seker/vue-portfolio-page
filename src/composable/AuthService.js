@@ -64,8 +64,6 @@ class AuthService {
 
     refreshToken() {
         const refreshToken = sessionStorage.getItem('refresh');
-        console.log('refreshToken')
-        console.log(refreshToken)
         if (!refreshToken) {
             return Promise.reject('No refresh token available');
         }

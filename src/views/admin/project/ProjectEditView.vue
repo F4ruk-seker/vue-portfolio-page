@@ -41,7 +41,7 @@ export default{
     <button class=" btn btn-sm btn-success" @click="update_project">Save</button>
 </div>
 
-<div class=" container h-100">
+<div class="mx-2 h-100">
     <input v-model="project.title" class=" form-control">
     <hr>
     <div v-if="!project" class="bg-success fw-bold">LOADING...</div>

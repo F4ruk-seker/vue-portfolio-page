@@ -32,7 +32,7 @@ axios.interceptors.response.use(
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            return  AuthService.refreshToken()
+            return AuthService.refreshToken()
                 .then((newAccessToken) => {
                     originalRequest.headers['Authorization'] = `${carrier_switch} ${newAccessToken}` ;
                     return axios(originalRequest);
