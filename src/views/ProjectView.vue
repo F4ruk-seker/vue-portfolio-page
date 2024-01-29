@@ -18,9 +18,7 @@ export default {
   methods: {
     get_date(date){
       if (date){
-
       date = new Date(date);
-
       // Separate date properties and write as name
       const day = date.getDate();
       const month = date.getMonth() + 1; // Adding 1 because month value is between 0 and 11
@@ -73,19 +71,21 @@ export default {
           images[image].classList.add('ratio-16x9')
         }
       }
+    },
+    calculate_section_height(){
+      this.$nextTick(() => {
+      const navbar = document.querySelector('#navbar-stable');
+      if (navbar) {
+        this.navbarHeight = navbar.offsetHeight;
+        this.sectionHeight = `calc(100vh - ${this.navbarHeight + 10}px)`;
+      }
+    });
     }
   },
   async mounted() {
     await this.get_project()
     await this.resize_images()
-       // Navbar yüksekliğini al ve section yüksekliğini güncelle
-       this.$nextTick(() => {
-      const navbar = document.querySelector('navbar-stable');
-      if (navbar) {
-        this.navbarHeight = navbar.offsetHeight;
-        this.sectionHeight = `calc(100vh - ${this.navbarHeight}px)`;
-      }
-    });
+    this.calculate_section_height()
   },
 }
 
@@ -93,18 +93,32 @@ export default {
 </script>
 
 <template>
-<section class="row my-0 mx-2 p-0" style="height: 100vh;">
-  <navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" />
-  <article class="col-12 col-md-4 col-xl-3 h-100 border-end">
-    <label>Comment:</label>
-    <textarea class="form-control" type="text" placeholder="something..."></textarea>
+  <navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" id="navbar-stable" />
+
+<section class="row my-0 mx-2 p-0 overflow-y-auto" :style="'max-height:' + sectionHeight">
+  <article class="col-12 col-md-4 col-xl-3 h-100 pt-2">
+    <label class="fw-semibold">Comment:</label>
+    <textarea class="form-control border" type="text" placeholder="something..."></textarea>
     <div class="d-flex mt-2">
-      <div class="w-100"></div>
-      <button class="btn btn-primary">Send</button>
+      <div class="w-100 d-flex">
+        <button class=" btn btn-light rounded-circle border d-flex me-2" style="width: 46px; height: 46px;">
+          <i class="fa-solid fa-user justify-content-center m-auto"></i>
+        </button>
+        <button class=" btn btn-light rounded-circle border d-flex" style="width: 46px; height: 46px;">
+          <i class="fa-brands fa-google justify-content-center m-auto"></i>
+        </button>
+      </div>
+      <button class="btn btn-primary fw-bold">Send</button>
     </div>
     <hr>
     no comment yet
+
+    <div class="d-flex">
+      <div style="width: 36px; height: 36px;">s</div>
+      <div>s</div>
+    </div>
   </article>
+  <hr class="vr bg-secondary-subtle">
   <article class="col h-100 m-0 p-0">
     <div class="" >
     <div v-if="!project" class="justify-content-center m-auto">
