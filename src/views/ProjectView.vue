@@ -4,6 +4,7 @@ import NavbarStable from "@/components/NavbarStable.vue";
 import { VMarkdownView } from 'vue3-markdown'
 import 'vue3-markdown/dist/style.css'
 
+
 export default {
   name: 'ProjectView',
   components: {VMarkdownView, NavbarStable},
@@ -80,6 +81,11 @@ export default {
         this.sectionHeight = `calc(100vh - ${this.navbarHeight + 10}px)`;
       }
     });
+    },
+    go_to_projects_page(){
+      this.$router.push({
+        name:'projects'
+      })
     }
   },
   async mounted() {
@@ -97,6 +103,14 @@ export default {
 
 <section class="row my-0 mx-2 p-0 overflow-y-auto" :style="'max-height:' + sectionHeight">
   <article class="col-12 col-md-4 col-xl-3 h-100 pt-2">
+    <div class="d-flex">
+      <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+          <span class="justify-content-center m-auto">
+            <i class="fa-solid fa-arrow-left"></i>
+          </span>
+        </button>
+    </div>
+    <hr>
     <label class="fw-semibold">Comment:</label>
     <textarea class="form-control border" type="text" placeholder="something..."></textarea>
     <div class="d-flex mt-2">
@@ -126,30 +140,36 @@ export default {
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
+
     <div v-else class="justify-content-center m-auto">
+      <div class="row m-0 p-0">
+        <div class="col-12 col-md-4 ms-0 ps-0">
+          <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" alt="...">
+            <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
+              <p class="p-0 m-auto justify-content-center text-info-emphasis">
+                <i class="fa-solid fa-image"></i>
+              </p>
+            </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <h1>{{ project.title }}</h1>
+          <hr>
+          <p>{{ project.ceo_description }}</p>
+          <hr>
+          <ul class="d-flex list-unstyled">
+            <li v-for="tag in project.tags" v-bind:key="tag.id">{{ tag.name }}</li>
+          </ul>
+          <i class="fa-regular fa-heart text-danger"></i> 0
+          <i class="fa-regular fa-comment text-primary"></i> 0
+        </div>
+      </div>
       <div class="d-flex bg-light px-3 mb-1">
-        
-        <button class="btn btn-light rounded-0 border d-flex me-1">
-          <span class="justify-content-center m-auto">
-            <i class="fa-solid fa-arrow-left"></i>
-          </span>
-        </button>
-
-        <button class="d-block d-md-none btn btn-light rounded-0 border d-flex me-1">
-          <span class="justify-content-center m-auto">
-          <i class="fa-solid fa-comment"></i>
-          </span>
-        </button>
-
-        <button class="btn btn-light rounded-0 border d-flex me-1">
-          <span class="justify-content-center m-auto">
-            <i class="fa-regular fa-heart"></i>
-          </span>
-        </button>
-      
+        <strong class="justify-content-center m-auto py-1">
+          Grab a coffee now because we're getting started <span style="color: brown;"><i class="fa-solid fa-mug-hot my-auto"></i></span>
+        </strong>    
       </div>
       <div class="px-3">
-        <VMarkdownView :content="project.context" class="w-100" />
+        <VMarkdownView :content="project.text" class="w-100" />
       </div>
     </div>
   </div>

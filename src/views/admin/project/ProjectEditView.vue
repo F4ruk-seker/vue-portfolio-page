@@ -53,7 +53,7 @@ export default{
     <hr>
     <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
     <VMarkdownEditor v-else
-        v-model="project.context"
+        v-model="project.text"
         locale="en"
         :fullscreen="amit"
     />

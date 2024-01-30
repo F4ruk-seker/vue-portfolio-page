@@ -114,25 +114,31 @@ async function fetch_projects(){
     <hr>
     <ul class="row list-unstyled overflow-y-scroll" style="height: 80vh;">
       <li class="col-6 col-md-6 col-lg-4 col-xl-3" v-for="project in projects" v-bind:key="project.id">
-        <div class="m-1 card">
+        <router-link :to="{name:'project', params:{slug:project.slug}}" class="m-1 card">
             
-          <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" alt="...">
-          <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
-            <p class="p-0 m-auto justify-content-center text-info-emphasis">
-              <i class="fa-solid fa-image"></i>
-            </p>
+          <div class=" position-relative">
+            <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" alt="...">
+            <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
+              <p class="p-0 m-auto justify-content-center text-info-emphasis">
+                <i class="fa-solid fa-image"></i>
+              </p>
+            </div>
+            <!--div class="w-100 position-absolute d-flex justify-content-between top-0 mt-2 px-2">
+              <div class="d-flex"><i class="fa-regular fa-clock my-auto"></i><p class="m-0 ms-1 p-0 my-auto d-inline-block">{{ (project.word_count/200).toFixed(2) }}</p></div>
+              <div class="w-100"></div>
+              <div class="d-flex" style="min-width: max-content;">flag flag2</div>
+            </div-->
           </div>
+
           <div class="card-body">
             <h5 class="card-title">{{ project.title }}</h5>
-            <p class="card-text">{{ project.ceo_description }}</p>
+            <!--p class="card-text">{{ project.ceo_description }}</p -->
             
-            <div class="d-flex justify-content-between">
-              <div><i class="fa-regular fa-clock"></i><p class="m-0 ms-1 p-0 d-inline-block">{{ (project.word_count/200).toFixed(2) }}</p></div>
-              <router-link :to="{name:'project', params:{slug:project.slug}}" href="#" class="btn btn-primary">Read</router-link>
+
             </div>
 
-          </div>
-      </div></li>
+        </router-link>
+      </li>
     </ul>
 <scrol-top />
 
