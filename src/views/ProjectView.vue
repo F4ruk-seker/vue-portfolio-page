@@ -100,17 +100,101 @@ export default {
 
 <template>
   <navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" id="navbar-stable" />
-
-<section class="row my-0 mx-2 p-0 overflow-y-auto" :style="'max-height:' + sectionHeight">
-  <article class="col-12 col-md-4 col-xl-3 h-100 pt-2">
-    <div class="d-flex">
-      <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+<section  v-if="!project"  class="w-100 d-flex overflow-hidden" style="height: 100vh">
+  <div class="justify-content-center m-auto">
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+</section>
+<section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100" :style="'max-height:' + sectionHeight">
+  <article class="bg-light my-1 d-flex">
+    <div></div>
+    <div class=" container d-flex justify-content-between">
+      <div>
+        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
           <span class="justify-content-center m-auto">
             <i class="fa-solid fa-arrow-left"></i>
           </span>
         </button>
+      </div>
+      <div class="d-flex">
+        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+          <span class="justify-content-center m-auto">
+            <i class="fa-regular fa-heart"></i>
+            <!--i class="fa-solid fa-heart"></i-->
+            <!--i class="fa-solid fa-heart-crack"></i -->
+          </span>
+        </button>
+        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+          <span class="justify-content-center m-auto">
+            <i class="fa-regular fa-comment"></i>
+          </span>
+        </button>
+        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+          <span class="justify-content-center m-auto">
+            <i class="fa-regular fa-bookmark"></i>
+            <!--i class="fa-solid fa-bookmark"></i-->
+          </span>
+        </button>
+        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+          <span class="justify-content-center m-auto">
+            <i class="fa-solid fa-share"></i>
+          </span>
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+          <span class="justify-content-center m-auto">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </span>
+        </button>
+      </div>
     </div>
-    <hr>
+    <div></div>
+  </article>
+  <article class="container h-100 mx-auto">
+    <div  class="container justify-content-center m-auto">
+      <div class="row">
+        <div class="col-12 col-md-4 ms-0 ps-0">
+          <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top rounded" alt="...">
+            <div v-else class="bg-dark-subtle d-flex rounded" style="height: 200px;">
+              <p class="p-0 m-auto justify-content-center text-info-emphasis">
+                <i class="fa-solid fa-image"></i>
+              </p>
+            </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <h1>{{ project.title }}</h1>
+          <hr>
+          <p>{{ project.ceo_description }}</p>
+          <hr>
+          <ul class="d-flex list-unstyled">
+            <li v-for="tag in project.tags" v-bind:key="tag.id">{{ tag.name }}</li>
+          </ul>
+          <i class="fa-regular fa-heart text-danger"></i> 0
+          <a href="#comment" class=" text-decoration-none">
+            <i class="fa-regular fa-comment text-primary"></i> 0
+          </a>
+        </div>
+      </div>
+    
+    </div>
+  </article>
+  <article class="d-flex bg-light px-3 mb-1">
+    <strong class="justify-content-center m-auto py-1">
+      Grab a coffee now because we're getting started <span style="color: brown;"><i class="fa-solid fa-mug-hot my-auto"></i></span>
+    </strong>    
+  </article>
+  <article class=" container mx-auto">
+    <VMarkdownView :content="project.text" class="w-100" />
+  </article>
+  <article class="d-flex bg-light px-3 mb-1">
+    <strong class="justify-content-center m-auto py-1">
+      Comments <span style="color: brown;"><i class="fa-solid fa-mug-hot my-auto"></i></span>
+    </strong>    
+  </article>
+  <article class="container" id="comment">
     <label class="fw-semibold">Comment:</label>
     <textarea class="form-control border" type="text" placeholder="something..."></textarea>
     <div class="d-flex mt-2">
@@ -128,52 +212,11 @@ export default {
     no comment yet
 
     <div class="d-flex">
-      <div style="width: 36px; height: 36px;">s</div>
+      <div class=" rounded-circle bg-black" style="width: 36px; height: 36px;"></div>
       <div>s</div>
     </div>
   </article>
-  <hr class="vr bg-secondary-subtle">
-  <article class="col h-100 m-0 p-0">
-    <div class="" >
-    <div v-if="!project" class="justify-content-center m-auto">
-      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-
-    <div v-else class="justify-content-center m-auto">
-      <div class="row m-0 p-0">
-        <div class="col-12 col-md-4 ms-0 ps-0">
-          <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" alt="...">
-            <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
-              <p class="p-0 m-auto justify-content-center text-info-emphasis">
-                <i class="fa-solid fa-image"></i>
-              </p>
-            </div>
-        </div>
-        <div class="col-12 col-md-8">
-          <h1>{{ project.title }}</h1>
-          <hr>
-          <p>{{ project.ceo_description }}</p>
-          <hr>
-          <ul class="d-flex list-unstyled">
-            <li v-for="tag in project.tags" v-bind:key="tag.id">{{ tag.name }}</li>
-          </ul>
-          <i class="fa-regular fa-heart text-danger"></i> 0
-          <i class="fa-regular fa-comment text-primary"></i> 0
-        </div>
-      </div>
-      <div class="d-flex bg-light px-3 mb-1">
-        <strong class="justify-content-center m-auto py-1">
-          Grab a coffee now because we're getting started <span style="color: brown;"><i class="fa-solid fa-mug-hot my-auto"></i></span>
-        </strong>    
-      </div>
-      <div class="px-3">
-        <VMarkdownView :content="project.text" class="w-100" />
-      </div>
-    </div>
-  </div>
-  </article>
+  
 </section>
 <!--section class="bg-dark d-flex pt-5 position-relative " id="project" >
   <div class="row m-0 p-0 justify-content-center mh-100">
