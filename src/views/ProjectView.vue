@@ -108,7 +108,7 @@ export default {
     </div>
 </section>
 <section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100" :style="'max-height:' + sectionHeight">
-  <article class="bg-light my-1 d-flex">
+  <article class="bg-light my-1 d-flex position-sticky top-0 z-2">
     <div></div>
     <div class=" container d-flex justify-content-between">
       <div>
@@ -126,11 +126,11 @@ export default {
             <!--i class="fa-solid fa-heart-crack"></i -->
           </span>
         </button>
-        <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
+        <a class="btn btn-light rounded-0 border d-flex me-1" href="#comment">
           <span class="justify-content-center m-auto">
             <i class="fa-regular fa-comment"></i>
           </span>
-        </button>
+        </a>
         <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
           <span class="justify-content-center m-auto">
             <i class="fa-regular fa-bookmark"></i>
