@@ -59,8 +59,8 @@ async function fetch_projects(){
 
 <template>
 <navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" />
-<section class="row my-0 mx-2 p-0 pt-1" style="height: 95%;">
-  <article class="col-12 col-md-3 col-xl-2 border-end">
+<section class="container row my-0 mx-auto p-0 pt-1" style="height: 95%;">
+  <article class="col-12 col-md-3 col-xl-2 border-end position-sticky top-0">
     <h2 class="pt-3">Filter</h2>
     <hr>
     <strong style="font-size: 24px;">Languages</strong>
