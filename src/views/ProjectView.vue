@@ -86,7 +86,14 @@ export default {
       this.$router.push({
         name:'projects'
       })
+    },
+    to_dark(){
+
+    },
+    to_light(){
+
     }
+
   },
   async mounted() {
     await this.get_project()
@@ -99,16 +106,9 @@ export default {
 </script>
 
 <template>
-  <navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" id="navbar-stable" />
-<section  v-if="!project"  class="w-100 d-flex overflow-hidden" style="height: 100vh">
-  <div class="justify-content-center m-auto">
-      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-</section>
-<section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100" :style="'max-height:' + sectionHeight">
-  <article class="bg-light my-1 d-flex position-sticky top-0 z-2">
+<navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" id="navbar-stable" />
+<section class="bg-light my-1  position-sticky top-0 z-2">
+  <article class="d-flex">
     <div></div>
     <div class=" container d-flex justify-content-between">
       <div>
@@ -143,7 +143,12 @@ export default {
           </span>
         </button>
       </div>
-      <div>
+      <div class="d-flex">
+        <button class="btn btn-light rounded-0 border d-flex me-1">
+          <span class="justify-content-center m-auto ">
+            <i class="fa-solid fa-moon"></i>
+          </span>
+        </button>
         <button class="btn btn-light rounded-0 border d-flex me-1" @click="go_to_projects_page">
           <span class="justify-content-center m-auto">
             <i class="fa-solid fa-pen-to-square"></i>
@@ -153,6 +158,16 @@ export default {
     </div>
     <div></div>
   </article>
+</section>
+<section  v-if="!project"  class="w-100 d-flex overflow-hidden" style="height: 100vh">
+  <div class="justify-content-center m-auto">
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+</section>
+<section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100" style="'max-height:' + sectionHeight">
+ 
   <article class="container h-100 mx-auto">
     <div  class="container justify-content-center m-auto">
       <div class="row">
@@ -176,6 +191,7 @@ export default {
           <a href="#comment" class=" text-decoration-none">
             <i class="fa-regular fa-comment text-primary"></i> 0
           </a>
+          <i class="fa-regular fa-eye"></i> 0
         </div>
       </div>
     

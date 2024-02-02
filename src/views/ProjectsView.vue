@@ -63,6 +63,7 @@ async function fetch_projects(){
   <article class="col-12 col-md-3 col-xl-2 border-end position-sticky top-0">
     <h2 class="pt-3">Filter</h2>
     <hr>
+    ' {{ filter_keys }} '
     <strong style="font-size: 24px;">Languages</strong>
     <ul class="list-unstyled tree-list">
       <li class="d-flex" v-for="(language, index) in filter_keys.languages" v-bind:key="index">
