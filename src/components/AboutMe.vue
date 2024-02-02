@@ -10,8 +10,8 @@ export default {
 
 <template>
   <section id="about" class="d-flex position-relative" :style="'background: url('+ context.about_me_background + ') no-repeat bottom; object-fit: fill; height: 100vh'">
-    <article class="container d-flex overflow-y-auto" style="height: 100vh; max-height: min-content;">
-     <div class=" justify-content-center m-auto" v-html="context?.abaout_me_text"></div>
+    <article class="container d-flex overflow-y-auto m-auto " style="height: 80vh; max-height: min-content;">
+     <div class="justify-content-center m-auto" v-html="context?.abaout_me_text"></div>
     </article>
     <article class="d-flex position-absolute w-100 bottom-0 mb-5 text-light">
       <div class="justify-content-center m-auto text-center">
