@@ -14,7 +14,8 @@ import {onMounted, ref} from "vue";
 onMounted(fetch_projects)
 const projects = ref([])
 const filter_keys = ref({})
-
+const usersLanguage = window.navigator.language
+console.log(usersLanguage);
 async function fetch_projects(){
   await axios.get('project/all/').then((response)=>{
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
@@ -55,6 +56,9 @@ async function fetch_projects(){
   })
 }
 
+
+
+
 </script>
 
 <template>
@@ -65,12 +69,12 @@ async function fetch_projects(){
     <hr>
     ' {{ filter_keys }} '
     <strong style="font-size: 24px;">Languages</strong>
-    <ul class="list-unstyled tree-list">
-      <li class="d-flex" v-for="(language, index) in filter_keys.languages" v-bind:key="index">
+    <ul class="list-unstyled tree-list" v-for="(tags, index) in filter_keys.tags" v-bind:key="index">
+      <li class="d-flex" v-for="(tag, index) in tags.tags" v-bind:key="index">
         <hr class="my-auto fw-bold" style="width: 10px; height:2px">
         <label class="my-auto">
           <input class="mx-1" type="checkbox">
-          {{ language.name }}
+          {{ tag.name }}
         </label>
       </li>
     </ul>

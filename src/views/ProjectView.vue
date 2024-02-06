@@ -173,25 +173,32 @@ export default {
       <div class="row">
         <div class="col-12 col-md-4 ms-0 ps-0">
           <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top rounded" alt="...">
-            <div v-else class="bg-dark-subtle d-flex rounded" style="height: 200px;">
-              <p class="p-0 m-auto justify-content-center text-info-emphasis">
-                <i class="fa-solid fa-image"></i>
-              </p>
-            </div>
+          <div v-else class="bg-dark-subtle d-flex rounded" style="height: 200px;">
+            <p class="p-0 m-auto justify-content-center text-info-emphasis">
+              <i class="fa-solid fa-image"></i>
+            </p>
+          </div>
+          <div class="text-center mt-0 mt-md-1">
+            <i class="fa-regular fa-heart text-danger"></i> 0
+            <a href="#comment" class=" text-decoration-none">
+              <i class="fa-regular fa-comment text-primary"></i> 0
+            </a>
+            <i class="fa-regular fa-eye"></i> 0
+          </div>
         </div>
         <div class="col-12 col-md-8">
           <h1>{{ project.title }}</h1>
           <hr>
           <p>{{ project.ceo_description }}</p>
           <hr>
-          <ul class="d-flex list-unstyled">
-            <li v-for="tag in project.tags" v-bind:key="tag.id">{{ tag.name }}</li>
-          </ul>
-          <i class="fa-regular fa-heart text-danger"></i> 0
-          <a href="#comment" class=" text-decoration-none">
-            <i class="fa-regular fa-comment text-primary"></i> 0
-          </a>
-          <i class="fa-regular fa-eye"></i> 0
+          <div class="d-flex">
+            <i class="fa-solid fa-tags my-auto me-2"></i>
+            <ul class="d-flex list-unstyled my-auto">
+              <li class="pe-1" v-for="tag in project.tags" v-bind:key="tag.id">
+                <a href="#" class="badge bg-primary-subtle text-decoration-none">{{ tag.name }}</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     
