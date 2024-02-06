@@ -14,6 +14,7 @@ import {onMounted, ref} from "vue";
 onMounted(fetch_projects)
 const projects = ref([])
 const filter_keys = ref({})
+const toggle_card_view = ref(false)
 const usersLanguage = window.navigator.language
 console.log(usersLanguage);
 async function fetch_projects(){
@@ -67,7 +68,6 @@ async function fetch_projects(){
   <article class="col-12 col-md-3 col-xl-2 border-end position-sticky top-0">
     <h2 class="pt-3">Filter</h2>
     <hr>
-    ' {{ filter_keys }} '
     <strong style="font-size: 24px;">Languages</strong>
     <ul class="list-unstyled tree-list" v-for="(tags, index) in filter_keys.tags" v-bind:key="index">
       <li class="d-flex" v-for="(tag, index) in tags.tags" v-bind:key="index">
@@ -108,40 +108,35 @@ async function fetch_projects(){
           </div>
         </div>
         <div class="d-flex">
-          <button class="btn btn-light rounded">
+          <button v-if="toggle_card_view" class="btn btn-light rounded" @click="toggle_card_view=false">
             <i class="fa-solid fa-grip"></i>
           </button>
-          <button class="btn btn-light rounded">
+          <button v-else class="btn btn-light rounded" @click="toggle_card_view=true">
             <i class="fa-solid fa-list"></i>
           </button>
         </div>
     </div>
     <hr>
-    <ul class="row list-unstyled overflow-y-scroll" style="height: 80vh;">
-      <li class="col-6 col-md-6 col-lg-4 col-xl-3" v-for="project in projects" v-bind:key="project.id">
-        <router-link :to="{name:'project', params:{slug:project.slug}}" class="m-1 card">
-            
-          <div class=" position-relative">
-            <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" alt="...">
+    <ul class="row list-unstyled overflow-y-auto" style="max-height: 80vh;">
+      <li :class="toggle_card_view ? 'w-100 card mx-0 px-0 d-flex' : 'col-6 col-md-6 col-lg-4 col-xl-3'" v-for="project in projects" v-bind:key="project.id">
+        <router-link 
+        :to="{name:'project', params:{slug:project.slug}}" 
+        :class="toggle_card_view ? 'mx-0 px-0 row bg-light mb-1 border-0 border-bottom text-decoration-none' : 'card text-decoration-none'">
+          <div :class="toggle_card_view ? 'col-4' : 'position-relative'">
+            <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" :alt="project.ceo_description">
             <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
               <p class="p-0 m-auto justify-content-center text-info-emphasis">
                 <i class="fa-solid fa-image"></i>
               </p>
             </div>
-            <!--div class="w-100 position-absolute d-flex justify-content-between top-0 mt-2 px-2">
-              <div class="d-flex"><i class="fa-regular fa-clock my-auto"></i><p class="m-0 ms-1 p-0 my-auto d-inline-block">{{ (project.word_count/200).toFixed(2) }}</p></div>
-              <div class="w-100"></div>
-              <div class="d-flex" style="min-width: max-content;">flag flag2</div>
-            </div-->
           </div>
-
-          <div class="card-body">
-            <h5 class="card-title">{{ project.title }}</h5>
-            <!--p class="card-text">{{ project.ceo_description }}</p -->
-            
-
+          <div :class="toggle_card_view ? 'col-8 card-body my-auto':'card-body'">
+            <h5 class="card-title ">{{ project.title }}</h5>
+            <div v-if="toggle_card_view ">
+              <hr>
+              <p class="card-text">{{ project.ceo_description }}</p>
             </div>
-
+          </div>
         </router-link>
       </li>
     </ul>
