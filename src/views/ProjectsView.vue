@@ -80,8 +80,7 @@ async function fetch_projects(){
         </li>
       </ul>
     </div>
-
-    <strong style="">Tool & Framework</strong>
+    <!-- strong style="">Tool & Framework</strong>
     <ul class="list-unstyled tree-list">
       <li class="d-flex">
         <hr style="width: 10px; height:">
@@ -90,7 +89,7 @@ async function fetch_projects(){
           Django
         </label>
       </li>
-    </ul>
+    </ul-->
 
   </article>
   <article class="col pt-3">
