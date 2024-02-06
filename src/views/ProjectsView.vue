@@ -68,16 +68,18 @@ async function fetch_projects(){
   <article class="col-12 col-md-3 col-xl-2 border-end position-sticky top-0">
     <h2 class="pt-3">Filter</h2>
     <hr>
-    <strong style="font-size: 24px;">Languages</strong>
-    <ul class="list-unstyled tree-list" v-for="(tags, index) in filter_keys.tags" v-bind:key="index">
-      <li class="d-flex" v-for="(tag, index) in tags.tags" v-bind:key="index">
-        <hr class="my-auto fw-bold" style="width: 10px; height:2px">
-        <label class="my-auto">
-          <input class="mx-1" type="checkbox">
-          {{ tag.name }}
-        </label>
-      </li>
-    </ul>
+    <div v-for="(tags, index) in filter_keys.tags" v-bind:key="index">
+      <strong style="font-size: 24px;">{{tags.name}}</strong>
+      <ul class="list-unstyled tree-list" >
+        <li class="d-flex" v-for="(tag, index) in tags.tags" v-bind:key="index">
+          <hr class="my-auto fw-bold" style="width: 10px; height:2px">
+          <label class="my-auto">
+            <input class="mx-1" type="checkbox">
+            {{ tag.name }}
+          </label>
+        </li>
+      </ul>
+    </div>
 
     <strong style="">Tool & Framework</strong>
     <ul class="list-unstyled tree-list">
