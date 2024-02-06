@@ -168,9 +168,10 @@ export default {
 </section>
 <section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100" style="'max-height:' + sectionHeight">
  
-  <article class="container h-100 mx-auto">
-    <div  class="container justify-content-center m-auto">
-      <div class="row">
+  <article class="d-flex justify-content-center h-100 mx-auto">
+    <div>s</div>
+    <div class="container d-flex justify-content-center m-auto">
+      <div class="row w-100">
         <div class="col-12 col-md-4 ms-0 ps-0">
           <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top rounded" alt="...">
           <div v-else class="bg-dark-subtle d-flex rounded" style="height: 200px;">
@@ -201,8 +202,13 @@ export default {
           </div>
         </div>
       </div>
-    
     </div>
+    <div class="d-flex">
+        <button class="btn btn-light w-100">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
   </article>
   <article class="d-flex bg-light px-3 mb-1">
     <strong class="justify-content-center m-auto py-1">

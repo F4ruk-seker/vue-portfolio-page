@@ -138,10 +138,7 @@ async function fetch_projects(){
           <div class="card-body">
             <h5 class="card-title">{{ project.title }}</h5>
             <!--p class="card-text">{{ project.ceo_description }}</p -->
-            
-
             </div>
-
         </router-link>
       </li>
     </ul>
