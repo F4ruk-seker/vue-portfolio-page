@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-<section class="d-flex bg-light z-2" :style="'background: url(' + context?.hi_card_background + ') no-repeat center; object-fit: contain; height: 100vh'">
+<section class="d-flex bg-light z-2">
 <article class="m-auto justify-content-center text-center container">
   <div class="row">
     <div class="col-12 col-md-6">
@@ -49,6 +49,11 @@ export default {
 </template>
 
 <style scoped>
+section{
+  background: url('https://res.cloudinary.com/dlusw5ukg/image/upload/v1703990685/portfolio/bishop_u438xp.jpg') no-repeat center; 
+  object-fit: contain;
+  height: 100vh;
+}
 .lazy-background {
   display: flex;
   background-repeat: no-repeat;
