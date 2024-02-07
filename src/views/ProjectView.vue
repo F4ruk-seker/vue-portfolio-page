@@ -53,7 +53,7 @@ export default {
     },
     async get_project(){
       const safeSlug = this.slug.replace(/[^a-zA-Z0-9_-]/g, ''); // Sadece harf, rakam, alt tire (_) ve kısa çizgi (-) karakterlerine izin ver
-      const safeURL = 'project/' + safeSlug + '/';
+      const safeURL = 'content/' + safeSlug + '/';
       await axios.get(safeURL).then((response)=>{
         this.project = response.data
       }).catch((error)=>{
