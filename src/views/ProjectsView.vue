@@ -9,18 +9,20 @@ import {onMounted, ref} from "vue";
 /*
           @click="router.push({name:'project', params:{slug:project.slug}})"
 
+    projects.value = [];
 */
 
-onMounted(fetch_projects)
+onMounted(()=>{fetch_project_filters();fetch_projects()})
 const projects = ref([])
 const filter_keys = ref({})
 const toggle_card_view = ref(false)
 const usersLanguage = window.navigator.language
 console.log(usersLanguage);
 async function fetch_projects(){
-  await axios.get('project/all/').then((response)=>{
+  await axios.get('content/all/project').then((response)=>{
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
-      response.data.result.forEach((project) => {
+      console.log(response.data);
+      response.data.forEach((project) => {
       project.created = new Date(project.created);
 
       // Separate date properties and write as name
@@ -51,10 +53,14 @@ async function fetch_projects(){
       project.year = year;
       project.monthName = monthName;
     });
-
-    projects.value = response.data.result;
-    filter_keys.value = response.data.filter_keys
+    projects.value = response.data;
   })
+}
+
+async function fetch_project_filters(){
+  await axios.get('content/type/project').then(response=> {
+    filter_keys.value = response.data.sub_tags;
+  }) 
 }
 
 
@@ -68,7 +74,7 @@ async function fetch_projects(){
   <article class="col-12 col-md-4 col-xl-3 border-end position-sticky top-0">
     <h2 class="pt-3">Filter</h2>
     <hr>
-    <div v-for="(tags, index) in filter_keys.tags" v-bind:key="index">
+    <div v-for="(tags, index) in filter_keys" v-bind:key="index">
       <strong style="font-size: 24px;">{{tags.name}}</strong>
       <ul class="list-unstyled tree-list" >
         <li class="d-flex" v-for="(tag, index) in tags.tags" v-bind:key="index">
