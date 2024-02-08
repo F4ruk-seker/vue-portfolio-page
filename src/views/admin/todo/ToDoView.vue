@@ -18,7 +18,9 @@
                 <span v-else>add</span>
             </button>
         </form>
-        <hr>
+        
+        <TodoProgress :percentage="completion_rate"/>
+
         <div class="position-relative" name="todolist">
             <div class="position-sticky top-0 bg-light  p-1 d-flex border-bottom">
                 <i class="fa-solid fa-hashtag" style="width: 75px;"></i>
@@ -45,6 +47,7 @@
 </template>
 
 <script setup>
+import TodoProgress from '@/components/admin/todo/TodoProgressBar.vue'
 import axios from 'axios'
 import { onMounted, ref } from 'vue';
 
@@ -52,15 +55,17 @@ const todo_list = ref([])
 const new_task = ref('')
 const on_add = ref(false)
 const new_task_is_empty = ref(false)
+const completion_rate = ref(0)
 
 function get_todo_list() {
     axios.get('todo/').then(((response)=>{
         todo_list.value = response.data
-        /*
+        // completion rate calculation
+        let docount = 0 
         todo_list.value.forEach((todo)=>{
-            todo.disabled = true
+            if (todo.is_to_do === true){docount ++}
         })
-        */
+        completion_rate.value = 100 - ((todo_list.value.length - docount ) / todo_list.value.length * 100)      
     }))
 }
 
