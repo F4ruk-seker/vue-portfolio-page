@@ -18,7 +18,7 @@ const projects = ref([])
 const filter_keys = ref({})
 const toggle_card_view = ref(false)
 
-// const selected_tags = ref([])
+const selected_tags = ref([])
 
 const usersLanguage = window.navigator.language
 const search_text = ref('')
@@ -31,21 +31,28 @@ watch(search_text, async (new_search_text)=>{
 })
 
 
-function set_filters(){
-  const selecteds = []
+async function set_filters(id){
+  selected_tags.value = 
   filter_keys.value.forEach((tag_c)=>{
       tag_c.tags.forEach((tag)=>{
-        if (tag.selected){selecteds.push(tag.id); console.log('catch-',tag.id)}
-        else {selecteds.pop(tag.id)}
+        if (tag.id === id){tag.selected = !tag.selected} else {/**/}
+
+        if (tag.selected){selected_tags.value.push(tag.id);}
+        else {
+          const indexToRemove = selected_tags.value.indexOf(tag.id);
+          if (indexToRemove !== -1) {
+          selected_tags.value.splice(indexToRemove, 1);
+          }
+        }
       })
     })
-  console.log(selecteds)
+    await fetch_projects()
 }
 
 
 // ?search=test
 async function fetch_projects(search=''){
-  await axios.get(`content/all/?content_type=project&search=${search}`).then((response)=>{
+  await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=project&search=${search}`).then((response)=>{
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
       console.log(response.data);
       response.data.forEach((project) => {
@@ -86,7 +93,9 @@ async function fetch_projects(search=''){
 async function fetch_project_filters(){
   await axios.get('content/type/project').then(response=> {
     filter_keys.value = response.data.sub_tags;
-    
+    filter_keys.value.forEach((tag_c)=>{
+      tag_c.tags.forEach((tag)=>{tag.selected = false})
+    })
   }) 
 }
 
@@ -105,7 +114,7 @@ async function fetch_project_filters(){
         <li class="d-flex" v-for="(tag, index) in tags.tags" v-bind:key="index" >
           <hr class="my-auto fw-bold" style="width: 10px; height:2px">
           <label class="my-auto">
-            <input class="mx-1" type="checkbox" v-model="tag.selected" @click="set_filters"> <!--need filter toggle -->
+            <input class="mx-1" type="checkbox" @click="set_filters(tag.id)"> <!--need filter toggle -->
             {{ tag.name }}
           </label>
         </li>
