@@ -32,11 +32,11 @@
                 <div :class="'d-flex task ' + (index %2==0 ? 'bg-light-subtle':'bg-dark-subtle')" v-for="(todo, index) in todo_list" v-bind:key="todo.id" :id="'task_' + todo.id">
                     <div class="ms-1 fw-semibold" style="width: 75px;">{{ index + 1 }}</div>
                     <div class="w-100 fw-bolder">{{ todo.task }}</div>
-                    <div class="mx-2 pe-1" @click="toggle_task(index)">
+                    <div class="mx-3" @click="toggle_task(index)">
                         <span v-if="todo.is_to_do"><i class="fa-regular fa-square-check"></i></span>
                         <span v-else><i class="fa-regular fa-square"></i></span>
                     </div>
-                    <div class="text-danger me-3" @click="reomove_todo(index)">
+                    <div class="text-danger me-4" @click="reomove_todo(index)">
                         <i class="fa-solid fa-x"></i>
                     </div>
                 </div>
