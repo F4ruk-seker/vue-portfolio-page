@@ -73,6 +73,19 @@ function toggle_label() {
       </span>
     </router-link>
     </li>
+    <li>
+    <router-link
+        class="btn btn-light rounded-0 w-100"
+      :to="{name:'todos'}"
+    >
+      <span class="m-auto d-flex">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <span v-if="show_label" class="d-none d-md-block ms-1">
+          ToDo List
+        </span>
+      </span>
+    </router-link>
+    </li>
   </ul>
 </aside>
 </template>
