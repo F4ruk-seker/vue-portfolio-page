@@ -47,7 +47,7 @@ async function set_filters(id){
     await fetch_projects()
 }
 
-// auto language filter > 
+// auto language filter > f
 
 // ?search=test
 async function fetch_projects(search=''){
