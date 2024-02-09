@@ -52,7 +52,6 @@ async function set_filters(id){
 // ?search=test
 async function fetch_projects(search=''){
   await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=project&search=${search}`).then((response)=>{
-    // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
       response.data.forEach((project) => {
       project.created = new Date(project.created);
 
@@ -96,10 +95,8 @@ async function fetch_project_filters(){
   await axios.get('content/type/project').then(response=> {
     filter_keys.value = response.data.sub_tags;
     filter_keys.value.forEach((tag_c)=>{
-
       tag_c.tags.forEach((tag)=>{
         tag.selected = false
-        
       })
     })
   }) 
