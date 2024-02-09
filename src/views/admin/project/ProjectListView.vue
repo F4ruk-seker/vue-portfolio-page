@@ -6,8 +6,8 @@ import axios from 'axios';
 const projcets = ref(null)
 
 async function get_project_list(){
-    const response = await axios.get('/project/all/')
-    projcets.value = await response.data.result
+    const response = await axios.get('/content/all/')
+    projcets.value = await response.data
 
 }
 
@@ -18,8 +18,12 @@ onMounted(()=>{
 </script>
 
 <template>
-<div v-if="!projcets" class="bg-success-subtle p-1">LOADING...</div>
-<ProjectPreview v-else v-for="project in projcets" v-bind:key="project.id" :project="project"/>
+<section class="d-flex h-100">
+    <article class="container justify-content-center my-auto">
+        <div v-if="!projcets" class="bg-success-subtle p-1">LOADING...</div>
+        <ProjectPreview v-else v-for="project in projcets" v-bind:key="project.id" :project="project"/>
+    </article>
+</section>
 </template>
 
 <style>
