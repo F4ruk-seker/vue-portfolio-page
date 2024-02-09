@@ -11,7 +11,7 @@ import AdminASide from "@/components/admin/AdminASide.vue";
   <article class="" style="min-width: max-content;">
     <admin-a-side />
   </article>
-  <article class="w-100 overflow-y-scroll position-relative">
+  <article class="w-100 overflow-y-auto position-relative">
     <router-view />
   </article>
 </section>

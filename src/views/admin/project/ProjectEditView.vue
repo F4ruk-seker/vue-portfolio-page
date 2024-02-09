@@ -56,8 +56,6 @@ export default{
 
 </script>
 
-
-
 <template>
 <section class="row m-0 p-0 h-100">
     <article class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 position-relative">
@@ -80,7 +78,7 @@ export default{
         </div>
         <hr>
     </article>
-    <article class="col m-0 p-0" style="height: 99vh;">
+    <article class="col m-0 p-0">
         <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
         <VMarkdownEditor v-else
             v-model="project.text"
