@@ -1,9 +1,14 @@
 <script>
+import axios from 'axios';
 
 export default {
   name:'AboutMe',
   props: ['context'],
-
+  mounted: async ()=>{
+    await axios.get('content/abaout-me/').then((response)=>{
+      console.log(response.data)
+    })
+  }
 }
 
 </script>
