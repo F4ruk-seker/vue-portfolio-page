@@ -13,12 +13,15 @@ export default{
     data:()=>{return{
         project: ref(''),
         amit: true,
-        selected_programing_languages: []
+        selected_programing_languages: [],
+
+        // -pars
+        on_update: false,
     }},
     methods: {
         async get_project() {
             try {
-                const response = await axios.get(`project/edit/${this.slug}/`)
+                const response = await axios.get(`content/edit/${this.slug}/`)
                 this.project = response.data  
             } catch (error) {
                 console.error('Error fetching project:', error)
@@ -26,37 +29,65 @@ export default{
         },
         async update_project(){
             try {
-                await axios.put(`project/edit/${this.slug}/`, this.project)
+                this.on_update = true
+                await axios.put(`content/edit/${this.slug}/`, this.project).then((response)=>{this.project = response.data})
+                this.on_update = false
+            
             } catch (error) {
                 console.error('Error fetching project:', error)
             }
+        },
+        keyboard_on_save(e) {
+        if (!(e.keyCode === 83 && e.ctrlKey)) {
+            return;
         }
+        e.preventDefault();
+            this.update_project()
+        },
     },
     async mounted(){
         await this.get_project()
+        document.addEventListener("keydown", this.keyboard_on_save);
+    },
+    unmounted(){
+      document.removeEventListener("keydown", this.keyboard_on_save);
     }
 }
+
 </script>
 
-<template>
-<div class="float-end me-5 my-2">
-    <button class=" btn btn-sm btn-success" @click="update_project">Save</button>
-</div>
 
-<div class="mx-2 h-100">
-    <input v-model="project.title" class=" form-control">
-    <div name="programin languages">
-        <label>Programin languages</label>
-        <p>{{  }}</p>
-        <TagHeadSearch :alow_tags="project.programing_languages" />
+
+<template>
+<div class="d-flex h-100">
+    <div class="w-25 position-relative">
+        <button class="btn btn-lg btn-success w-100 rounded-0 border-0" @click="update_project" :disabled="on_update">
+        <span v-if="!on_update">Save</span>
+        <div v-else class="spinner-border text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+
+        <div class="text-info fw-bold ps-2 bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
+            Last Update : {{ project.update }}
+        </div>
+        </button>
+
+        <input v-model="project.title" class="mt-1 form-control">
+        <div name="programin languages">
+            <label>Programin languages</label>
+            <p>{{ selected_programing_languages }}</p>
+            <TagHeadSearch :alow_tags="project.programing_languages" />
+        </div>
+        <hr>
     </div>
-    <hr>
-    <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
-    <VMarkdownEditor v-else
-        v-model="project.text"
-        locale="en"
-        :fullscreen="amit"
-    />
+    <div class="me-1 h-100 w-75">
+        <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
+        <VMarkdownEditor v-else
+            v-model="project.text"
+            locale="en"
+            :fullscreen="amit"
+        />
+    </div>
 </div>
 </template>
 
