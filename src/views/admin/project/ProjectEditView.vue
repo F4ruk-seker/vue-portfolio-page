@@ -59,16 +59,16 @@ export default{
 
 
 <template>
-<div class="d-flex h-100">
-    <div class="w-25 position-relative">
+<section class="row m-0 p-0 h-100">
+    <article class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 position-relative">
         <button class="btn btn-lg btn-success w-100 rounded-0 border-0" @click="update_project" :disabled="on_update">
         <span v-if="!on_update">Save</span>
         <div v-else class="spinner-border text-light" role="status">
             <span class="sr-only">Loading...</span>
         </div>
 
-        <div class="text-info fw-bold ps-2 bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
-            Last Update : {{ project.update }}
+        <div class="text-info fw-bold bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
+            {{ project.update }}
         </div>
         </button>
 
@@ -79,16 +79,16 @@ export default{
             <TagHeadSearch :alow_tags="project.programing_languages" />
         </div>
         <hr>
-    </div>
-    <div class="me-1 h-100 w-75">
+    </article>
+    <article class="col m-0 p-0" style="height: 99vh;">
         <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
         <VMarkdownEditor v-else
             v-model="project.text"
             locale="en"
             :fullscreen="amit"
         />
-    </div>
-</div>
+    </article>
+</section>
 </template>
 
 <style>
