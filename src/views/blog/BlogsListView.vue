@@ -98,6 +98,14 @@ async function fetch_projects(search=''){
 </article>
 </nav>
 <section class="container">
+  <div class="w-100 mx-2 position-relative">
+    <input class="form-control rounded-5" style="padding-right: 48px;" type="text" v-model="search_text">
+    <div class="d-flex position-absolute btn-search">
+      <button class="btn btn-danger rounded-circle h-100 w-100 ps-2 pt-1">
+        <i class="fa-solid fa-magnifying-glass justify-content-center m-auto"></i>
+      </button>
+    </div>
+  </div>
     <article>
        ex: {{projects}}
     </article>

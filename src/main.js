@@ -7,8 +7,8 @@ import AuthService from "@/composable/AuthService";
 // import VueMeta from 'vue-meta'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
-//import {createHead} from "@vueuse/head";
-//const head = createHead()
+import {createHead} from "@vueuse/head";
+const head = createHead()
 import { createMetaManager } from 'vue-meta';
 
 // import 'vue3-markdown/dist/style.css'
@@ -52,7 +52,7 @@ let app;
 app = createApp(App)
 app.use(store)
 app.use(router)
-//app.use(head)
+app.use(head)
 const metaManager = createMetaManager(app);
 
 app.use(metaManager)

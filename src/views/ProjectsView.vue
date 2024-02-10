@@ -5,6 +5,20 @@ import axios from "axios";
 import {onMounted, ref, watch} from "vue";
 import { useRouter } from "vue-router";
 
+// meta test
+import { useHead } from '@vueuse/head';
+
+useHead({
+    title: 'mars',
+    meta: [
+        {
+            name:'description',
+            content: 'echos'
+        }
+    ]
+})
+
+
 // import router from "@/router";
 // import TagHeadSearch from "@/components/TagHeadSearch.vue";
 
