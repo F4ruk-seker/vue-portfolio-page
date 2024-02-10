@@ -6,11 +6,24 @@ const categorys = ref([])
 const category_tags = ref([])
 
 async function get_tags(){
-    categorys.value = await (await axios.get('tag/')).data
+    const response =  await (await axios.get('tag/'))
+    response.data.forEach(element => {
+        element.seleted = false
+        element.tags.forEach(tag=>{tag.seleted=false})
+    });
+    
+    response.data[0].seleted = true
+    category_tags.value = response.data[0].tags
+    categorys.value = response.data
+
 }
 
-function set_tags(tags){
+function set_tags(tags, category_id){
     category_tags.value = tags
+    categorys.value.forEach(element => {
+        element.seleted = element.id === category_id
+        element.tags.forEach(tag=>{tag.seleted=false})
+    })
 }
 
 onMounted(()=>{
@@ -28,12 +41,12 @@ onMounted(()=>{
                 <input class=" form-control rounded-end-0" type="text">
                 <button class="btn btn-success btn-sm fw-bold">ADD</button>
             </div>
-            <ul class="list-unstyled overflow-y-auto text-end" style="height: 60vh;">
+            <ul class="list-unstyled overflow-y-auto text-end " style="height: 60vh;">
                 <li 
                 v-for="(tag_category, index) in categorys"
                 v-bind:key="index" 
-                class="btn btn-light w-100 text-start ps-5 fw-bold"
-                @click="set_tags(tag_category.tags)"
+                :class="'btn w-100 text-start ps-5 fw-bold ' + (tag_category.seleted ? 'btn-outline-primary' : 'btn-light') "
+                @click="set_tags(tag_category.tags, tag_category.id)"
                 >
                     {{ tag_category.name }}
                 </li>
