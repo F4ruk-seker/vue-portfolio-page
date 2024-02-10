@@ -17,7 +17,7 @@ class PageManager{
     load_page_context(){
         if (!this.has_error){
             if (!this.context.disable_ceo){
-                document.title = this.context.title
+                //document.title = this.context.title
                 // const d = document.getElementsByName('description')[0]
                 // console.log(d.content = "p")
             }

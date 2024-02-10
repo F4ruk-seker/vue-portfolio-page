@@ -37,6 +37,7 @@ export default {
   name: 'HomeView',
   components: {LoadCard, MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
   data: ()=>{return{
+    title: 'Başlık',
     page: {
       context: {}
     },
@@ -49,12 +50,25 @@ export default {
       const page_name = this.$route.name
       const fullPath = this.$route.fullPath
       PageManager.get_page_context(page_name, fullPath).then(()=>{
+        console.log('alowd')
         PageManager.load_page_context()
+        
+        this.$route.meta = {
+          title: 'mars'
+        }
+        this.$router.beforeEach((to)=>{
+          const { meta } = to
+          console.log('meta')
+          console.log(meta)
+        })
         this.page = PageManager.get_context()
         this.on_load = false
       })
     },
+  },created: ()=>{
+    document.title = "paraws"
   }
+  
 
 }
 </script>
