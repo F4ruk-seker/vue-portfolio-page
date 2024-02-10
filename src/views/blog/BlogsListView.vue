@@ -59,7 +59,7 @@ async function set_filters(id){
 
 // ?search=test
 async function fetch_projects(search=''){
-  await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=project&search=${search}`).then((response)=>{
+  await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=blog&search=${search}`).then((response)=>{
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
       response.data.forEach((project) => {
       project.created = new Date(project.created);
@@ -70,20 +70,7 @@ async function fetch_projects(search=''){
       const year = project.created.getFullYear();
 
       // Find the name of the month
-      const monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
+      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',];
       const monthName = monthNames[month - 1]; // Subtracting 1 because the month names array starts from 0
 
       // Update the results
@@ -112,7 +99,7 @@ async function fetch_projects(search=''){
 </nav>
 <section class="container">
     <article>
-        content
+       ex: {{projects}}
     </article>
 </section>
 </template>

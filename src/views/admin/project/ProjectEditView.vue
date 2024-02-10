@@ -64,10 +64,6 @@ export default{
         <div v-else class="spinner-border text-light" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-
-        <div class="text-info fw-bold bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
-            {{ project.update }}
-        </div>
         </button>
 
         <input v-model="project.title" class="mt-1 form-control">
@@ -77,6 +73,10 @@ export default{
             <TagHeadSearch :alow_tags="project.programing_languages" />
         </div>
         <hr>
+
+        <div class="text-info text-center fw-bold bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
+            {{ project.update }}
+        </div>
     </article>
     <article class="col m-0 p-0">
         <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
