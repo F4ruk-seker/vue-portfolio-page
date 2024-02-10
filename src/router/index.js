@@ -28,6 +28,22 @@ const routes = [
     props: true
   },
   {
+    path: '/blog',
+    name: 'blog',
+    component: () => import(/* webpackChunkName: "auth" */ '../views/blog/BlogView.vue'),
+    children: [
+      {
+        path: '',
+        name: 'blog-list',
+        component: () => import(/* webpackChunkName: "login" */ '../views/blog/BlogsListView.vue')
+      },      {
+        path: ':slug',
+        name: 'blog-content',
+        component: () => import(/* webpackChunkName: "register" */ '../views/blog/BlogContentView.vue')
+      }
+    ]
+  },
+  {
     path: '/auth',
     name: 'auth',
     component: () => import(/* webpackChunkName: "auth" */ '../views/login/AuthView.vue'),

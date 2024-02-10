@@ -1,4 +1,4 @@
-import { createApp, config } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { store } from './store'
@@ -18,7 +18,6 @@ const carrier_switch = 'Bearer'
 
 axios.interceptors.request.use(
     ( config ) => {
-        console.log('config')
         config.headers["Authorization"] = `${carrier_switch} ${AuthService.getAccessToken()}`;
         return config;
     });
@@ -46,11 +45,6 @@ axios.interceptors.response.use(
         return Promise.reject(error);
     }
 )
-
-config.head = {
-    title: 'Vue.js Projem',
-    meta: []
-  };
 
 createApp(App)
     .use(store)
