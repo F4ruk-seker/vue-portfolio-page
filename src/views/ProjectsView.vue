@@ -6,6 +6,7 @@ import {onMounted, ref, watch} from "vue";
 import { useRouter } from "vue-router";
 
 // meta test
+/*
 import { useHead } from '@vueuse/head';
 
 useHead({
@@ -17,7 +18,7 @@ useHead({
         }
     ]
 })
-
+*/
 
 // import router from "@/router";
 // import TagHeadSearch from "@/components/TagHeadSearch.vue";
