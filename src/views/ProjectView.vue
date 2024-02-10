@@ -15,6 +15,8 @@ export default {
     read_size: 20,
     navbarHeight: 0,
     sectionHeight: 'calc(100vh - 0px)',
+    new_comment: '',
+    on_send_comment: ''
   }},
   methods: {
     get_date(date){
@@ -26,20 +28,7 @@ export default {
       const year = date.getFullYear();
 
       // Find the name of the month
-      const monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
+      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',];
       const monthName = monthNames[month - 1]; // Subtracting 1 because the month names array starts from 0
       // return {{project.year}}-{{project.monthName}}-{{project.day}}
       return `${year}-${monthName}-${day}`
@@ -219,7 +208,8 @@ export default {
   </article>
   <article class="container" id="comment">
     <label class="fw-semibold">Comment:</label>
-    <textarea class="form-control border" type="text" placeholder="something..."></textarea>
+    <textarea class="form-control border" type="text" placeholder="something..." v-model="new_comment" maxlength="600"></textarea>
+    <label :class="new_comment.length > 500 ? 'text-danger fw-bold':''">{{new_comment.length}}/500</label>
     <div class="d-flex mt-2">
       <div class="w-100 d-flex">
         <button class=" btn btn-light rounded-circle border d-flex me-2" style="width: 46px; height: 46px;">
@@ -232,12 +222,22 @@ export default {
       <button class="btn btn-primary fw-bold">Send</button>
     </div>
     <hr>
-    no comment yet
-
-    <div class="d-flex">
-      <div class=" rounded-circle bg-black" style="width: 36px; height: 36px;"></div>
-      <div>s</div>
-    </div>
+    <div v-if="!project.comments" class="alert alert-info">no comment yet</div>
+    <ul v-else class=" list-unstyled">
+      <li 
+        class="d-flex border my-2 py-2 px-1 rounded-2" 
+        v-for="comment_obj in project.comments" 
+        v-bind:key="comment_obj.id"
+        >
+        <div class=" rounded-circle bg-black" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;"></div>
+        <p class="p-0 my-auto ms-2 w-100">
+         <span class=" fw-bold text-primary">@{{ comment_obj.user }}:</span> {{ comment_obj.comment }}
+        </p>      
+        <button class="btn btn-light btn-sm border rounded-circle d-flex" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;" disabled>
+          <i class="fa-regular fa-heart justify-content-center m-auto"></i>
+        </button>
+      </li>
+    </ul>
   </article>
   
 </section>
