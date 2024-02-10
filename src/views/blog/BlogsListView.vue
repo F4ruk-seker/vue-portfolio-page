@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import axios from "axios";
 import { useRouter } from 'vue-router';
 
@@ -24,14 +24,14 @@ const projects = ref([])
 
 const selected_tags = ref([])
 
-/*
+
 
 const search_text = ref('')
 
 watch(search_text, async (new_search_text)=>{
   await fetch_projects(new_search_text)
 })
-*/
+
 
 async function set_filters(id){
   selected_tags.value = []
@@ -98,16 +98,34 @@ async function fetch_projects(search=''){
 </article>
 </nav>
 <section class="container">
-  <div class="w-100 mx-2 position-relative">
-    <input class="form-control rounded-5" style="padding-right: 48px;" type="text" v-model="search_text">
-    <div class="d-flex position-absolute btn-search">
-      <button class="btn btn-danger rounded-circle h-100 w-100 ps-2 pt-1">
-        <i class="fa-solid fa-magnifying-glass justify-content-center m-auto"></i>
+  <article class="d-flex justify-content-between">
+    <div class="w-100 position-relative">
+      <input class="form-control rounded-5" style="padding-right: 48px;" type="text" v-model="search_text">
+      <div class="d-flex position-absolute btn-search">
+        <button class="btn btn-danger rounded-circle h-100 w-100 ps-2 pt-1">
+          <i class="fa-solid fa-magnifying-glass justify-content-center m-auto"></i>
+        </button>
+      </div>
+    </div>
+    <div class="d-flex position-relative">
+      <input class="form-control rounded-end-0" type="number" placeholder="300" id="read-speed">
+      <label class="position-absolute top-0 text-secondary" style="margin-top: 35px;font-size: 14px;" for="read-speed">read speed 300 word/min</label>
+      <button class="btn btn-light border rounded-start-0 border-start-0">
+        <i class="fa-solid fa-gauge-high"></i>
       </button>
     </div>
-  </div>
-    <article>
+  </article>
+    <article class="mt-5">
        ex: {{projects}}
     </article>
 </section>
 </template>
+
+<style scoped>
+.btn-search{
+  top: 4px;
+  right: 4px;
+  width: 30px;
+  height: 30px;
+}
+</style>
