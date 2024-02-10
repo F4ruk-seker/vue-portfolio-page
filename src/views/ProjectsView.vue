@@ -3,6 +3,7 @@ import NavbarStable from "@/components/NavbarStable.vue";
 import ScrolTop from "@/components/ScrolTop.vue";
 import axios from "axios";
 import {onMounted, ref, watch} from "vue";
+import { useRouter } from "vue-router";
 
 // import router from "@/router";
 // import TagHeadSearch from "@/components/TagHeadSearch.vue";
@@ -14,6 +15,9 @@ import {onMounted, ref, watch} from "vue";
 */
 
 onMounted(()=>{fetch_project_filters();fetch_projects()})
+
+const router = useRouter()
+
 const projects = ref([])
 const filter_keys = ref({})
 const toggle_card_view = ref(false)
@@ -31,11 +35,17 @@ watch(search_text, async (new_search_text)=>{
 
 async function set_filters(id){
   selected_tags.value = []
+  let tag_names = []
+
   filter_keys.value.forEach((tag_c)=>{
       tag_c.tags.forEach((tag)=>{
         if (tag.id === id){tag.selected = !tag.selected} else {/**/}
 
-        if (tag.selected){selected_tags.value.push(tag.id);}
+        if (tag.selected){
+          selected_tags.value.push(tag.id);
+          tag_names.push(tag.name)
+        
+        }
         else {
           const indexToRemove = selected_tags.value.indexOf(tag.id);
           if (indexToRemove !== -1) {
@@ -44,6 +54,8 @@ async function set_filters(id){
         }
       })
     })
+    router.push({ query: { tags: tag_names.join(',') } });
+
     await fetch_projects()
 }
 
@@ -96,7 +108,6 @@ async function fetch_project_filters(){
   await axios.get('content/type/project').then(response=> {
     filter_keys.value = response.data.sub_tags;
     filter_keys.value.forEach((tag_c)=>{
-
       tag_c.tags.forEach((tag)=>{
         tag.selected = false
         
