@@ -1,10 +1,5 @@
 // AuthService.js
 import axios from 'axios';
-import {useStore} from "vuex";
-
-
-const store = useStore()
-console.log(store)
 
 class AuthService {
     save_session(token){

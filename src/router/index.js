@@ -6,7 +6,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/about',
@@ -19,8 +19,8 @@ const routes = [
   {
     path: '/projects',
     name: 'projects',
-    component: () => import(/* webpackChunkName: "projects" */ '../views/ProjectsView.vue')
-  },
+    component: () => import(/* webpackChunkName: "projects" */ '../views/ProjectsView.vue'),
+   },
   {
     path: '/project/:slug',
     name: 'project',

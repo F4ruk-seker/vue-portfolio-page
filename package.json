@@ -15,7 +15,7 @@
     "lottie-web-vue": "^2.0.7",
     "vue": "^3.2.13",
     "vue-lazy-image-loading": "^1.2.1",
-    "vue-meta": "^2.4.0",
+    "vue-meta": "^3.0.0-alpha.2",
     "vue-router": "^4.0.3",
     "vue3-markdown": "^1.1.9",
     "vuex": "^4.0.0",
