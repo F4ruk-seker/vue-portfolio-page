@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, config } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { store } from './store'
@@ -47,6 +47,10 @@ axios.interceptors.response.use(
     }
 )
 
+config.head = {
+    title: 'Vue.js Projem',
+    meta: []
+  };
 
 createApp(App)
     .use(store)
