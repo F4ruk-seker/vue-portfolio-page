@@ -107,7 +107,7 @@ async function fetch_projects(search=''){
         </button>
       </div>
     </div>
-    <div class="d-flex position-relative">
+    <div class="d-flex position-relative ms-2">
       <input class="form-control rounded-end-0" type="number" placeholder="300" id="read-speed">
       <label class="position-absolute top-0 text-secondary" style="margin-top: 35px;font-size: 14px;" for="read-speed">read speed 300 word/min</label>
       <button class="btn btn-light border rounded-start-0 border-start-0">
