@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue'
 import axios from "axios";
 import { useRouter } from 'vue-router';
+import PireviewCard from '@/components/blog/PreviewCard'
 
 const router = useRouter()
 
@@ -115,8 +116,11 @@ async function fetch_projects(search=''){
       </button>
     </div>
   </article>
-    <article class="mt-5">
-       ex: {{projects}}
+    <article class="mt-5 container">
+      <div class="row">
+        <PireviewCard v-for="project in projects" v-bind:key="project.id" :content_preview="project" />
+      </div>
+
     </article>
 </section>
 </template>

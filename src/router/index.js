@@ -39,7 +39,8 @@ const routes = [
       },      {
         path: ':slug',
         name: 'blog-content',
-        component: () => import(/* webpackChunkName: "register" */ '../views/blog/BlogContentView.vue')
+        component: () => import(/* webpackChunkName: "register" */ '../views/blog/BlogContentView.vue'),
+        props: true
       }
     ]
   },
