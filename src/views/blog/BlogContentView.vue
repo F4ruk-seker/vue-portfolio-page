@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import { VMarkdownView } from 'vue3-markdown'
+import 'vue3-markdown/dist/style.css'
 
 
 export default {
