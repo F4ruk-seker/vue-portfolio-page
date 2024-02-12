@@ -7,7 +7,7 @@ import axios from 'axios';
 const projcets = ref(null)
 
 async function get_project_list(){
-    const response = await axios.get('/content/all/')
+    const response = await axios.get('/content/edit/')
     projcets.value = await response.data
 
 }
