@@ -79,7 +79,7 @@ export default {
     },
     async mounted() {
     await this.get_project()
-    this.resize_images()
+    //this.resize_images()
     this.calculate_section_height()
   },
 }
