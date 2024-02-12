@@ -13,6 +13,9 @@ export default{
         project: ref(''),
         amit: true,
         selected_programing_languages: [],
+        //content_type = ''
+        //content_types:[],
+        content_type_tags: [],
 
         // -pars
         on_update: false,
@@ -22,9 +25,26 @@ export default{
             try {
                 const response = await axios.get(`content/edit/${this.slug}/`)
                 this.project = response.data  
+                await this.get_content_type_tags(this.project.content_type)
             } catch (error) {
                 console.error('Error fetching project:', error)
             }
+        },
+        async get_content_type_tags(content_type){
+            const response = await axios.get('content/type/' + content_type)
+            
+            // this.content_types = response.data.other_content_types
+            this.content_type_tags = []
+            response.data.sub_tags.forEach(tag_category => {
+                tag_category.tags.forEach(tag => {
+
+                    this.project.tags.forEach(selected_tag => {
+                        tag.slected = selected_tag.id === tag.id
+                    });
+
+                    this.content_type_tags.push(tag)
+                });
+            });
         },
         async update_project(){
             try {
@@ -33,6 +53,8 @@ export default{
                 this.on_update = false
             
             } catch (error) {
+//                if (error.response.status === 400){
+//              }
                 console.error('Error fetching project:', error)
             }
         },
@@ -65,6 +87,11 @@ export default{
         </div>
         </button>
         
+        <button 
+            :class="'w-100 mt-2 btn ' + (project.show ? 'btn-primary': 'btn-outline-primary')"
+            @click="project.show = !project.show">{{ project.show ? 'Hide' : 'Show' }}
+        </button>
+        
         <div class="mx-2" name="edit">
             <hr>
             <div class="mb-3">
@@ -92,13 +119,25 @@ export default{
 
             <label class="ms-2">ceo image description</label>
             <input v-model="project.ceo_image_alt" class="mt-1 form-control" placeholder="ceo image description">
-
-
             <hr>
-            <button 
-            :class="'w-100 btn ' + (project.show ? 'btn-primary': 'btn-outline-primary')"
-            @click="project.show = !project.show">{{ project.show ? 'Hide' : 'Show' }}
-        </button>
+            <label class="fw-bold">
+                Content Type : <span class="text-success">{{ project.content_type }}</span>
+            </label>
+            <hr>
+
+            <div class="d-flex">
+                <strong class="my-auto">Tag's</strong>
+                <hr class="ms-2 w-100">
+            </div>
+            
+            <ul class="list-unstyled overflow-y-auto" style="max-height: 20vh;">
+                <li 
+                v-for="(tag,index) in content_type_tags" 
+                v-bind:key="index"
+                :class="'d-flex rounded p-2 me-2 mb-2 btn btn-' + (tag.slected ? 'primary':'secondary')"
+                @click="tag.slected = !tag.slected"
+                >{{ tag.name }}</li>
+            </ul>
         </div>
 
         <div class="text-info text-center fw-bold bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
