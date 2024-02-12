@@ -1,5 +1,4 @@
 <script>
-import TagHeadSearch from '@/components/TagHeadSearch.vue';
 import axios from 'axios';
 import { ref } from 'vue'
 import { VMarkdownEditor } from 'vue3-markdown'
@@ -9,7 +8,7 @@ import 'vue3-markdown/dist/style.css'
 export default{
     name: 'ProjectEditView',
     props: ['slug'],
-    components: { VMarkdownEditor, TagHeadSearch },
+    components: { VMarkdownEditor },
     data:()=>{return{
         project: ref(''),
         amit: true,
@@ -65,14 +64,42 @@ export default{
             <span class="sr-only">Loading...</span>
         </div>
         </button>
+        
+        <div class="mx-2" name="edit">
+            <hr>
+            <div class="mb-3">
+            <label class="fw-semibold ms-2">
+                Title
+            </label>
+            <input v-model="project.title" class="mt-1 form-control">
+            </div>
+            <div class="mb-3">
+                <label class="fw-semibold ms-2">
+                    slug
+                </label>
+                <input v-model="project.slug" class="mt-1 form-control disabled" disabled>
+            </div>
+            
+            <div class="d-flex">
+                <strong class="my-auto">SEO</strong>
+                <hr class="ms-2 w-100">
+            </div>
+            <label class="ms-2">ceo description</label>
+            <input v-model="project.ceo_description" class="mt-1 form-control" placeholder="ceo description">
+            
+            <label class="ms-2">ceo image url</label>
+            <input v-model="project.ceo_image_url" class="mt-1 form-control" placeholder="image url">
 
-        <input v-model="project.title" class="mt-1 form-control">
-        <div name="programin languages">
-            <label>Programin languages</label>
-            <p>{{ selected_programing_languages }}</p>
-            <TagHeadSearch :alow_tags="project.programing_languages" />
+            <label class="ms-2">ceo image description</label>
+            <input v-model="project.ceo_image_alt" class="mt-1 form-control" placeholder="ceo image description">
+
+
+            <hr>
+            <button 
+            :class="'w-100 btn ' + (project.show ? 'btn-primary': 'btn-outline-primary')"
+            @click="project.show = !project.show">{{ project.show ? 'Hide' : 'Show' }}
+        </button>
         </div>
-        <hr>
 
         <div class="text-info text-center fw-bold bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
             {{ project.update }}
