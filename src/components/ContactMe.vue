@@ -53,7 +53,7 @@ export default {
          </form>
        </div>
        <div class="col-12 col-md-6 d-flex" style="border-color:rgba(255,255,255,0.53)!important;border-width: 2px!important;background: rgba(2,0,36,.5);
-background: linear-gradient(90deg, rgba(2,0,36,.01) 0%, rgba(2,171,228,1) 50%, rgba(0,212,255,.01) 100%);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);">
+          background: linear-gradient(90deg, rgba(2,0,36,.01) 0%, rgba(2,171,228,1) 50%, rgba(0,212,255,.01) 100%);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);">
          <a class="justify-content-center btn btn-outline-info px-2 border-0 m-auto text-center  text-decoration-none link-light fw-bold  d-inline-block p-1 rounded" href="mailto:info@farukseker.com.tr">
           info@farukseker.com.tr
          </a>

@@ -1,6 +1,10 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import ProjectPreview from '../../../components/admin/project/ProjectPreview.vue';
+/*
+import ContentTypeCreateEdit from '@/components/admin/project/ContentTypeCreateEdit.vue';
+<ContentTypeCreateEdit />
+*/
 import axios from 'axios';
 
 
