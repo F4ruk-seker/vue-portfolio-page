@@ -41,14 +41,14 @@ onMounted(async ()=>{
                 <hr>
                 <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
                     <li class="">
-                        <button class="btn btn-light border-bottom d-flex rounded-0 mb-2 w-100 fw-semibold">
+                        <button class="btn btn-light text-start border-bottom d-flex rounded-0 mb-2 w-100 fw-semibold">
                             <span class="ms-0 ms-md-5">All</span>
                         </button>
                     </li>
                     <li 
                         v-for="content_type in content_types" v-bind:key="content_type.id"
                     >
-                        <button class="btn btn-light d-flex rounded-0 mb-2 w-100 fw-semibold">
+                        <button class="btn btn-light text-start d-flex rounded-0 mb-2 w-100 fw-semibold">
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
                         </button>
                     </li>
