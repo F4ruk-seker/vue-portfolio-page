@@ -23,7 +23,7 @@ export default {
         <span class="content-title slide-in-text">
             <i class="fa-solid fa-angles-left"></i>
             {{ (content_preview.word_count / 300).toFixed(2) }} 
-            {{  user_is_TURK ? 'dk Okuma Süresi' : 'm read time'  }}</span>
+            {{  user_is_TURK ? 'dk okuma Süresi' : 'm read time'  }}</span>
     </router-link>
 </div>
 </template>
