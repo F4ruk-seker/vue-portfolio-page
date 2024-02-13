@@ -37,18 +37,30 @@ export default{
             this.content_type_tags = []
             response.data.sub_tags.forEach(tag_category => {
                 tag_category.tags.forEach(tag => {
-
-                    this.project.tags.forEach(selected_tag => {
-                        tag.slected = selected_tag.id === tag.id
-                    });
-
+                    for (const selected_tag of this.project.tags) {
+                    if (selected_tag.id === tag.id) {
+                        tag.slected = true;
+                        break;
+                    }
+                }
                     this.content_type_tags.push(tag)
                 });
             });
+
+            console.log(this.content_type_tags)
+            console.log(this.content_type_tags.length)
         },
         async update_project(){
             try {
                 this.on_update = true
+
+                this.project.tags = []
+                this.content_type_tags.forEach(tag => {
+                    if (tag.slected){
+                        this.project.tags.push(tag)        
+                    }
+                })
+
                 await axios.put(`content/edit/${this.slug}/`, this.project).then((response)=>{this.project = response.data})
                 this.on_update = false
             
