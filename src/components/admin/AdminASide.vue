@@ -7,89 +7,84 @@ function toggle_label() {
   show_label.value = !show_label.value
 }
 
+function to_admin_router(patternd){return {'name':patternd}}
+
+
+const admin_aside_routers = ref([
+  {
+    route_name: 'admin-page',
+    label: 'Page',
+    icon: 'fa-regular fa-file',
+    active: false
+  },
+  {
+    route_name: 'admin-dashboard',
+    label: 'Dashboard',
+    icon: 'fa-solid fa-gauge',
+    active: false
+  },
+  {
+    route_name: 'admin-projects',
+    label: 'Content',
+    icon: 'fa-solid fa-tarp',
+    active: false
+  },
+  {
+    route_name: 'admin-tag-manage',
+    label: "tag's",
+    icon: 'fa-solid fa-tag',
+    active: false
+  },
+  {
+    route_name: 'todos',
+    label: "todo's",
+    icon: 'fa-solid fa-clipboard-check',
+    active: false
+  },
+
+])
+
+
 </script>
 
 <template>
-<aside class="w-100 border-end h-100">
-  <ul class="list-unstyled">
+<aside class="border-end h-100">
+ <nav>
+  <ul class="list-unstyled" style="min-width: max-content;">
     <li>
-      <div class="btn btn-light w-100 text-end" @click="toggle_label">
-        <i class="fa-solid fa-bars"></i>
+      <div class="btn btn-light w-100 d-flex text-center" @click="toggle_label">
+        <hr v-if="show_label" class="w-100 me-2 my-auto">
+        <i class="fa-solid fa-bars my-auto mx-auto"></i>
       </div>
     </li>
-    <li>
+    <li 
+    v-for="(admin_router, index) in admin_aside_routers"
+    v-bind:key="index"
+    >
     <router-link
         class="btn btn-light rounded-0 w-100 text-start"
-        :to="{
-          name:'admin-page'
-        }"
+        :to="to_admin_router(admin_router.route_name)"
     >
       <span class="m-auto d-flex">
-        <i class="fa-regular fa-file my-auto"></i>
+        <span class="text-center" style="width: 25px;">
+          <i :class="admin_router.icon"></i>
+        </span>
         <p class="d-none d-md-block my-auto ms-1">
           <span v-if="show_label">
-            Page
+            {{admin_router.label}}
           </span>
         </p>
       </span>
     </router-link>
     </li>
-    <li>
-    <router-link
-        class="btn btn-light rounded-0 w-100"
-      :to="{name:'admin-dashboard'}"
-    >
-      <span class="m-auto d-flex">
-        <i class="fa-solid fa-gauge my-auto"></i>
-        <span v-if="show_label" class="d-none d-md-block ms-1">
-          Dashboard
-        </span>
-      </span>
-    </router-link>
-    </li>
-    <li>
-    <router-link
-        class="btn btn-light rounded-0 w-100"
-      :to="{name:'admin-projects'}"
-    >
-      <span class="m-auto d-flex">
-        <i class="fa-solid fa-tarp my-auto"></i>
-        <span v-if="show_label" class="d-none d-md-block ms-1">
-          Projects
-        </span>
-      </span>
-    </router-link>
-    </li>
-    <li>
-    <router-link
-        class="btn btn-light rounded-0 w-100"
-      :to="{name:'admin-tag-manage'}"
-    >
-      <span class="m-auto d-flex">
-        <i class="fa-solid fa-tag my-auto"></i>
-        <span v-if="show_label" class="d-none d-md-block ms-1">
-          Projects
-        </span>
-      </span>
-    </router-link>
-    </li>
-    <li>
-    <router-link
-        class="btn btn-light rounded-0 w-100"
-      :to="{name:'todos'}"
-    >
-      <span class="m-auto d-flex">
-        <i class="fa-solid fa-clipboard-check"></i>
-        <span v-if="show_label" class="d-none d-md-block ms-1">
-          ToDo List
-        </span>
-      </span>
-    </router-link>
-    </li>
   </ul>
+ </nav>
 </aside>
 </template>
 
 <style scoped>
-
+.active{
+  background-color: var(--bs-dark);
+  color: var(--bs-light)
+}
 </style>
