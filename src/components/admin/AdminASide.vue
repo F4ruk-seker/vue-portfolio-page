@@ -15,31 +15,26 @@ const admin_aside_routers = ref([
     route_name: 'admin-page',
     label: 'Page',
     icon: 'fa-regular fa-file',
-    active: false
   },
   {
     route_name: 'admin-dashboard',
     label: 'Dashboard',
     icon: 'fa-solid fa-gauge',
-    active: false
   },
   {
     route_name: 'admin-projects',
     label: 'Content',
     icon: 'fa-solid fa-tarp',
-    active: false
   },
   {
     route_name: 'admin-tag-manage',
     label: "tag's",
     icon: 'fa-solid fa-tag',
-    active: false
   },
   {
     route_name: 'todos',
     label: "todo's",
     icon: 'fa-solid fa-clipboard-check',
-    active: false
   },
 
 ])
