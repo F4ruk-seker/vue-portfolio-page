@@ -28,9 +28,12 @@ onMounted(async ()=>{
 <template>
 <section class="d-flex h-100">
     <article class="container justify-content-center my-auto">
-        <div class="row border p-3 shadow rounded overflow-y-auto" style="height: 80vh;">
+        <div class="row border p-3 shadow rounded overflow-y-auto mh-100">
             <div class="col-2 col-md-4 pt-3 rounded-1 border">
-                <strong>Content Type</strong>
+                <div class="w-100 d-flex justify-content-between">
+                    <strong class="my-auto">Content Type</strong>
+                    <button class="btn btn-success btn-sm fw-bold disabled" disabled>ADD</button>
+                </div>
                 <hr>
                 <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
                     <li class="">
@@ -39,7 +42,7 @@ onMounted(async ()=>{
                         </button>
                     </li>
                     <li 
-                    v-for="content_type in content_types" v-bind:key="content_type.id"
+                        v-for="content_type in content_types" v-bind:key="content_type.id"
                     >
                         <button class="btn btn-light d-flex rounded-0 mb-2 w-100 fw-semibold">
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
@@ -47,8 +50,20 @@ onMounted(async ()=>{
                     </li>
                 </ul>
             </div>
-            <div class="col overflow-y-auto" style="height: 76vh;">
-                <ProjectPreview v-for="project in projcets" v-bind:key="project.id" :project="project"/>
+            <div class="col overflow-y-auto " style="max-height: 80vh;">
+                <div class="d-flex bg-light px-1 py-2 rounded rounded-bottom-0 mb-2 border-bottom">
+                    <strong class="my-auto text-primary" style="min-width: 50px; max-width:50px;">row/id</strong>
+                    <div class="my-auto d-flex" style="min-width: 100px; max-width: 100px;">
+                        <hr class="w-100 my-auto">
+                        <p class="my-auto mx-2 p-0 fw-bold text-secondary">img</p>
+                        <hr class="w-100 my-auto">
+                    </div>
+                    <div class="w-100 px-1 my-auto d-flex justify-content-between">
+                        <strong class="my-auto text-success">Title</strong>
+                        <button class="btn btn-success btn-sm my-auto fw-bold disabled" disabled>ADD</button>
+                    </div>
+                </div>
+                <ProjectPreview v-for="(project, index) in projcets" v-bind:key="project.id" :project="project" :row="index" />
             </div>
         </div>
     </article>
