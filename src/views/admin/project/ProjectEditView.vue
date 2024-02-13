@@ -46,9 +46,6 @@ export default{
                     this.content_type_tags.push(tag)
                 });
             });
-
-            console.log(this.content_type_tags)
-            console.log(this.content_type_tags.length)
         },
         async update_project(){
             try {
