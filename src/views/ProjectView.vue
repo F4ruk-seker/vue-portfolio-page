@@ -170,9 +170,9 @@ export default {
           <div class="text-center mt-0 mt-md-1">
             <i class="fa-regular fa-heart text-danger"></i> 0
             <a href="#comment" class=" text-decoration-none">
-              <i class="fa-regular fa-comment text-primary"></i> 0
+              <i class="fa-regular fa-comment text-primary"></i> {{ project.comments.length }}
             </a>
-            <i class="fa-regular fa-eye"></i> 0
+            <i class="fa-regular fa-eye"></i> {{ project.view }}
           </div>
         </div>
         <div class="col-12 col-md-8">

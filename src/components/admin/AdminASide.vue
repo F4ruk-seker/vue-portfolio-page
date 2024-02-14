@@ -35,8 +35,7 @@ const admin_aside_routers = ref([
     route_name: 'todos',
     label: "todo's",
     icon: 'fa-solid fa-clipboard-check',
-  },
-
+  }
 ])
 
 
