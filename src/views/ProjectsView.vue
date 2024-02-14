@@ -183,18 +183,18 @@ async function fetch_project_filters(){
         :to="{name:'project', params:{slug:project.slug}}" 
         :class="toggle_card_view ? 'mx-0 px-0 row bg-light mb-1 border-0 border-bottom text-decoration-none' : 'card text-decoration-none'">
           <div :class="toggle_card_view ? 'col-4' : 'position-relative'">
-            <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="card-img-top" :alt="project.ceo_description">
-            <div v-else class="bg-dark-subtle d-flex" style="height: 200px;">
-              <p class="p-0 m-auto justify-content-center text-info-emphasis">
-                <i class="fa-solid fa-image"></i>
+            <div v-if="project.ceo_image_url" class=" ratio ratio-1x1 border-bottom card-banner" :style="'background-image: url(' + project.ceo_image_url + ');  background-size: cover;' "></div>
+            <div v-else class="bg-dark-subtle d-flex ratio ratio-1x1">
+              <p class="p-0 m-auto text-info-emphasis d-flex">
+                <i class="fa-solid fa-image justify-content-center m-auto"></i>
               </p>
             </div>
           </div>
           <div :class="toggle_card_view ? 'col-8 card-body my-auto':'card-body'">
-            <h5 class="card-title ">{{ project.title }}</h5>
+            <h5 class="card-title text-center text-primary fw-bold">{{ project.title }}</h5>
             <div v-if="toggle_card_view ">
               <hr>
-              <p class="card-text">{{ project.ceo_description }}</p>
+              <p class="card-text ">{{ project.ceo_description }}</p>
             </div>
           </div>
         </router-link>
@@ -208,6 +208,12 @@ async function fetch_project_filters(){
 </template>
 
 <style scoped>
+.card-banner {
+background-repeat: no-repeat;
+background-size: auto;
+background-position: center;
+}
+
 section{
   font-size: 22px;
 }
