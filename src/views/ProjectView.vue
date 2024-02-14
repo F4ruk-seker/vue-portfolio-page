@@ -167,12 +167,25 @@ export default {
               <i class="fa-solid fa-image"></i>
             </p>
           </div>
-          <div class="text-center mt-0 mt-md-1">
-            <i class="fa-regular fa-heart text-danger"></i> 0
-            <a href="#comment" class=" text-decoration-none">
-              <i class="fa-regular fa-comment text-primary"></i> {{ project.comments.length }}
-            </a>
-            <i class="fa-regular fa-eye"></i> {{ project.view }}
+
+          <div class="d-flex justify-content-center fw-bold text-center mt-0 mt-md-1">
+            <div 
+              class="d-flex px-1"
+            >
+            <i class="fa-regular fa-heart text-danger my-auto"></i> 
+            <span class="ms-1 my-auto">0</span>
+          </div>
+          <a href="#comment" class=" d-inline-block text-decoration-none">
+              <div class="d-flex mx-1">
+                <i class="fa-regular fa-comment text-primary my-auto"></i> 
+                <span class="ms-1 my-auto">
+                  {{ project.comments.length }}
+                </span>
+              </div>
+            </a>            
+          <div class="d-flex mx-1"></div>
+            <i class="fa-regular fa-eye my-auto"></i> 
+            <span class="ms-1 my-auto">{{ project.view }}</span>
           </div>
         </div>
         <div class="col-12 col-md-8">
