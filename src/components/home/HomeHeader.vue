@@ -1,7 +1,7 @@
 <template>
  <header class="header text-center">	    
 		<div class="force-overflow">
-			<h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Simon Doe</a></h1>
+			<h1 class="blog-name pt-lg-4 mb-0 "><a class="no-text-decoration" href="index.html">Simon Doe</a></h1>
 			
 			<nav class="navbar navbar-expand-lg navbar-dark" >
 				

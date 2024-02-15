@@ -5,7 +5,10 @@
    <div class="main-wrapper">
       <AboutMe />
       <WhatIdo />
-      <TestimonialsList />
+      <div class="container"><hr></div>
+      <FeaturedProjects />
+      <div class="container"><hr></div>
+      <LatestBlogPosts />
    </div>
   </article>
   <article v-else>
@@ -31,7 +34,10 @@ import LoadCard from "@/components/LoadCard.vue";
 import HomeHeader from "@/components/home/HomeHeader.vue"
 import AboutMe from "@/components/home/AboutMe.vue";
 import WhatIdo from "@/components/home/WhatIdo.vue";
-import TestimonialsList from "@/components/home/TestimonialsList.vue"
+import FeaturedProjects from "@/components/home/FeaturedProjects.vue";
+import LatestBlogPosts from "@/components/home/LatestBlogPosts.vue";
+
+
 /*
   <meta name="description" content="Free Web tutorials">
   <meta name="keywords" content="HTML, CSS, JavaScript">
@@ -40,7 +46,7 @@ import TestimonialsList from "@/components/home/TestimonialsList.vue"
 */
 export default {
   name: 'HomeView',
-  components: { LoadCard, HomeHeader /* MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard*/, AboutMe,WhatIdo, TestimonialsList },
+  components: { LoadCard, HomeHeader /* MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard*/, AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
   data: ()=>{return{
     page: {
       context: {}

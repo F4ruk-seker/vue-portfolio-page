@@ -8,8 +8,8 @@ import AuthService from "@/composable/AuthService";
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-import '@/assets/style.css'
-import '@/assets/tiny-slider.css'
+import '@/assets/css/bootstrap.css'
+import '@/assets/css/style.css'
 
 
 import {createHead} from "@vueuse/head";
