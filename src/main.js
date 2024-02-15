@@ -5,8 +5,13 @@ import { store } from './store'
 import axios from "axios";
 import AuthService from "@/composable/AuthService";
 // import VueMeta from 'vue-meta'
-import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+
+import '@/assets/style.css'
+import '@/assets/tiny-slider.css'
+
+
 import {createHead} from "@vueuse/head";
 const head = createHead()
 import { createMetaManager } from 'vue-meta';

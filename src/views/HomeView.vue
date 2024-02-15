@@ -1,12 +1,12 @@
 <template>
 <section class="">
   <article v-if="!on_load">
-    <nav-bar />
-    <scrol-top />
-    <hi-card :context="page.context" :view_count="page.view" />
-    <about-me :context="page.context" />
-    <experiences-card :context="page.context"/>
-    <contact-me :contact_me_background="page.context.contact_me_background" />
+   <HomeHeader />
+   <div class="main-wrapper">
+      <AboutMe />
+      <WhatIdo />
+      <TestimonialsList />
+   </div>
   </article>
   <article v-else>
     <load-card />
@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import PageManager from "@/composable/page_manager";
 
+import PageManager from "@/composable/page_manager";
+/*
 import HiCard from "@/components/HiCard.vue";
 import AboutMe from "@/components/AboutMe.vue";
 import ContactMe from "@/components/ContactMe.vue";
@@ -25,8 +26,12 @@ import ExperiencesCard from "@/components/ExperiencesCard.vue";
 import ScrolTop from "@/components/ScrolTop.vue";
 import NavBar from "@/components/NavBar.vue";
 import MyFoter from "@/components/MyFoter.vue";
+*/
 import LoadCard from "@/components/LoadCard.vue";
-
+import HomeHeader from "@/components/home/HomeHeader.vue"
+import AboutMe from "@/components/home/AboutMe.vue";
+import WhatIdo from "@/components/home/WhatIdo.vue";
+import TestimonialsList from "@/components/home/TestimonialsList.vue"
 /*
   <meta name="description" content="Free Web tutorials">
   <meta name="keywords" content="HTML, CSS, JavaScript">
@@ -35,12 +40,12 @@ import LoadCard from "@/components/LoadCard.vue";
 */
 export default {
   name: 'HomeView',
-  components: {LoadCard, MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
+  components: { LoadCard, HomeHeader /* MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard*/, AboutMe,WhatIdo, TestimonialsList },
   data: ()=>{return{
     page: {
       context: {}
     },
-    on_load: true
+    on_load: true 
   }},
   mounted() {
     this.get_page_context()
