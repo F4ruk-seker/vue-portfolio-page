@@ -111,6 +111,11 @@ const routes = [
         path: 'todos',
         name: 'todos',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/todo/ToDoView.vue'),
+      },
+      {
+        path: 'otp',
+        name: 'otp',
+        component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/otp/OtpManager.vue'),
       }
     ]
   },
