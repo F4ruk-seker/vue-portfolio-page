@@ -161,7 +161,7 @@ export default {
     <div  class="container justify-content-center m-auto">
       <div class="row">
         <div class="col-12 col-md-4 ms-0 ps-0">
-          <img v-if="project.ceo_image_url" :src="project.ceo_image_url" class="rounded ratio ratio-1x1" alt="...">
+          <img v-if="project.seo_image_url" :src="project.seo_image_url" class="rounded ratio ratio-1x1" alt="...">
           <div v-else class="bg-dark-subtle d-flex rounded" style="height: 200px;">
             <p class="p-0 m-auto justify-content-center text-info-emphasis">
               <i class="fa-solid fa-image"></i>
@@ -190,7 +190,7 @@ export default {
         <div class="col-12 col-md-8 my-auto">
           <h1>{{ project.title }}</h1>
           <hr>
-          <p>{{ project.ceo_description }}</p>
+          <p>{{ project.seo_description }}</p>
           <hr>
           <div class="d-flex">
             <i class="fa-solid fa-tags my-auto me-2"></i>

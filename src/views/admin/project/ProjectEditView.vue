@@ -121,13 +121,13 @@ export default{
                 <hr class="ms-2 w-100">
             </div>
             <label class="ms-2">ceo description</label>
-            <input v-model="project.ceo_description" class="mt-1 form-control" placeholder="ceo description">
+            <input v-model="project.seo_description" class="mt-1 form-control" placeholder="ceo description">
             
             <label class="ms-2">ceo image url</label>
-            <input v-model="project.ceo_image_url" class="mt-1 form-control" placeholder="image url">
+            <input v-model="project.seo_image_url" class="mt-1 form-control" placeholder="image url">
 
             <label class="ms-2">ceo image description</label>
-            <input v-model="project.ceo_image_alt" class="mt-1 form-control" placeholder="ceo image description">
+            <input v-model="project.seo_image_alt" class="mt-1 form-control" placeholder="ceo image description">
             <hr>
             <label class="fw-bold">
                 Content Type : <span class="text-success">{{ project.content_type }}</span>
