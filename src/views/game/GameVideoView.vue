@@ -28,7 +28,7 @@
         </div>
     </div>
     <div v-else class="text-light">
-        loads
+        loads-
     </div>
     </article>
 </section>
