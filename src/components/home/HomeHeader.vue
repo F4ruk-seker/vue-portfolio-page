@@ -15,11 +15,11 @@
 						
 						<div class="bio mb-3">Hi, my name is Simon Doe and I'm a senior software engineer. Welcome to my personal website!</div>
 						<ul class="social-list list-inline py-2 mx-auto">
-							<li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+							<li class="list-inline-item" v-for="(header_link, index) in header_links" v-bind:key="index">
+								<a :href="header_link.url">
+									<i :class="header_link.icon"></i>
+								</a>
+							</li>
 						</ul><!--//social-list-->
 						<hr> 
 					</div><!--//profile-section-->
@@ -65,8 +65,8 @@
               <i class="fas fa-adjust me-1"></i>
               Dark Mode
             </h4>
-  <input class="toggle" id="darkmode" type="checkbox">
-  <label class="toggle-btn mx-auto mb-0" for="darkmode"></label>
+				<input class="toggle" id="darkmode" type="checkbox">
+				<label class="toggle-btn mx-auto mb-0" for="darkmode"></label>
   
 					</div><!--//dark-mode-toggle-->
 					
@@ -77,4 +77,19 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const header_links = ref([
+{
+		icon: 'fab fa-linkedin-in fa-fw',
+		url: 'https://www.linkedin.com/in/faruk-seker-python/'
+	},{
+		icon: 'fab fa-github-alt fa-fw',
+		url: 'https://github.com/F4ruk-seker/'
+	},{
+		icon: 'fa-brands fa-instagram fa-fw',
+		url: 'https://www.instagram.com/f4ruk.seker/'
+	}
+])
+
 </script>
