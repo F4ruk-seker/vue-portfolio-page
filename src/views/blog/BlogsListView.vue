@@ -64,10 +64,10 @@ async function set_filters(id){
 // ?search=test
 async function fetch_projects(search=''){
   store.dispatch('showProgress')
-  store.dispatch('updateProgressStatus', 40)
+  store.dispatch('updateProgressStatus', 60)
   
   await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=blog&search=${search}`).then(async(response)=>{
-    store.dispatch('updateProgressStatus', 60)
+    store.dispatch('updateProgressStatus', 80)
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
       response.data.forEach((project) => {
       project.created = new Date(project.created);
@@ -86,9 +86,10 @@ async function fetch_projects(search=''){
     });
     projects.value = response.data;
     await new Promise(resolve => setTimeout(resolve, 100));
+
     store.dispatch('updateProgressStatus', 100)
-    store.dispatch('hideProgress')
     await new Promise(resolve => setTimeout(resolve, 100));
+    store.dispatch('hideProgress')
   })
 }
 
