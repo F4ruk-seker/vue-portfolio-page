@@ -1,13 +1,12 @@
 <script>
 import axios from "axios";
-import NavbarStable from "@/components/NavbarStable.vue";
 import { VMarkdownView } from 'vue3-markdown'
 import 'vue3-markdown/dist/style.css'
 
 
 export default {
   name: 'ProjectView',
-  components: {VMarkdownView, NavbarStable},
+  components: {VMarkdownView},
   props: ['slug'],
   data:()=>{return{
     project: null,
@@ -88,6 +87,7 @@ export default {
     await this.get_project()
     //this.resize_images()
     this.calculate_section_height()
+    window.scrollTo(0,0);
   },
 }
 
@@ -95,7 +95,6 @@ export default {
 </script>
 
 <template>
-<navbar-stable class="text-dark bg-light-subtle border-bottom  shadow-none" text_color="dark" id="navbar-stable" />
 <section class="bg-light my-1  position-sticky top-0 z-2">
   <article class="d-flex">
     <div></div>

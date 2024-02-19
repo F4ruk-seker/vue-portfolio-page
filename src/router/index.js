@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue";
+import PortfolioView from "@/views/PortfolioView.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const routes = [
   {
+<<<<<<< HEAD
     path: '/',
     name: 'home',
     component: HomeView,
@@ -50,35 +52,72 @@ const routes = [
     name: 'blog',
     component: () => import(/* webpackChunkName: "auth" */ '../views/blog/BlogView.vue'),
     children: [
+=======
+    path: '',
+    name: 'portfolio',
+    component: PortfolioView,
+    children:[
+>>>>>>> newview
       {
         path: '',
-        name: 'blog-list',
-        component: () => import(/* webpackChunkName: "login" */ '../views/blog/BlogsListView.vue')
-      },      {
-        path: ':slug',
-        name: 'blog-content',
-        component: () => import(/* webpackChunkName: "register" */ '../views/blog/BlogContentView.vue'),
-        props: true
-      }
-    ]
-  },
-  {
-    path: '/auth',
-    name: 'auth',
-    component: () => import(/* webpackChunkName: "auth" */ '../views/login/AuthView.vue'),
-    children: [
+        name: 'home',
+        component: HomeView,
+      },
       {
-        path: 'login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: "login" */ '../views/login/LoginView.vue')
-      },      {
-        path: 'register',
-        name: 'register',
-        component: () => import(/* webpackChunkName: "register" */ '../views/login/RegisterView.vue')
-      }
+        path: '/about',
+        name: 'about',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+      },
+      {
+        path: '/projects',
+        name: 'projects',
+        component: () => import(/* webpackChunkName: "projects" */ '../views/ProjectsView.vue'),
+       },
+      {
+        path: '/project/:slug',
+        name: 'project',
+        component: () => import(/* webpackChunkName: "projects" */ '../views/ProjectView.vue'),
+        props: true
+      },
+      {
+        path: '/blog',
+        name: 'blog',
+        component: () => import(/* webpackChunkName: "auth" */ '../views/blog/BlogView.vue'),
+        children: [
+          {
+            path: '',
+            name: 'blog-list',
+            component: () => import(/* webpackChunkName: "login" */ '../views/blog/BlogsListView.vue')
+          },      {
+            path: ':slug',
+            name: 'blog-content',
+            component: () => import(/* webpackChunkName: "register" */ '../views/blog/BlogContentView.vue'),
+            props: true
+          }
+        ]
+      },
+      {
+        path: '/auth',
+        name: 'auth',
+        component: () => import(/* webpackChunkName: "auth" */ '../views/login/AuthView.vue'),
+        children: [
+          {
+            path: 'login',
+            name: 'login',
+            component: () => import(/* webpackChunkName: "login" */ '../views/login/LoginView.vue')
+          },      {
+            path: 'register',
+            name: 'register',
+            component: () => import(/* webpackChunkName: "register" */ '../views/login/RegisterView.vue')
+          }
+        ]
+      },
     ]
   },
-
+  
   {
     path: '/admin',
     name: 'admin',
@@ -121,11 +160,13 @@ const routes = [
         name: 'admin-project',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/project/ProjectEditView.vue'),
         props: true
-      },{
+      },
+      {
         path: 'tags',
         name: 'admin-tag-manage',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/tag/TagEditView.vue'),
-      },{
+      },
+      {
         path: 'todos',
         name: 'todos',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/todo/ToDoView.vue'),

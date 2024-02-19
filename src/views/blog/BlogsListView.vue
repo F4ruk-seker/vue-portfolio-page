@@ -88,19 +88,13 @@ async function fetch_projects(search=''){
 
 </script>
 <template>
-<nav class="container">
-<article class="py-3">
-    <ul v-if="tags" class="d-flex list-unstyled my-auto">
-        <li class="pe-1" v-for="(tag, index) in tags" v-bind:key="index">
-            <button :class="'btn border rounded-5 fw-semibold ' + ( tag.selected ? 'btn-primary' : 'btn-light')" @click="set_filters(tag.id)">{{ tag.name }}</button>
-        </li>
-    </ul>
-    <hr>
-</article>
-</nav>
-<section class="container">
-  <article class="d-flex justify-content-between">
-    <div class="w-100 position-relative">
+  <section class="cta-section theme-bg-light py-5">
+<div class="container text-center">
+<h2 class="heading">A Blog About Software Development And Life</h2>
+<div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+<div class="single-form-max-width pt-3 mx-auto">
+<div class="signup-form row g-2 g-lg-2 align-items-center">
+  <div class="w-100 position-relative">
       <input class="form-control rounded-5" style="padding-right: 48px;" type="text" v-model="search_text">
       <div class="d-flex position-absolute btn-search">
         <button class="btn btn-danger rounded-circle h-100 w-100 ps-2 pt-1">
@@ -108,27 +102,33 @@ async function fetch_projects(search=''){
         </button>
       </div>
     </div>
-    <div class="d-flex position-relative ms-2">
-      <input class="form-control rounded-end-0" type="number" placeholder="300" id="read-speed">
-      <label class="position-absolute top-0 text-secondary" style="margin-top: 35px;font-size: 14px;" for="read-speed">read speed 300 word/min</label>
-      <button class="btn btn-light border rounded-start-0 border-start-0">
-        <i class="fa-solid fa-gauge-high"></i>
-      </button>
-    </div>
-  </article>
+</div><!--//signup-form-->
+</div><!--//single-form-max-width-->
+</div>
+</section >
+<nav class="theme-bg-light">
+<article class="container py-3">
+    <ul v-if="tags" class="d-flex list-unstyled my-auto">
+        <li class="pe-1" v-for="(tag, index) in tags" v-bind:key="index">
+            <button :class="'btn border rounded-5 fw-semibold ' + ( tag.selected ? 'btn-primary' : 'btn-white')" @click="set_filters(tag.id)">{{ tag.name }}</button>
+        </li>
+    </ul>
+    <hr>
+</article>
+</nav>
+<section class="container">
     <article class="mt-5 container">
       <div class="row">
         <PireviewCard v-for="project in projects" v-bind:key="project.id" :content_preview="project" />
       </div>
-
     </article>
 </section>
 </template>
 
 <style scoped>
 .btn-search{
-  top: 4px;
-  right: 4px;
+  top: 5px;
+  right: 8px;
   width: 30px;
   height: 30px;
 }

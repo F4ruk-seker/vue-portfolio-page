@@ -1,23 +1,29 @@
 <template>
 <section class="">
-  <article v-if="!on_load">
-    <nav-bar />
-    <scrol-top />
-    <hi-card :context="page.context" :view_count="page.view" />
-    <about-me :context="page.context" />
-    <experiences-card :context="page.context"/>
-    <contact-me :contact_me_background="page.context.contact_me_background" />
-  </article>
-  <article v-else>
-    <load-card />
+  <article>
+<div v-if="on_load" class="progress rounded-0">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+  role="progressbar"
+  :style="'width: ' + progress +'%'"
+  :aria-valuenow="progress"
+  aria-valuemin="0"
+  aria-valuemax="100"></div>
+</div>
+      <AboutMe :show_load_anim="on_load" />
+      <WhatIdo />
+      <div class="container"><hr></div>
+      <FeaturedProjects />
+      <div class="container"><hr></div>
+      <LatestBlogPosts />
   </article>
 </section>
 <my-foter />
 </template>
 
 <script>
-import PageManager from "@/composable/page_manager";
 
+import PageManager from "@/composable/page_manager";
+/*
 import HiCard from "@/components/HiCard.vue";
 import AboutMe from "@/components/AboutMe.vue";
 import ContactMe from "@/components/ContactMe.vue";
@@ -25,7 +31,12 @@ import ExperiencesCard from "@/components/ExperiencesCard.vue";
 import ScrolTop from "@/components/ScrolTop.vue";
 import NavBar from "@/components/NavBar.vue";
 import MyFoter from "@/components/MyFoter.vue";
-import LoadCard from "@/components/LoadCard.vue";
+*/
+import AboutMe from "@/components/home/AboutMe.vue";
+import WhatIdo from "@/components/home/WhatIdo.vue";
+import FeaturedProjects from "@/components/home/FeaturedProjects.vue";
+import LatestBlogPosts from "@/components/home/LatestBlogPosts.vue";
+
 
 /*
   <meta name="description" content="Free Web tutorials">
@@ -35,24 +46,32 @@ import LoadCard from "@/components/LoadCard.vue";
 */
 export default {
   name: 'HomeView',
-  components: {LoadCard, MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard},
+  components: { AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
   data: ()=>{return{
     page: {
       context: {}
     },
-    on_load: true
+    on_load: true,
+    progress: 30
   }},
   mounted() {
     this.get_page_context()
   },methods:{
-    get_page_context(){
+    async get_page_context(){
+      this.progress = 50
       const page_name = this.$route.name
       const fullPath = this.$route.fullPath
-      PageManager.get_page_context(page_name, fullPath).then(()=>{
+
+      await PageManager.get_page_context(page_name, fullPath).then(()=>{
+        this.progress = 80
         PageManager.load_page_context()
         this.page = PageManager.get_context()
-        this.on_load = false
       })
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.progress = 100
+      await new Promise(resolve => setTimeout(resolve, 100));
+      this.on_load = false
+
     },
   }
 
