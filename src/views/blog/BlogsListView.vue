@@ -3,6 +3,9 @@ import { onMounted, ref, watch } from 'vue'
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import PireviewCard from '@/components/blog/PreviewCard'
+import { useStore } from 'vuex';
+
+const store = useStore()
 
 const router = useRouter()
 
@@ -60,20 +63,21 @@ async function set_filters(id){
 
 // ?search=test
 async function fetch_projects(search=''){
-  await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=blog&search=${search}`).then((response)=>{
+  store.dispatch('showProgress')
+  store.dispatch('updateProgressStatus', 40)
+  
+  await axios.get(`content/all/?tags=${selected_tags.value.join(',')}&content_type=blog&search=${search}`).then(async(response)=>{
+    store.dispatch('updateProgressStatus', 60)
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
       response.data.forEach((project) => {
       project.created = new Date(project.created);
-
       // Separate date properties and write as name
       const day = project.created.getDate();
       const month = project.created.getMonth() + 1; // Adding 1 because month value is between 0 and 11
       const year = project.created.getFullYear();
-
       // Find the name of the month
       const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',];
       const monthName = monthNames[month - 1]; // Subtracting 1 because the month names array starts from 0
-
       // Update the results
       project.day = day;
       project.month = month;
@@ -81,7 +85,10 @@ async function fetch_projects(search=''){
       project.monthName = monthName;
     });
     projects.value = response.data;
-    
+    await new Promise(resolve => setTimeout(resolve, 100));
+    store.dispatch('updateProgressStatus', 100)
+    store.dispatch('hideProgress')
+    await new Promise(resolve => setTimeout(resolve, 100));
   })
 }
 

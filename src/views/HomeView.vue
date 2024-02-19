@@ -1,14 +1,6 @@
 <template>
-<section class="">
-  <article class=" position-relative">
-<div v-if="on_load" class="progress rounded-0 position-sticky top-0 start-0 z-3">
-  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-  role="progressbar"
-  :style="'width: ' + progress +'%'"
-  :aria-valuenow="progress"
-  aria-valuemin="0"
-  aria-valuemax="100"></div>
-</div>
+<section>
+<article>
       <AboutMe :show_load_anim="on_load" />
       <WhatIdo />
       <div class="container"><hr></div>
@@ -36,17 +28,19 @@ import AboutMe from "@/components/home/AboutMe.vue";
 import WhatIdo from "@/components/home/WhatIdo.vue";
 import FeaturedProjects from "@/components/home/FeaturedProjects.vue";
 import LatestBlogPosts from "@/components/home/LatestBlogPosts.vue";
-
-
 /*
   <meta name="description" content="Free Web tutorials">
   <meta name="keywords" content="HTML, CSS, JavaScript">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 */
+
+
+
 export default {
   name: 'HomeView',
   components: { AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
+  emits: ['toggle_progress_bar'],
   data: ()=>{return{
     page: {
       context: {}
@@ -58,19 +52,24 @@ export default {
     this.get_page_context()
   },methods:{
     async get_page_context(){
-      this.progress = 50
+
+      this.$store.dispatch('showProgress')
+      this.$store.dispatch('updateProgressStatus', 50)
+
       const page_name = this.$route.name
       const fullPath = this.$route.fullPath
 
       await PageManager.get_page_context(page_name, fullPath).then(()=>{
-        this.progress = 80
+        this.$store.dispatch('updateProgressStatus', 80)
+
         PageManager.load_page_context()
         this.page = PageManager.get_context()
       })
       await new Promise(resolve => setTimeout(resolve, 1000));
-      this.progress = 100
+      this.$store.dispatch('updateProgressStatus', 100)
       await new Promise(resolve => setTimeout(resolve, 100));
       this.on_load = false
+      this.$store.dispatch('hideProgress')
 
     },
   }

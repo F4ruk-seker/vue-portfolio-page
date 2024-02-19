@@ -1,30 +1,37 @@
-import { createStore } from "vuex";
-import createPersistedState from 'vuex-persistedstate';
-
+// store/index.js
+import { createStore } from 'vuex';
 
 export const store = createStore({
-  state:{
-    user:{
-      email: ''
-    }
+  state: {
+    progress: {
+        show: false,
+        status: 0,
+    },
+},
+mutations:{
+  SHOW_PROGRESS(state) {
+    state.progress.show = true;
   },
-  getters: {
-    get_user(state){
-      return state.user
-    }
+  HIDE_PROGRESS(state) {
+    state.progress.show = false;
   },
-  mutations:{
-    set_user(state, { user }){
-      state.user = user
-    }
+  UPDATE_PROGRESS_STATUS(state, status) {
+    state.progress.status = status;
   },
-  actions:{
-    login ({ commit }, user){
-      commit('set_user', {user: user})
-      console.log(commit)
-      console.log(user)
-    }
+ },
+ actions: {
+  showProgress({ commit }) {
+    commit('SHOW_PROGRESS');
   },
-  plugins: [createPersistedState()],
-});
-
+  hideProgress({ commit }) {
+    commit('HIDE_PROGRESS');
+  },
+  updateProgressStatus({ commit }, status) {
+    commit('UPDATE_PROGRESS_STATUS', status);
+  },
+},
+getters:{
+  getProgressShow: (state) => state.progress.show,
+  getProgressStatus: (state) => state.progress.status,
+}
+})
