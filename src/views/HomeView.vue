@@ -1,7 +1,15 @@
 <template>
 <section class="">
-  <article v-if="!on_load">
-   <div class="">
+  <article>
+<div v-if="on_load" class="progress rounded-0">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+  role="progressbar"
+  :style="'width: ' + progress +'%'"
+  :aria-valuenow="progress"
+  aria-valuemin="0"
+  aria-valuemax="100"></div>
+</div>
+   <div v-else class="">
       <AboutMe />
       <WhatIdo />
       <div class="container"><hr></div>
@@ -9,9 +17,6 @@
       <div class="container"><hr></div>
       <LatestBlogPosts />
    </div>
-  </article>
-  <article v-else>
-    <load-card />
   </article>
 </section>
 <my-foter />
@@ -49,19 +54,25 @@ export default {
     page: {
       context: {}
     },
-    on_load: true 
+    on_load: true,
+    progress: 30
   }},
   mounted() {
     this.get_page_context()
   },methods:{
     get_page_context(){
+      this.progress = 50
       const page_name = this.$route.name
       const fullPath = this.$route.fullPath
       PageManager.get_page_context(page_name, fullPath).then(()=>{
+        this.progress = 60
+
         PageManager.load_page_context()
         this.page = PageManager.get_context()
         this.on_load = false
       })
+      this.progress = 100
+
     },
   }
 
