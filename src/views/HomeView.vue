@@ -9,14 +9,12 @@
   aria-valuemin="0"
   aria-valuemax="100"></div>
 </div>
-   <div v-else class="">
-      <AboutMe />
+      <AboutMe :show_load_anim="on_load" />
       <WhatIdo />
       <div class="container"><hr></div>
       <FeaturedProjects />
       <div class="container"><hr></div>
       <LatestBlogPosts />
-   </div>
   </article>
 </section>
 <my-foter />
@@ -63,14 +61,16 @@ export default {
       this.progress = 50
       const page_name = this.$route.name
       const fullPath = this.$route.fullPath
-      await PageManager.get_page_context(page_name, fullPath).then(()=>{
-        this.progress = 60
 
+      await PageManager.get_page_context(page_name, fullPath).then(()=>{
+        this.progress = 80
         PageManager.load_page_context()
         this.page = PageManager.get_context()
-        this.on_load = false
       })
+      await new Promise(resolve => setTimeout(resolve, 1000));
       this.progress = 100
+      await new Promise(resolve => setTimeout(resolve, 100));
+      this.on_load = false
 
     },
   }
