@@ -1,8 +1,7 @@
 <template>
 <section class="">
   <article v-if="!on_load">
-   <HomeHeader />
-   <div class="main-wrapper">
+   <div class="">
       <AboutMe />
       <WhatIdo />
       <div class="container"><hr></div>
@@ -31,7 +30,6 @@ import NavBar from "@/components/NavBar.vue";
 import MyFoter from "@/components/MyFoter.vue";
 */
 import LoadCard from "@/components/LoadCard.vue";
-import HomeHeader from "@/components/home/HomeHeader.vue"
 import AboutMe from "@/components/home/AboutMe.vue";
 import WhatIdo from "@/components/home/WhatIdo.vue";
 import FeaturedProjects from "@/components/home/FeaturedProjects.vue";
@@ -46,7 +44,7 @@ import LatestBlogPosts from "@/components/home/LatestBlogPosts.vue";
 */
 export default {
   name: 'HomeView',
-  components: { LoadCard, HomeHeader /* MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard*/, AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
+  components: { LoadCard, /* MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard*/ AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
   data: ()=>{return{
     page: {
       context: {}

@@ -2,7 +2,12 @@
 <section class="overview-section p-3 p-lg-5">
 			<div class="container">
 				<h2 class="section-title font-weight-bold mb-3">What I do</h2>
-				<div class="section-intro mb-5">I have more than 10 years' experience building software for clients all over the world. Below is a quick overview of my main technical skill sets and technologies I use. Want to find out more about my experience? Check out my <a class="text-link" href="resume.html">online resume</a> and <a class="text-link" href="portfolio.html">project portfolio</a>.</div>
+				<div class="section-intro mb-5">
+					I continuously strive to improve myself in order to provide you with a quality web service.
+					I want to share with you the web frameworks, software tools,
+					and languages I have learned in order to offer valuable services.
+					You can explore. My portfolio and resume for more information.
+				</div>
 				<div class="row">
 
 					<div class="item col-6 col-lg-3" v-for="(skill, index) in Skills" v-bind:key="index">
