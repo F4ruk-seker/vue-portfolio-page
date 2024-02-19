@@ -88,6 +88,7 @@ export default {
     await this.get_project()
     //this.resize_images()
     this.calculate_section_height()
+    window.scrollTo(0,0);
   },
 }
 

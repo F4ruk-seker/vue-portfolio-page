@@ -121,7 +121,7 @@ async function fetch_project_filters(){
 </script>
 
 <template>
-<section class="container row my-0 mx-auto p-0 pt-1" style="height: 95%;">
+<section class="row my-0 mx-auto p-0 pt-1" style="height: 95%;">
   <article class="col-12 col-md-4 col-xl-3 border-end position-sticky top-0">
     <h2 class="pt-3">Filter</h2>
     <hr>

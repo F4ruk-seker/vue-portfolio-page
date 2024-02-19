@@ -31,25 +31,20 @@
 					</div><!--//profile-section-->
 					
 					<ul class="navbar-nav flex-column text-start">
-						<li class="nav-item">
-							<a class="nav-link active" href="index.html"><i class="fas fa-user fa-fw me-2"></i>About Me<span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="portfolio.html"><i class="fas fa-laptop-code fa-fw me-2"></i>Portfolio</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="services.html"><i class="fas fa-briefcase fa-fw me-2"></i>Services &amp; Pricing</a>
+						<li class="nav-item" v-for="(route_link, index) in route_links" v-bind:key="index">
+							<router-link class="nav-link" :to="route_link.link">
+							<i :class="route_link.icon"></i>
+							{{ route_link.title }}
+							<span v-if="route_link.sr_only" class="sr-only">{{ route_link.sr_only }}</span>
+							</router-link>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="resume.html"><i class="fas fa-file-alt fa-fw me-2"></i>Resume</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="blog-home.html"><i class="fas fa-blog fa-fw me-2"></i>Blog</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="contact.html"><i class="fas fa-envelope-open-text fa-fw me-2"></i>Contact</a>
 						</li>
-						<li class="nav-item dropdown">
+						<!--li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="fas fa-cogs fa-fw me-2"></i>More Pages
 							</a>
@@ -59,7 +54,7 @@
 								<li><a class="dropdown-item" href="blog-home-alt.html">Blog Home 2</a></li>
 								<li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
 							</ul>
-						</li>
+						</li-->
 					</ul>
 					
 					<div class="my-2">
@@ -86,7 +81,7 @@
 import { ref } from 'vue';
 
 const header_links = ref([
-{
+	{
 		icon: 'fab fa-linkedin-in fa-fw',
 		url: 'https://www.linkedin.com/in/faruk-seker-python/'
 	},{
@@ -96,6 +91,26 @@ const header_links = ref([
 		icon: 'fa-brands fa-instagram fa-fw',
 		url: 'https://www.instagram.com/f4ruk.seker/'
 	}
+])
+
+const route_links = ref([
+	{
+		title: 'About Me',
+		sr_only: '(current)',
+		icon: 'fas fa-user fa-fw me-2',
+		link: {name:'home'}
+	},{
+		title: 'Portfolio',
+		sr_only: '',
+		icon: 'fas fa-laptop-code fa-fw me-2',
+		link: {name:'projects'}
+	},{
+		title: 'Blog',
+		sr_only: '',
+		icon: 'fas fa-blog fa-fw me-2',
+		link: {name:'blog-list'}
+	}
+
 ])
 
 </script>
