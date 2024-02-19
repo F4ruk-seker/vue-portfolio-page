@@ -1,7 +1,7 @@
 <template>
 <section class="">
-  <article>
-<div v-if="on_load" class="progress rounded-0">
+  <article class=" position-relative">
+<div v-if="on_load" class="progress rounded-0 position-sticky top-0 start-0 z-3">
   <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
   role="progressbar"
   :style="'width: ' + progress +'%'"

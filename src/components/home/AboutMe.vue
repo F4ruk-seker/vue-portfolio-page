@@ -34,20 +34,29 @@
 
 </div>
 <div class="mb-4">
-    <a class="btn btn-primary me-2 mb-3" href="portfolio.html">
-        <i class="fas fa-arrow-alt-circle-right me-2"></i> <span class="d-none d-md-inline">View</span>
-        Portfolio
-    </a>
-    <a class="btn btn-secondary mb-3" href="resume.html">
+    <div v-if="show_load_anim">
+    <button class="btn btn-success disabled placeholder col-6"></button>
+    </div>
+    <div v-else>
+        <router-link class="btn btn-primary me-2 mb-3" :to="{name:'projects'}">
+            <i class="fas fa-arrow-alt-circle-right me-2"></i> <span class="d-none d-md-inline">View</span>
+            Portfolio
+        </router-link>
+    </div>
+
+    <!--a class="btn btn-secondary mb-3" href="resume.html">
         <i class="fas fa-file-alt me-2"></i>
         <span class="d-none d-md-inline">View</span>
         Resume
-    </a>
+    </a-->
 </div>
 </div>
 
 <div class="col-md-5 col-lg-5">
-<img class="profile-image img-fluid mb-3 mb-lg-0 me-md-0" src="https://res.cloudinary.com/dlusw5ukg/image/upload/v1702395429/portfolyo/user/avatar/1658757630979_fgft8p.webp" alt="">
+    <div class="placeholder-glow" v-if="show_load_anim">
+        <div class="placeholder w-100" style="height: 250px;"></div>
+    </div>
+    <img v-else class="profile-image img-fluid mb-3 mb-lg-0 me-md-0" src="https://res.cloudinary.com/dlusw5ukg/image/upload/v1702395429/portfolyo/user/avatar/1658757630979_fgft8p.webp" alt="">
 </div>
 </div>
 </div>
