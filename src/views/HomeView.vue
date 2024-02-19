@@ -59,11 +59,11 @@ export default {
   mounted() {
     this.get_page_context()
   },methods:{
-    get_page_context(){
+    async get_page_context(){
       this.progress = 50
       const page_name = this.$route.name
       const fullPath = this.$route.fullPath
-      PageManager.get_page_context(page_name, fullPath).then(()=>{
+      await PageManager.get_page_context(page_name, fullPath).then(()=>{
         this.progress = 60
 
         PageManager.load_page_context()
