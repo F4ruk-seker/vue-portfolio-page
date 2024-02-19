@@ -12,7 +12,7 @@
         </h2>
         <br>
         <h5 class="card-title placeholder-glow">
-        <span class="placeholder col-6"></span>
+            <span class="placeholder col-6"></span>
         </h5>
         <p class="card-text placeholder-glow">
             <span class="placeholder col-10"></span><br>

@@ -1,12 +1,12 @@
 <template>
 <section>
-<article>
-      <AboutMe :show_load_anim="on_load" />
-      <WhatIdo />
-      <div class="container"><hr></div>
-      <FeaturedProjects />
-      <div class="container"><hr></div>
-      <LatestBlogPosts />
+  <article>
+    <AboutMe :show_load_anim="on_load" />
+    <WhatIdo :show_load_anim="on_load"/>
+    <div class="container"><hr></div>
+    <FeaturedProjects />
+    <div class="container"><hr></div>
+    <LatestBlogPosts />
   </article>
 </section>
 <my-foter />

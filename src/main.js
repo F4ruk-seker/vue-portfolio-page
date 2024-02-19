@@ -62,5 +62,5 @@ const metaManager = createMetaManager(app);
 
 app.use(metaManager)
 
-await router.isReady()
+router.isReady()
 app.mount('#app')

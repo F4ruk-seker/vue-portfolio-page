@@ -1,11 +1,11 @@
 <template>
 <section class="">
-  <article>
+  <article class=" position-relative">
    <HomeHeader />
    <div class="main-wrapper">
     <LoadStatusProgresbar />
     <RouterView />
-</div>
+  </div>
   </article>
 </section>
 </template>
