@@ -1,7 +1,11 @@
 <template>
  <header class="header text-center">	    
 		<div class="force-overflow">
-			<h1 class="blog-name pt-lg-4 mb-0 "><a class="no-text-decoration" href="index.html">Simon Doe</a></h1>
+			<h1 class="blog-name pt-lg-4 mb-0 ">
+				<router-link class="no-text-decoration"  :to="{name:'home'}">
+					Faruk Şeker
+				</router-link>
+			</h1>
 			
 			<nav class="navbar navbar-expand-lg navbar-dark" >
 				
@@ -11,7 +15,7 @@
 				
 				<div id="navigation" class="collapse navbar-collapse flex-column" >
 					<div class="profile-section pt-3 pt-lg-0">
-						<img class="profile-image mb-3 rounded-circle mx-auto" src="" alt="image" >			
+						<img class="profile-image mb-3 rounded-circle mx-auto" src="https://res.cloudinary.com/dlusw5ukg/image/upload/v1704817666/portfolyo/user/avatar/69114794_2356702264428666_3770381596008868629_n_pnf3ya.jpg" alt="image" >			
 						
 						<div class="bio mb-3">Hi, my name is Simon Doe and I'm a senior software engineer. Welcome to my personal website!</div>
 						<ul class="social-list list-inline py-2 mx-auto">
