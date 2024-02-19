@@ -34,7 +34,6 @@ import ScrolTop from "@/components/ScrolTop.vue";
 import NavBar from "@/components/NavBar.vue";
 import MyFoter from "@/components/MyFoter.vue";
 */
-import LoadCard from "@/components/LoadCard.vue";
 import AboutMe from "@/components/home/AboutMe.vue";
 import WhatIdo from "@/components/home/WhatIdo.vue";
 import FeaturedProjects from "@/components/home/FeaturedProjects.vue";
@@ -49,7 +48,7 @@ import LatestBlogPosts from "@/components/home/LatestBlogPosts.vue";
 */
 export default {
   name: 'HomeView',
-  components: { LoadCard, /* MyFoter, NavBar, ScrolTop, ExperiencesCard, ContactMe, AboutMe, HiCard*/ AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
+  components: { AboutMe,WhatIdo, FeaturedProjects, LatestBlogPosts },
   data: ()=>{return{
     page: {
       context: {}
