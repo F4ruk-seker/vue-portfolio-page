@@ -2,6 +2,9 @@
 import axios from "axios";
 import { VMarkdownView } from 'vue3-markdown'
 import 'vue3-markdown/dist/style.css'
+import { useCookies } from "vue3-cookies";
+
+const cookies = useCookies()
 
 
 export default {
@@ -9,6 +12,7 @@ export default {
   components: {VMarkdownView},
   props: ['slug'],
   data:()=>{return{
+    md_theme: 'dark',
     project: null,
     read_with_light: false,
     read_size: 20,
@@ -84,11 +88,14 @@ export default {
 
   },
   async mounted() {
+    this.md_theme = cookies.cookies.get('THEME-MODE') === 'dark' ? 'dark' :'light'
+
     await this.get_project()
     //this.resize_images()
     this.calculate_section_height()
     window.scrollTo(0,0);
   },
+
 }
 
 
@@ -210,7 +217,7 @@ export default {
     </strong>    
   </article>
   <article class=" container mx-auto">
-    <VMarkdownView :content="project.text" class="w-100" />
+    <VMarkdownView :content="project.text" class="w-100" :mode="md_theme"/>
   </article>
   <article class="d-flex bg-light px-3 mb-1">
     <strong class="justify-content-center m-auto py-1">
