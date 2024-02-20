@@ -24,15 +24,23 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
 
 const router = useRouter()
-
+const store = useStore()
 const games = ref([])
 
 async function fetch_games() {
+    store.dispatch('showProgress')
+    store.dispatch('updateProgressStatus', 60)
     await axios.get('game/').then((response)=>{
         games.value = response.data
     })
+    store.dispatch('updateProgressStatus', 100)
+    await new Promise(resolve => setTimeout(resolve, 100));
+    store.dispatch('hideProgress')
+
 }
 
 function go_game_video(slug) {

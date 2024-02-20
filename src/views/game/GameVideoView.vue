@@ -45,9 +45,16 @@ export default {
     }},
     methods: {
         async fetch_video(){
+            this.$store.dispatch('showProgress')
+            this.$store.dispatch('updateProgressStatus', 40)
             await axios.get('game/' + this.slug).then((response)=>{
                 this.game = response.data
             })
+            this.$store.dispatch('updateProgressStatus', 60)
+            await new Promise(resolve => setTimeout(resolve, 250));
+            this.$store.dispatch('updateProgressStatus', 150)
+            await new Promise(resolve => setTimeout(resolve, 100));
+            this.$store.dispatch('hideProgress')
         }
     },
     mounted(){

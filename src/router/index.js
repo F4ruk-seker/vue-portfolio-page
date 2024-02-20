@@ -51,6 +51,24 @@ const routes = [
         ]
       },
       {
+        path: '/game',
+        name: 'game',
+        component: () => import(/* webpackChunkName: "games" */ '../views/game/GameView.vue'),
+        children: [
+          {
+            path: '',
+            name: 'games',
+            component: () => import(/* webpackChunkName: "game" */ '../views/game/GameListView.vue'),
+          },
+          {
+            path: ':slug',
+            name: 'game-video',
+            component: () => import(/* webpackChunkName: "game" */ '../views/game/GameVideoView.vue'),
+            props: true
+          }
+        ]
+      },
+      {
         path: '/auth',
         name: 'auth',
         component: () => import(/* webpackChunkName: "auth" */ '../views/login/AuthView.vue'),
