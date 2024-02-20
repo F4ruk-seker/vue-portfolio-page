@@ -17,6 +17,7 @@
     "vue-lazy-image-loading": "^1.2.1",
     "vue-meta": "^3.0.0-alpha.2",
     "vue-router": "^4.0.3",
+    "vue3-cookies": "^1.0.6",
     "vue3-markdown": "^1.1.9",
     "vuex": "^4.0.0",
     "vuex-persistedstate": "^4.1.0"

@@ -66,7 +66,7 @@
               <i class="fas fa-adjust me-1"></i>
               Dark Mode
             </h4>
-				<input class="toggle" id="darkmode" type="checkbox">
+				<input class="toggle" id="darkmode" type="checkbox" v-model="dark_mode_toggle">
 				<label class="toggle-btn mx-auto mb-0" for="darkmode"></label>
   
 					</div><!--//dark-mode-toggle-->
@@ -78,7 +78,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+import { useCookies } from "vue3-cookies";
+
+const cookies = useCookies()
+
+var date = new Date;
+date.setDate(date.getDate() + 15);
+
+const dark_mode_toggle = ref(false)
+
+watch(dark_mode_toggle, (toggle)=>{
+	if (toggle){
+		document.body.className = 'dark-mode'
+		cookies.cookies.set('THEME-MODE', 'dark', date)
+	} else {
+		document.body.className = ''
+		cookies.cookies.set('THEME-MODE', 'light', date)
+	}
+})
+
+onMounted(()=>{
+	dark_mode_toggle.value = cookies.cookies.get('THEME-MODE') === 'dark'
+})
 
 const header_links = ref([
 	{
