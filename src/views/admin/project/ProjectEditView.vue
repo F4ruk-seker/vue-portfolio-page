@@ -13,6 +13,7 @@ export default{
         project: ref(''),
         amit: true,
         selected_programing_languages: [],
+        is_new: false,
         //content_type = ''
         //content_types:[],
         content_type_tags: [],
@@ -47,20 +48,35 @@ export default{
                 });
             });
         },
-        async update_project(){
-            try {
-                this.on_update = true
-
-                this.project.tags = []
+        tagic (){
+            this.project.tags = []
                 this.content_type_tags.forEach(tag => {
                     if (tag.slected){
                         this.project.tags.push(tag)        
                     }
                 })
-
+        },
+        async update_project(){
+            try {
+                this.on_update = true
+                this.tagic()
                 await axios.put(`content/edit/${this.slug}/`, this.project).then((response)=>{this.project = response.data})
                 this.on_update = false
-            
+            } catch (error) {
+//                if (error.response.status === 400){
+//              }
+                console.error('Error fetching project:', error)
+            }
+        },
+        async create_project(){
+            try {
+                this.on_update = true
+                this.tagic()
+                console.log(this.project)
+
+                await axios.post(`content/all/`, this.project).then((response)=>{this.project = response.data})
+                this.is_new = false
+                this.on_update = false
             } catch (error) {
 //                if (error.response.status === 400){
 //              }
@@ -72,11 +88,32 @@ export default{
             return;
         }
         e.preventDefault();
-            this.update_project()
+            this.save_project()
         },
+    set_new_project_layout(){
+        this.project = {
+            "tags": [],
+            "title": "Untitled",
+            "show": false,
+            "seo_description": "new",
+            "content_type": 'project'
+        }
+    },
+    save_project(){
+        if (this.is_new){
+            this.create_project()
+        } else {
+            this.update_project()
+        }
+    }
     },
     async mounted(){
-        await this.get_project()
+        if (this.slug === '_new'){
+            this.is_new = true
+            this.set_new_project_layout()
+        } else {
+            await this.get_project()
+        }
         document.addEventListener("keydown", this.keyboard_on_save);
     },
     unmounted(){
@@ -90,7 +127,7 @@ export default{
 <section class="row m-0 p-0 h-100">
     <article class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 position-relative">
         <button class="btn btn-lg btn-success w-100 rounded-0 border-0" @click="update_project" :disabled="on_update">
-        <span v-if="!on_update">Save</span>
+        <span v-if="!on_update">{{this.is_new ? 'Create' : 'Save'}}</span>
         <div v-else class="spinner-border text-light" role="status">
             <span class="sr-only">Loading...</span>
         </div>
