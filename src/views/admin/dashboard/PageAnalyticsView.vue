@@ -84,6 +84,7 @@ export default {
             <li class="w-25 text-start">#</li>
             <li class="w-100 text-start" style="width: min-content" @click="this.page.view.reverse()">visit_time</li>
             <li class="w-100 text-center">method</li>
+            <li class="w-100 text-center">flow</li>
             <li class="w-100 text-center">
               IP
               <button @click="hide_ip=!hide_ip" class="btn btn-light btn-sm">
@@ -100,6 +101,11 @@ export default {
             <li class="w-25 text-start">{{index+1}}</li>
             <li class="w-100 text-start">{{ view.visit_time }}</li>
             <li class="w-100 text-center">{{ view.request_type ? view.request_type:'unknown' }}</li>
+            <li>
+              <router-link :to="{name:'user-flow', query: {ip:view.ip_address}}">
+                flow
+              </router-link>
+            </li>
             <li class="w-100 text-center">
               <span v-if="hide_ip" class="text-danger">xxxx.xxxx.xxxx.xxxx</span>
               <span v-else>{{ view.ip_address ? view.ip_address:'unknown' }}</span>
