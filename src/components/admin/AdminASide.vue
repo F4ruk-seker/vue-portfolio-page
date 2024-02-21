@@ -35,9 +35,13 @@ const admin_aside_routers = ref([
     route_name: 'todos',
     label: "todo's",
     icon: 'fa-solid fa-clipboard-check',
+  },
+  {
+    route_name: 'user-flow',
+    label: 'User Flow',
+    icon: 'fa-solid fa-eye-low-vision',
   }
 ])
-
 
 </script>
 

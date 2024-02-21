@@ -144,6 +144,10 @@ const routes = [
         path: 'otp',
         name: 'otp',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/otp/OtpManager.vue'),
+      },{
+        path: 'userflow',
+        name: 'user-flow',
+        component: () => import(/* webpackChunkName: "userflow" */ '../views/admin/userflow/UserFlowView.vue'),
       }
     ]
   },
