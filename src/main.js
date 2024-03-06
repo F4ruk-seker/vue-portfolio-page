@@ -6,7 +6,7 @@ import axios from "axios";
 import AuthService from "@/composable/AuthService";
 // import VueMeta from 'vue-meta'
 import 'bootstrap/dist/css/bootstrap.min.css'
-//import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 import '@/assets/css/bootstrap.css'
 import '@/assets/css/style.css'
