@@ -88,7 +88,7 @@ export default {
                             </div>
                             <div class="ms-2 my-auto position-absolute">
                             <p class="m-0 p-0">{{ game.music.title }}</p>
-                            <p class="m-0 p-0">{{ game.music.description }}</p>
+                            <p class="m-0 p-0">{{ game.music.description }}</p>.
                         </div>
                         </div>
                         
