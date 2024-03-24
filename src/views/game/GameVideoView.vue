@@ -73,11 +73,14 @@ export default {
                         {{ game.description }}
                     </div>
                 </div>
-                <div class="col-4 mb-1 pb-1 ">
+                <div class="col-4 position-relative">
                     <strong>{{ context.song }};</strong>
-                    <a class="col-6 col-md m-0 p-0 d-flex text-decoration-none text-light my-auto" :href="game.music.url" target="_blank">
-                        <div class="position-relative song-image justify-content-center w-100 h-100 m-auto ratio ratio-16x9">
-                            <img :src="game.music.image" style="object-fit: cover;" class="w-100 h-100" alt="">
+                    <div class="d-flex position-relative">
+                        <div class="ratio ratio-21x9 banner-box rounded shadow" :style="'background-image: url(' + game.music.image + ');'"></div>
+                        <div class="ratio ratio-21x9 banner rounded shadow position-absolute cute-purple-border" :style="'background-image: url(' + game.music.image + ');'"></div>
+                    </div>
+                    <a class="w-100 bottom-0 m-0 p-0 d-flex text-decoration-none text-light my-auto position-absolute" :href="game.music.url" target="_blank">
+                        <div class="position-relative song-image justify-content-center w-100 h-100 m-auto ">
                             <div class="d-flex position-absolute top-0 left-0 play-icon">
                                 <span class="m-auto justify-content-center m-auto">
                                     <i class="fa-solid fa-play" style="font-size: 24px;"></i>
@@ -93,7 +96,11 @@ export default {
                 </div>
                 <div class="col-4 position-relative"> 
                     <strong>{{ context.game }};</strong>
-                    <img class="ratio ratio-16x9" :src="game.game.banner.thumbnail" :alt="game.game.alt" style="object-fit: cover;">
+                    <div class="position-relative d-flex ">
+                        <div class="ratio ratio-21x9 banner-box rounded" :style="'background-image: url(' + game.game.banner.thumbnail + ');'"></div>
+                        <div class="ratio ratio-21x9 banner rounded position-absolute cute-purple-border" :style="'background-image: url(' + game.game.banner.thumbnail + ');'"></div>
+                    </div>
+                    <!-- img class="ratio ratio-21x9" :src="game.game.banner.thumbnail" :alt="game.game.alt" style="object-fit: cover;"-->
                     <div class="p-1 pe-2 rounded-end bg-dark position-absolute bottom-0 mb-1 pb-1 ">
                         <a class="w-100 m-0 p-0 d-flex text-decoration-none text-light my-auto" :href="game.game.game_url" target="_blank">
                             <div class="position-relative song-image">
@@ -132,6 +139,23 @@ export default {
 
 
 <style scoped>
+.banner-box{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px);
+}
+
+.banner{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.cute-purple-border{
+    border: 1px solid rgba(116, 1, 113, .8)
+}
+
 .song-image span {
     display: none;
 }
