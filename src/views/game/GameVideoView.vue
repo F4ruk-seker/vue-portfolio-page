@@ -68,26 +68,39 @@
 
 <script>
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, onMounted, defineProps  } from 'vue';
+import { useStore } from 'vuex'; // Assuming Pinia for store management
 
-const context = ref({
-        game: 'game',
-        song: 'song',
-        comments: 'comments',
-        views: 'views',
-        description: 'description'
-    })
+ 
+const { slug } = defineProps(["slug"])
+console.log(`fg ${slug}`)
+const game = ref(null);
 
-if (window.navigator.language === 'tr-TR'){
-    context.value = {
-        game: 'oyun',
-        song: 'şarkı',
-        comments: 'yorumlar',
-        views: 'izlenme',
-        description: 'açıklama'
-    }
-} 
+const store = useStore(); // Access store instance
 
+const fetchVideo = async () => {
+  store.dispatch('showProgress');
+  store.dispatch('updateProgressStatus', 40);
+
+  try {
+    const response = await axios.get(`game/${slug.value}`);
+    game.value = response.data;
+  } catch (error) {
+    // Handle errors appropriately (e.g., display error message)
+    console.error('Error fetching video:', error);
+  } finally {
+    store.dispatch('updateProgressStatus', 60);
+    await new Promise(resolve => setTimeout(resolve, 250));
+    store.dispatch('updateProgressStatus', 150);
+    await new Promise(resolve => setTimeout(resolve, 100));
+    store.dispatch('hideProgress');
+  }
+};
+
+onMounted(()=>{
+   
+});
+/*
 export default {
     name: 'GameVideoView',
     props: ['slug'],
@@ -112,6 +125,7 @@ export default {
         this.fetch_video()
     }
 }
+*/
 </script>
 
 <style scoped>
