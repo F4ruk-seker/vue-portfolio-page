@@ -1,7 +1,57 @@
+
+<script>
+import axios from 'axios';
+
+
+export default {
+    name: 'GameVideoView',
+    props: ['slug'],
+    data: ()=>{
+        let context = {
+            game: 'game',
+            song: 'song',
+            comments: 'comments',
+            views: 'views',
+            description: 'description',
+            comment: 'comment'
+        };
+        if (window.navigator.language === 'tr-TR') {
+            context = {
+            game: 'oyun',
+            song: 'şarkı',
+            comments: 'yorumlar',
+            comment: 'Yorum',
+            views: 'izlenme',
+            description: 'açıklama'
+            };
+        }
+        return{
+        game: null,
+        context: context
+    }},
+    methods: {
+        async fetch_video(){
+            this.$store.dispatch('showProgress')
+            this.$store.dispatch('updateProgressStatus', 40)
+            await axios.get('game/' + this.slug).then((response)=>{
+                this.game = response.data
+            })
+            this.$store.dispatch('updateProgressStatus', 60)
+            await new Promise(resolve => setTimeout(resolve, 250));
+            this.$store.dispatch('updateProgressStatus', 150)
+            await new Promise(resolve => setTimeout(resolve, 100));
+            this.$store.dispatch('hideProgress')
+        }
+    },
+    mounted(){
+        this.fetch_video()
+    }
+}
+</script>
 <template>
 <section class="d-flex text-light" style="height: 100vh;">
     <article class="w-100 justify-content-center border-ligh rounded-2">
-    <div v-if="game" class="row">
+    <div v-if="game" class="row m-0 p-0">
         <div class="col-12 col-md-9 ">
             <div class="ratio ratio-16x9 ">
                 <iframe class="rounded-bottom-2 rounded-start-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen :src="game.video.url">
@@ -26,18 +76,19 @@
                 <div class="col-4 mb-1 pb-1 ">
                     <strong>{{ context.song }};</strong>
                     <a class="col-6 col-md m-0 p-0 d-flex text-decoration-none text-light my-auto" :href="game.music.url" target="_blank">
-                        <div class="position-relative song-image">
-                            <img :src="game.music.image" style="object-fit: cover;height: 82px;width: 82px;" alt="">
-                            <div class="d-flex position-absolute top-0 left-0 play-icon" style="width: 82px; height: 82px;">
+                        <div class="position-relative song-image justify-content-center w-100 h-100 m-auto ratio ratio-16x9">
+                            <img :src="game.music.image" style="object-fit: cover;" class="w-100 h-100" alt="">
+                            <div class="d-flex position-absolute top-0 left-0 play-icon">
                                 <span class="m-auto justify-content-center m-auto">
                                     <i class="fa-solid fa-play" style="font-size: 24px;"></i>
                                 </span>
                             </div>
-                        </div>
-                        <div class="ms-2 my-auto">
+                            <div class="ms-2 my-auto position-absolute">
                             <p class="m-0 p-0">{{ game.music.title }}</p>
                             <p class="m-0 p-0">{{ game.music.description }}</p>
                         </div>
+                        </div>
+                        
                     </a>
                 </div>
                 <div class="col-4 position-relative"> 
@@ -48,7 +99,7 @@
                             <div class="position-relative song-image">
                             </div>
                             <div class="ms-2 my-auto">
-                                <p class="m-0 p-0">{{ game.game.name }}</p>
+                                <p class="m-0 p-0 fw-semibold"><i class="fa-solid fa-link"></i> {{ game.game.name }}</p>
                             </div>
                         </a>
                     </div>
@@ -56,7 +107,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-2 row m-0 p-0 h-100">
+        <div class="col-12 col-md-3 row m-0 p-0 h-100 d-flex">
+            <div class="justify-content-center m-auto">
+                <h3><strong>{{ context.comments }}</strong></h3>
+                <hr class="w-100">
+                <div class="form-group mb-2">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control w-100 bg-transparent">
+                </div>
+                <div class="form-group mb-2">
+                    <label >{{ context.comment }}</label>
+                    <textarea class="form-control bg-transparent" name="" id="" cols="30" rows="5"></textarea>
+                </div>
+                <hr>
+            </div>
         </div>
     </div>
     <div v-else class="text-light">
@@ -66,53 +130,6 @@
 </section>
 </template>
 
-<script>
-import axios from 'axios';
-import { ref } from 'vue';
-
-const context = ref({
-        game: 'game',
-        song: 'song',
-        comments: 'comments',
-        views: 'views',
-        description: 'description'
-    })
-
-if (window.navigator.language === 'tr-TR'){
-    context.value = {
-        game: 'oyun',
-        song: 'şarkı',
-        comments: 'yorumlar',
-        views: 'izlenme',
-        description: 'açıklama'
-    }
-} 
-
-export default {
-    name: 'GameVideoView',
-    props: ['slug'],
-    data: ()=>{return{
-        game: null
-    }},
-    methods: {
-        async fetch_video(){
-            this.$store.dispatch('showProgress')
-            this.$store.dispatch('updateProgressStatus', 40)
-            await axios.get('game/' + this.slug).then((response)=>{
-                this.game = response.data
-            })
-            this.$store.dispatch('updateProgressStatus', 60)
-            await new Promise(resolve => setTimeout(resolve, 250));
-            this.$store.dispatch('updateProgressStatus', 150)
-            await new Promise(resolve => setTimeout(resolve, 100));
-            this.$store.dispatch('hideProgress')
-        }
-    },
-    mounted(){
-        this.fetch_video()
-    }
-}
-</script>
 
 <style scoped>
 .song-image span {
