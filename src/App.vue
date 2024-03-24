@@ -1,12 +1,31 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const show = ref(false);
+
+    function toggleHeatmap() {
+      show.value = !show.value;
+    }
+
+    return {
+      show,
+      toggleHeatmap
+    };
+  }
+};
+</script>
+
 <style>
-*{
+* {
   scroll-behavior: smooth;
   font-family: 'Hedvig Letters Sans', sans-serif;
 }
-</style>
 
-<!--*{ background-color: var(&#45;&#45;bs-dark); color: var(&#45;&#45;bs-light); }-->
+/* Add your other CSS styles here */
+</style>

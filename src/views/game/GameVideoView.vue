@@ -1,30 +1,83 @@
+<script setup>
+
+const context = ref({
+        game: 'game',
+        song: 'song',
+        comments: 'comments',
+        views: 'views',
+        description: 'description'
+    })
+
+if (window.navigator.language === 'tr-TR'){
+    context.value = {
+        game: 'oyun',
+        song: 'şarkı',
+        comments: 'yorumlar',
+        views: 'izlenme',
+        description: 'açıklama'
+    }
+} 
+
+</script>
 <template>
-<section class="d-flex bg-dark text-light" style="height: 100vh;">
-    <article class="container justify-content-center m-auto border border-ligh rounded-2">
+<section class="d-flex text-light" style="height: 100vh;">
+    <article class="w-100 justify-content-center border-ligh rounded-2">
     <div v-if="game" class="row">
-        <div class="col-12 col-md-8">
-            <div class="ratio ratio-16x9">
-                <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen :src="game.video.url">
+        <div class="col-12 col-md-9 ">
+            <div class="ratio ratio-16x9 ">
+                <iframe class="rounded-bottom-2 rounded-start-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen :src="game.video.url">
                 </iframe>
             </div>
             <div>
-            <strong>{{ game.title }}</strong>
-        </div>
-        </div>
-        <div class="col-12 col-md-4 row">
-            <a class="col-6 col-md-12 d-flex text-decoration-none text-light my-auto" :href="game.music.url">
-                <div class="ratio ratio-1x1 w-25 h-25">
-                    <img :src="game.music.image" style="object-fit: cover;" alt="">
+                <h1 class="ms-1 pb-1 border-bottom"><strong>{{ game.title }}</strong></h1>
+
+                <div class="row mt-2 mb-3">
+                <div class="col-4 ps-3">
+                    <span class="mb-2">
+                        {{ context.views }}; <i class="fa-regular fa-eye"></i> {{ game.view }}
+                    </span>
+                    <div class="">
+                        <div class="d-flex">
+                            <p class="m-0 p-0 me-2">{{ context.description }}</p>
+                            <hr class="w-100 my-auto">
+                        </div>
+                        {{ game.description }}
+                    </div>
                 </div>
-                <div class="ms-2 my-auto">
-                    {{ game.music.title }}
-                    <hr class="p-1 m-1">
-                    {{ game.music.description }}
+                <div class="col-4 mb-1 pb-1 ">
+                    <strong>{{ context.song }};</strong>
+                    <a class="col-6 col-md m-0 p-0 d-flex text-decoration-none text-light my-auto" :href="game.music.url" target="_blank">
+                        <div class="position-relative song-image">
+                            <img :src="game.music.image" style="object-fit: cover;height: 82px;width: 82px;" alt="">
+                            <div class="d-flex position-absolute top-0 left-0 play-icon" style="width: 82px; height: 82px;">
+                                <span class="m-auto justify-content-center m-auto">
+                                    <i class="fa-solid fa-play" style="font-size: 24px;"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="ms-2 my-auto">
+                            <p class="m-0 p-0">{{ game.music.title }}</p>
+                            <p class="m-0 p-0">{{ game.music.description }}</p>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            <div class="col-6 col-md-12"> 
-                {{ game.game.name }}
+                <div class="col-4 position-relative"> 
+                    <strong>{{ context.game }};</strong>
+                    <img class="ratio ratio-16x9" :src="game.game.banner.thumbnail" :alt="game.game.alt" style="object-fit: cover;">
+                    <div class="p-1 pe-2 rounded-end bg-dark position-absolute bottom-0 mb-1 pb-1 ">
+                        <a class="w-100 m-0 p-0 d-flex text-decoration-none text-light my-auto" :href="game.game.game_url" target="_blank">
+                            <div class="position-relative song-image">
+                            </div>
+                            <div class="ms-2 my-auto">
+                                <p class="m-0 p-0">{{ game.game.name }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                </div>
             </div>
+        </div>
+        <div class="col-12 col-md-2 row m-0 p-0 h-100">
         </div>
     </div>
     <div v-else class="text-light">
@@ -36,6 +89,7 @@
 
 <script>
 import axios from 'axios';
+import { ref } from 'vue';
 
 export default {
     name: 'GameVideoView',
@@ -62,3 +116,13 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.song-image span {
+    display: none;
+}
+.song-image:hover span {
+    display: block;
+
+}
+</style>

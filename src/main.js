@@ -4,6 +4,11 @@ import router from './router'
 import { store } from './store'
 import axios from "axios";
 import AuthService from "@/composable/AuthService";
+
+import heatmap from 'vue-heatmapjs'
+import { Subject } from 'rxjs';
+
+const stream = new Subject();
 // import VueMeta from 'vue-meta'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -53,14 +58,22 @@ axios.interceptors.response.use(
     }
 )
 
+
+
 let app;
 app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(head)
+app.use(heatmap, {
+    stream,
+  })
+
 const metaManager = createMetaManager(app);
 
 app.use(metaManager)
 
 router.isReady()
 app.mount('#app')
+
+stream.subscribe(console.log);
