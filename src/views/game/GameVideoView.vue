@@ -1,24 +1,3 @@
-<script setup>
-
-const context = ref({
-        game: 'game',
-        song: 'song',
-        comments: 'comments',
-        views: 'views',
-        description: 'description'
-    })
-
-if (window.navigator.language === 'tr-TR'){
-    context.value = {
-        game: 'oyun',
-        song: 'şarkı',
-        comments: 'yorumlar',
-        views: 'izlenme',
-        description: 'açıklama'
-    }
-} 
-
-</script>
 <template>
 <section class="d-flex text-light" style="height: 100vh;">
     <article class="w-100 justify-content-center border-ligh rounded-2">
@@ -90,6 +69,24 @@ if (window.navigator.language === 'tr-TR'){
 <script>
 import axios from 'axios';
 import { ref } from 'vue';
+
+const context = ref({
+        game: 'game',
+        song: 'song',
+        comments: 'comments',
+        views: 'views',
+        description: 'description'
+    })
+
+if (window.navigator.language === 'tr-TR'){
+    context.value = {
+        game: 'oyun',
+        song: 'şarkı',
+        comments: 'yorumlar',
+        views: 'izlenme',
+        description: 'açıklama'
+    }
+} 
 
 export default {
     name: 'GameVideoView',
