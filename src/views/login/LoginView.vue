@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router'
 const username = ref('')
 const password = ref('')
 const otp_code = ref('')
+const remember_me = ref(false)
 const otp_form = ref(false)
 const router = useRouter()
 
@@ -40,6 +41,10 @@ function send_otp() {
   <div class="mb-3">
     <label for="password_input" class="form-label">Password<span class="text-dangertext-light fw-bold ms-1">*</span></label>
     <input v-model="password" type="password" class="form-control text-light fw-bold shadow" id="password_input" placeholder="password" required name="password" autocomplete="on" style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
+  </div>
+  <div class="mb-3">
+    <input type="checkbox" v-model="remember_me" id="remember-me">
+    <label for="remember-me" class="ms-1">Remember Me</label>
   </div>
   <hr>
   <button class="btn btn-primary w-100 shadow border" type="submit" style="border-color: rgba(255,255,255,0.53)!important;">Login</button>

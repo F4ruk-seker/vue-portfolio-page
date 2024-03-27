@@ -1,23 +1,39 @@
 // AuthService.js
 import axios from 'axios';
+import { useCookies } from "vue3-cookies";
+
+const cookies = useCookies()
+
+var date = new Date;
+date.setDate(date.getDate() + 15);
+
 
 class AuthService {
-    save_session(token){
+    save_temporary_session(token){
         sessionStorage.setItem('access', token.access)
         sessionStorage.setItem('refresh', token.refresh)
-        sessionStorage.setItem('AuthStatus', '1')
+    }
 
+    save_long_lasting_session(token){
+        cookies.cookies.set('access', token.access, date)
+        cookies.cookies.set('refresh', token.refresh, date)
     }
 
     async login(credentials) {
         try {
+            cookies.cookies.set('pars', 'hangomes', '15d')
             const response =  await axios.post("auth/token/",
                 credentials
             )
             if (response.status === 200){
                 const token = await response.data
-                this.save_session(token)
-                return {has_otp:token.has_otp}
+                if (credentials.remember_me){
+                    cookies.cookies.set('remember_me', '1', date)
+                    this.save_long_lasting_session(token)
+                } else {
+                    this.save_temporary_session(token)
+                }
+                return {login:true, use_otp: token.use_otp}
             }
             return false
         }catch (e) {
@@ -27,6 +43,8 @@ class AuthService {
     }
     logout() {
         sessionStorage.clear()
+        cookies.cookies.remove('access')
+        cookies.cookies.remove('refresh')
     }
     check_user_status(){
         try {
@@ -46,19 +64,20 @@ class AuthService {
     }
 
     getAccessToken() {
-        return sessionStorage.getItem('access');
+        return cookies.cookies.get('remember_me') ? cookies.cookies.get('access') : sessionStorage.getItem('access')
     }
 
     setAccessToken(token) {
-        sessionStorage.setItem('access', token);
+        cookies.cookies.get('remember_me') ? cookies.cookies.set('access' , token) : sessionStorage.setItem('access', token)
+
     }
 
-    removeAccessToken() {
-        sessionStorage.removeItem('access');
+    getRefreshToken() {
+        return cookies.cookies.get('remember_me') ? cookies.cookies.get('refresh') : sessionStorage.getItem('refresh')
     }
 
     refreshToken() {
-        const refreshToken = sessionStorage.getItem('refresh');
+        const refreshToken = this.getRefreshToken();
         if (!refreshToken) {
             return Promise.reject('No refresh token available');
         }
@@ -73,6 +92,9 @@ class AuthService {
     async email_confirmation_token_control(token, census_token) {
         try {
             const response = await axios.get(`confirmation/${token}/?census_token=${census_token}`)
+            console.log(response)
+            console.log(response.data)
+            console.log(response.status)
             return response.status
         } catch (e) {
             return 0
@@ -152,8 +174,15 @@ class AuthService {
         return response.status
     }
 
-    async otp_test(){
-        await axios.get('/auth/otp_test/')
+    async otp(code){
+        try {
+            const response = await axios.post('/auth/otp/', {
+                otp_code: code
+            })
+            return response.status
+        } catch (e) {
+            Promise.reject(e)
+        }
     }
 }
 
