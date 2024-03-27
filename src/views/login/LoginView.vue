@@ -50,8 +50,6 @@ async function shake_form_btn(btn){
     <strong class="fw-bold text-light">Login</strong>
   </div>
 
-  <h1 class="parssx">pars</h1>
-
   <div class="mb-3">
     <label for="email_input" class="form-label text-light fw-bold">Username<span class="text-danger ms-1">*</span></label>
     <input v-model="username" type="text" autocapitalize="off" autofocus autocomplete="on" class="form-control text-light fw-bold shadow" id="email_input" placeholder="username" required  style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
