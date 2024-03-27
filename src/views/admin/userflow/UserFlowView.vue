@@ -43,7 +43,7 @@
                     <option>weekly</option>
                     <option>monthly</option>
                 </select>
-                <button class="btn btn-white border-top border-bottom d-flex rounded-0" @click="descend">
+                <button class="btn btn-white border-top border-bottom d-flex rounded-0" @click="descend" :disabled="on_load">
                     <span :class="'justify-content-center m-auto ' + ( ascend ? 'anim-ascend':'anim-descend' )">
                         <i class="fa-regular fa-circle-up " style="font-size: 18px;"></i>
                     </span>
