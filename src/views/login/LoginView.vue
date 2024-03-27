@@ -13,7 +13,7 @@ const router = useRouter()
 
 async function send_login() {
   const login_data = await AuthService.login({
-    username:username.value, password:password.value
+    username:username.value, password:password.value, remember_me:remember_me.value
   })
   if  (login_data.has_otp){
     otp_form.value = true
