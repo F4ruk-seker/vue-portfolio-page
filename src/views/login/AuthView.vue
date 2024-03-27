@@ -13,3 +13,7 @@
   </article>
 </footer>
 </template>
+
+<style scoped>
+
+</style>
