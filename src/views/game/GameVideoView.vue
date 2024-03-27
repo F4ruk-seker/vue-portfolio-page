@@ -52,7 +52,7 @@ export default {
 <section class="d-flex text-light" style="height: 100vh;">
     <article class="w-100 justify-content-center border-ligh rounded-2">
     <div v-if="game" class="row m-0 p-0">
-        <div class="col-12 col-md-9 ">
+        <div class="col-12 col-md-9 m-0 p-0">
             <div class="ratio ratio-16x9 ">
                 <iframe class="rounded-bottom-2 rounded-start-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen :src="game.video.url">
                 </iframe>
@@ -75,23 +75,23 @@ export default {
                 </div>
                 <div class="col-4 position-relative">
                     <strong>{{ context.song }};</strong>
-                    <div class="d-flex position-relative">
+                    <div class="d-flex position-relative song-image">
                         <div class="ratio ratio-21x9 banner-box rounded shadow" :style="'background-image: url(' + game.music.image + ');'"></div>
                         <div class="ratio ratio-21x9 banner rounded shadow position-absolute cute-purple-border" :style="'background-image: url(' + game.music.image + ');'"></div>
+                        <div class="d-flex position-absolute top-0 left-0 play-icon w-100 h-100">
+                                <span class="m-auto justify-content-center m-auto ">
+                                <i class="fa-solid fa-play" style="font-size: 24px;"></i>
+                            </span>
+                        </div>
                     </div>
                     <a class="w-100 bottom-0 m-0 p-0 d-flex text-decoration-none text-light my-auto position-absolute" :href="game.music.url" target="_blank">
                         <div class="position-relative song-image justify-content-center w-100 h-100 m-auto ">
-                            <div class="d-flex position-absolute top-0 left-0 play-icon">
-                                <span class="m-auto justify-content-center m-auto">
-                                    <i class="fa-solid fa-play" style="font-size: 24px;"></i>
-                                </span>
-                            </div>
-                            <div class="ms-2 my-auto position-absolute">
+                            
+                            <div class="ms-2 my-auto pb-1">
                             <p class="m-0 p-0">{{ game.music.title }}</p>
-                            <p class="m-0 p-0">{{ game.music.description }}</p>.
+                            <p class="m-0 p-0">{{ game.music.description }}</p>
                         </div>
                         </div>
-                        
                     </a>
                 </div>
                 <div class="col-4 position-relative"> 

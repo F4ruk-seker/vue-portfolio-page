@@ -16,7 +16,14 @@ export default {
 
     }},
     methods: {
-        get_date(date){
+      blog_ticker(){
+        if (this.project.ticket){
+          axios.post(`analytical/content/${this.project.ticket}`)
+        } else {
+          console.log('object not has a ticket')
+        }
+      },
+      get_date(date){
       if (date){
       date = new Date(date);
       // Separate date properties and write as name
@@ -87,6 +94,10 @@ export default {
     //this.resize_images()
     this.calculate_section_height()
     window.scrollTo(0,0);
+    setInterval(() => {
+        this.blog_ticker()
+      }, 5000);
+
   },
 }
 

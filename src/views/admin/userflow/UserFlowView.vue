@@ -1,15 +1,56 @@
+<style >
+@keyframes rotateDownAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateUpAnimation {
+  0% {
+    transform: rotate(180deg);
+
+    }
+  100% {
+    transform: rotate(0deg);
+
+  }
+}
+
+
+.anim-ascend {
+  animation: rotateDownAnimation 1s linear forwards;
+  transform-origin: center; /* Dönüşün merkezi */
+}
+
+.anim-descend {
+  animation: rotateUpAnimation 1s linear forwards;
+  transform-origin: center; /* Dönüşün merkezi */
+}
+
+</style>
 <template>
 <section class="d-flex" style="height: 100vh;">
     <article class="container justify-content-center m-auto">
         <div class="w-100">
             <form class="d-flex" @submit.prevent="get_ip_flow">
-                <input type="text" :class="'form-control w-100 rounded-end-0 fw-bold' + (on_load ? 'disabled': '')" v-model="ip" :disabled="on_load">
+                <input type="text" :class="'form-control w-100 rounded-end-0 border-end-0 fw-bold' + (on_load ? 'disabled': '')" v-model="ip" :disabled="on_load">
                 <select class="form-control p-0 px-2 rounded-0 w-25" v-model="timely" @change="get_ip_flow" :disabled="on_load">
                     <option>hourly</option>
                     <option>daily</option>
                     <option>weekly</option>
                     <option>monthly</option>
                 </select>
+                <button class="btn btn-white border-top border-bottom d-flex rounded-0" @click="descend">
+                    <span :class="'justify-content-center m-auto ' + ( ascend ? 'anim-ascend':'anim-descend' )">
+                        <i class="fa-regular fa-circle-up " style="font-size: 18px;"></i>
+                    </span>
+                    <!--span v-if="ascend" class="justify-content-center m-auto"><i class="fa-solid fa-sort-up"></i></span>
+                    <span v-else class="justify-content-center m-auto"><i class="fa-solid fa-sort-down"></i></span-->
+                </button>
+                
                 <button class="btn btn-primary rounded-start-0" type="submit" :disabled="on_load"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
 
@@ -22,6 +63,7 @@
                 <li class="w-100">{{ fd.visit_time }}</li>
                 <li class="w-100">{{ fd.action ? fd.action.type : 'N/A' }}</li>
                 <li class="w-100 fw-bold">@{{ fd.action ? fd.action.title : 'N/A' }}</li>
+                <li class="w-100 fw-bold"><i class="fa-regular fa-clock"></i>{{ fd.action ? fd.current_time : 'N/A' }}'sec</li>
             </ul>
         </div>
         <div class="d-flex" style="height: 60vh;" v-else>
@@ -48,6 +90,7 @@ const flow_data = ref([])
 const on_load = ref(false)
 
 const timely = ref('hourly')
+
 
 function get_type_icon(type_name) {
     const types = [
@@ -91,6 +134,12 @@ async function get_ip_flow(){
     }
 
     on_load.value = false
+}
+
+
+function descend() {
+    ascend.value =! ascend.value
+ //   get_ip_flow()
 }
 
 onMounted(()=>{
