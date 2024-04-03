@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <div class="" >
+    <div class="content" :id="'content_' + project.id">
         <router-link class="text-decoration-none h-100" style="min-height: 75px;"  :to="{name:'admin-project', params:{slug:project.slug}}">
         <div class="btn btn-light p-1 w-100 my-1 d-flex py-2" style="height: max-content;">
             <div class="d-flex" style="min-width: 50px;">

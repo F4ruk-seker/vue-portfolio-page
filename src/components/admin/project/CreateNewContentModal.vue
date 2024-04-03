@@ -15,6 +15,8 @@ const new_content = ref({
     tags: []
 })
 
+const keep_edit_content = ref(false)
+
 const content_tags = ref([])
 
 watch(() => new_content.value.content_type, (newValue) => {
@@ -26,7 +28,11 @@ watch(() => new_content.value.content_type, (newValue) => {
     }
 });
 
-const emit = defineEmits(['toggle_modal']);
+const emit = defineEmits(['toggle_modal', 'submit']);
+
+function create_new_content() {
+    emit('submit', new_content.value, keep_edit_content.value)
+}
 
 </script>
 
@@ -36,7 +42,7 @@ const emit = defineEmits(['toggle_modal']);
 <div :class="'modal fade bg-secondary bg-opacity-50 ' + (show_modal ? 'show':'')" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" :style="show_modal ? 'display: block; padding-right: 17px;': 'display: none;'">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-    <form class="form-check m-0 p-0" >
+    <form class="form-check m-0 p-0" @submit.prevent="create_new_content">
 
     <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLongTitle">Content Create</h4>
@@ -66,7 +72,7 @@ const emit = defineEmits(['toggle_modal']);
             </div>
             <div class="form-group mb-3">
                 <h6>tag:</h6>
-                <select class="form-select text-capitalize h-100" v-model="new_content.tags" required multiple>
+                <select class="form-select text-capitalize h-100" v-model="new_content.tags" multiple>
                     <option class="text-capitalize" v-for="content_type in content_tags" :key="content_type.id" :value="content_type">{{ content_type.name }}</option>   
                 </select>
                 <p class="text-secondary">
@@ -76,7 +82,8 @@ const emit = defineEmits(['toggle_modal']);
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="emit('toggle_modal', false)">Close</button>
-        <button type="submit" class="btn btn-primary" >Save changes</button>
+        <button type="submit" class="btn btn-primary" @click="keep_edit_content=true">Create and Keep Edit</button>
+        <button type="submit" class="btn btn-primary" @click="keep_edit_content=false">Create</button>
       </div>
     </form>
     

@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
 import ProjectPreview from '../../../components/admin/project/ProjectPreview.vue';
 import CreateNewContentModal from '../../../components/admin/project/CreateNewContentModal.vue';
 /*
@@ -8,7 +9,8 @@ import ContentTypeCreateEdit from '@/components/admin/project/ContentTypeCreateE
 */
 import axios from 'axios';
 
-
+const router = useRouter()
+const route = useRoute()
 const projcets = ref(null)
 const content_types = ref(null)
 const content_create_modal = ref(false)
@@ -32,6 +34,21 @@ function content_create_modal_toggle(value=null){
     }
 }
 
+
+
+async function create_new_content(content, gotocontent=false) {
+    const new_content = await axios.post('/content/create/', content)
+    if (gotocontent){
+        router.push({
+            name:'admin-project',
+            params:{slug:new_content.data.slug}
+        })
+    } else {
+        content_create_modal_toggle()
+        await get_project_list()
+        //router.push({ hash: '#content_' + new_content.data.id });
+    }
+}
 
 onMounted(async ()=>{
     await get_project_list()
@@ -83,8 +100,9 @@ onMounted(async ()=>{
         </div>
     </article>
 </section>
-<CreateNewContentModal :show_modal="content_create_modal" :content_types="content_types" @toggle_modal="content_create_modal_toggle"/>
+<CreateNewContentModal :show_modal="content_create_modal" :content_types="content_types" @toggle_modal="content_create_modal_toggle"  @submit="create_new_content"/>
 </template>
 
 <style>
+
 </style>
