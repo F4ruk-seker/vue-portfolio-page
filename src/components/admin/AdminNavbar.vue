@@ -1,6 +1,7 @@
 <script setup>
 import AuthService from "@/composable/AuthService";
 import router from "@/router";
+import DarkModeToggleButton from '@/components/DarkModeToggleButton.vue'
 
 </script>
 
@@ -12,7 +13,9 @@ import router from "@/router";
                      class="fw-bold text-light d-block text-decoration-none "
                      style="min-width: max-content!important;">FARUK ŞEKER</router-link>
       </div>
-      <div class="w-100">x</div>
+      <div class="w-100 my-auto">
+        <DarkModeToggleButton class="my-auto" :hide_title="true" />
+      </div>
       <div class="bg-danger">
         <button
             class="btn btn-danger rounded-0 d-inline-block h-100"

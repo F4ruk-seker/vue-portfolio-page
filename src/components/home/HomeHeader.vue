@@ -60,16 +60,8 @@
 					<div class="my-2">
 						<a class="btn btn-primary" href="contact.html" target="_blank"><i class="fas fa-paper-plane me-2"></i>Hire Me</a>
 					</div>
-					<div class="dark-mode-toggle text-center w-100">
-						<hr class="mb-4">
-            <h4 class="toggle-name mb-3 ">
-              <i class="fas fa-adjust me-1"></i>
-              Dark Mode
-            </h4>
-				<input class="toggle" id="darkmode" type="checkbox" v-model="dark_mode_toggle">
-				<label class="toggle-btn mx-auto mb-0" for="darkmode"></label>
-  
-					</div><!--//dark-mode-toggle-->
+
+					<DarkModeToggleButton :hide_title="false"/>
 					
 				</div>
 			</nav>
@@ -78,29 +70,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
-import { useCookies } from "vue3-cookies";
+import { ref } from 'vue';
+import DarkModeToggleButton from '@/components/DarkModeToggleButton.vue'
 
-const cookies = useCookies()
-
-var date = new Date;
-date.setDate(date.getDate() + 15);
-
-const dark_mode_toggle = ref(false)
-
-watch(dark_mode_toggle, (toggle)=>{
-	if (toggle){
-		document.body.className = 'dark-mode'
-		cookies.cookies.set('THEME-MODE', 'dark', date)
-	} else {
-		document.body.className = ''
-		cookies.cookies.set('THEME-MODE', 'light', date)
-	}
-})
-
-onMounted(()=>{
-	dark_mode_toggle.value = cookies.cookies.get('THEME-MODE') === 'dark'
-})
 
 const header_links = ref([
 	{

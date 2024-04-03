@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import ProjectPreview from '../../../components/admin/project/ProjectPreview.vue';
+import CreateNewContentModal from '../../../components/admin/project/CreateNewContentModal.vue';
 /*
 import ContentTypeCreateEdit from '@/components/admin/project/ContentTypeCreateEdit.vue';
 <ContentTypeCreateEdit />
@@ -10,6 +11,7 @@ import axios from 'axios';
 
 const projcets = ref(null)
 const content_types = ref(null)
+const content_create_modal = ref(false)
 
 async function get_project_list(){
     const response = await axios.get('/content/edit/')
@@ -21,6 +23,15 @@ async function get_content_types(){
         content_types.value  = response.data
     })
 }
+
+function content_create_modal_toggle(value=null){
+    if (value !== null){
+        content_create_modal.value = value
+    } else {
+        content_create_modal.value = !content_create_modal.value
+    }
+}
+
 
 onMounted(async ()=>{
     await get_project_list()
@@ -41,22 +52,22 @@ onMounted(async ()=>{
                 <hr>
                 <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
                     <li class="">
-                        <button class="btn btn-light text-start border-bottom d-flex rounded-0 mb-2 w-100 fw-semibold">
+                        <button class="text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-light active">
                             <span class="ms-0 ms-md-5">All</span>
                         </button>
                     </li>
                     <li 
                         v-for="content_type in content_types" v-bind:key="content_type.id"
                     >
-                        <button class="btn btn-light text-start d-flex rounded-0 mb-2 w-100 fw-semibold">
+                        <button class="btn btn-light text-start d-flex rounded mb-2 w-100 fw-semibold">
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
                         </button>
                     </li>
                 </ul>
             </div>
             <div class="col overflow-y-auto " style="max-height: 80vh;">
-                <div class="d-flex bg-light px-1 py-2 rounded rounded-bottom-0 mb-2 border-bottom">
-                    <strong class="my-auto text-primary" style="min-width: 50px; max-width:50px;">row/id</strong>
+                <div class="d-flex bg-light px-1 py-2 rounded mb-2 border-bottom">
+                    <strong class="my-auto text-primary" style="min-width: 50px; max-width:50px;"> row/id</strong>
                     <div class="my-auto d-flex" style="min-width: 100px; max-width: 100px;">
                         <hr class="w-100 my-auto">
                         <p class="my-auto mx-2 p-0 fw-bold text-secondary">img</p>
@@ -64,7 +75,7 @@ onMounted(async ()=>{
                     </div>
                     <div class="w-100 px-1 my-auto d-flex justify-content-between">
                         <strong class="my-auto text-success">Title</strong>
-                        <button class="btn btn-success btn-sm my-auto fw-bold disabled" disabled>ADD</button>
+                        <button class="btn btn-success btn-sm my-auto fw-bold" @click="content_create_modal=true">ADD</button>
                     </div>
                 </div>
                 <ProjectPreview v-for="(project, index) in projcets" v-bind:key="project.id" :project="project" :row="index" />
@@ -72,6 +83,7 @@ onMounted(async ()=>{
         </div>
     </article>
 </section>
+<CreateNewContentModal :show_modal="content_create_modal" :content_types="content_types" @toggle_modal="content_create_modal_toggle"/>
 </template>
 
 <style>

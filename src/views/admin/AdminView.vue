@@ -17,6 +17,11 @@ import AdminASide from "@/components/admin/AdminASide.vue";
 </section>
 </template>
 
-<style scoped>
+<style>
 
+.active{
+  background-color: var(--bs-primary) !important;
+  border: 1px solid rgba(var(--bs-primary-rgb), 0,4);
+  color: white!important;
+}
 </style>
