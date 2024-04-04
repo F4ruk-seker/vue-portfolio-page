@@ -217,7 +217,7 @@ export default {
     </strong>    
   </article>
   <article class=" container mx-auto">
-    <VMarkdownView :content="project.text" class="w-100" :mode="md_theme"/>
+    <VMarkdownView :content="project.text" class="w-100" :mode="md_theme" :allow-html="true"  />
   </article>
   <article class="d-flex bg-light px-3 mb-1">
     <strong class="justify-content-center m-auto py-1">

@@ -6,7 +6,7 @@
             <div class="col-md-4 mb-5" v-for="(blog, index) in blog_list" v-bind:key="index">
                 <div class="card blog-post-card">
                     <div class="ratio ratio-1x1">
-                        <img class="card-img-top" :src="blog.ceo_image_url" alt="image" style="object-fit:cover; background-position:center">
+                        <img class="card-img-top" :src="blog.seo_image_url" :alt="blog.seo_image_alt" style="object-fit:cover; background-position:center">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">
