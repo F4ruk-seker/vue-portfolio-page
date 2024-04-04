@@ -16,7 +16,7 @@ const content_types = ref(null)
 const content_create_modal = ref(false)
 
 const search = ref('')
-const selected_tag = ref('')
+const selected_content_type = ref('')
 
 async function get_project_list(){
     const response = await axios.get('/content/edit/')
@@ -66,15 +66,39 @@ function match_query(element, text){
 }
 
 watch(search, (text)=>{
-
+    const soure_array = ref([])
     projcets_list.value = []
-    projcets.value.forEach(element => {
+    if (selected_content_type.value === ''){
+        soure_array.value = projcets.value 
+    } else {
+        projcets.value.forEach(elemnt =>{
+            if (elemnt.content_type === selected_content_type.value){
+                soure_array.value.push(elemnt)
+            }
+        })
+    }
+    
+    soure_array.value.forEach(element => {
         var result = match_query(element, text)
         if (result === element){
             projcets_list.value.push(element)
         } 
     });
 })
+
+watch(selected_content_type, (_)=>{
+    if (_ !== ''){
+        projcets_list.value = []
+        projcets.value.forEach(element => {
+            if (element.content_type === _){
+                projcets_list.value.push(element)
+            }
+        });
+    } else {
+        projcets_list.value = projcets.value
+    }
+})
+
 
 </script>
 
@@ -90,14 +114,14 @@ watch(search, (text)=>{
                 <hr>
                 <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
                     <li class="">
-                        <button class="text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-light active">
+                        <button :class="'text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-secondary ' + (selected_content_type == '' ? 'active': '')" @click="selected_content_type=''">
                             <span class="ms-0 ms-md-5">All</span>
                         </button>
                     </li>
                     <li 
                         v-for="content_type in content_types" v-bind:key="content_type.id"
                     >
-                        <button class="btn btn-light text-start d-flex rounded mb-2 w-100 fw-semibold">
+                        <button :class="'text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-secondary ' + (selected_content_type == content_type.name ? 'active': '')" @click="selected_content_type=content_type.name">
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
                         </button>
                     </li>
