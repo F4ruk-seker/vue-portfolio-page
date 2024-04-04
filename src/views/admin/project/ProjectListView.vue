@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
 import ProjectPreview from '../../../components/admin/project/ProjectPreview.vue';
 import CreateNewContentModal from '../../../components/admin/project/CreateNewContentModal.vue';
@@ -10,19 +10,24 @@ import ContentTypeCreateEdit from '@/components/admin/project/ContentTypeCreateE
 import axios from 'axios';
 
 const router = useRouter()
-const route = useRoute()
 const projcets = ref(null)
+const projcets_list = ref(null)
 const content_types = ref(null)
 const content_create_modal = ref(false)
+
+const search = ref('')
+const selected_tag = ref('')
 
 async function get_project_list(){
     const response = await axios.get('/content/edit/')
     projcets.value = await response.data
+    projcets_list.value = await response.data
+
 }
 
 async function get_content_types(){
     await axios.get('/content/type/').then((response) => {
-        content_types.value  = response.data
+        content_types.value = response.data
     })
 }
 
@@ -46,13 +51,29 @@ async function create_new_content(content, gotocontent=false) {
     } else {
         content_create_modal_toggle()
         await get_project_list()
-        //router.push({ hash: '#content_' + new_content.data.id });
     }
 }
 
 onMounted(async ()=>{
     await get_project_list()
     await get_content_types()
+})
+
+function match_query(element, text){
+    if (element.title.includes(text) || element.slug.includes(text) || element.content_type.includes(text)){
+        return element
+    }
+}
+
+watch(search, (text)=>{
+
+    projcets_list.value = []
+    projcets.value.forEach(element => {
+        var result = match_query(element, text)
+        if (result === element){
+            projcets_list.value.push(element)
+        } 
+    });
 })
 
 </script>
@@ -83,7 +104,7 @@ onMounted(async ()=>{
                 </ul>
             </div>
             <div class="col overflow-y-auto " style="max-height: 80vh;">
-                <div class="d-flex bg-light px-1 py-2 rounded mb-2 border-bottom">
+                <div class="d-flex bg-light px-1 py-2 rounded mb-2 border-bottom position-sticky top-0 z-1">
                     <strong class="my-auto text-primary" style="min-width: 50px; max-width:50px;"> row/id</strong>
                     <div class="my-auto d-flex" style="min-width: 100px; max-width: 100px;">
                         <hr class="w-100 my-auto">
@@ -91,11 +112,11 @@ onMounted(async ()=>{
                         <hr class="w-100 my-auto">
                     </div>
                     <div class="w-100 px-1 my-auto d-flex justify-content-between">
-                        <strong class="my-auto text-success">Title</strong>
+                        <input type="text" class="form-control me-2 bg-transparent border border-white" placeholder="Search" v-model="search">
                         <button class="btn btn-success btn-sm my-auto fw-bold" @click="content_create_modal=true">ADD</button>
                     </div>
                 </div>
-                <ProjectPreview v-for="(project, index) in projcets" v-bind:key="project.id" :project="project" :row="index" />
+                <ProjectPreview v-for="(project, index) in projcets_list" v-bind:key="project.id" :project="project" :row="index" />
             </div>
         </div>
     </article>
