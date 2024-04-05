@@ -196,6 +196,7 @@ export default{
             v-model="project.text"
             locale="en"
             :fullscreen="amit"
+            
         />
     </article>
 </section>

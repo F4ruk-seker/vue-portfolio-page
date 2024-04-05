@@ -110,10 +110,9 @@ watch(selected_content_type, (_)=>{
         <div class="row border p-3 shadow rounded overflow-y-auto mh-100">
             <div class="col-2 col-md-4 pt-3 rounded-1 border">
                 <div class="w-100 d-flex justify-content-between">
-                    <strong class="my-auto">Content Type</strong>
-                    <button class="btn btn-success btn-sm fw-bold disabled" disabled>ADD</button>
+                    <h4 class="my-auto fw-bold">Content Type</h4>
                 </div>
-                <hr>
+                <hr class="bg-secondary">
                 <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
                     <li class="">
                         <button :class="'text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-secondary ' + (selected_content_type == '' ? 'active': '')" @click="selected_content_type=''">

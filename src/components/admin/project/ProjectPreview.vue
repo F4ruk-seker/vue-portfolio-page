@@ -8,8 +8,7 @@ export default {
 
 <template>
     <div class="content" :id="'content_' + project.id">
-        <router-link class="text-decoration-none h-100" style="min-height: 75px;"  :to="{name:'admin-project', params:{slug:project.slug}}">
-        <div class="btn btn-secondary border-secondary-subtle p-1 w-100 my-1 d-flex py-2" style="height: max-content;">
+        <div class="bg-secondary text-light fw-semibold rounded border-secondary-subtle p-1 w-100 my-1 d-flex py-2" style="height: max-content;">
             <div class="d-flex" style="min-width: 50px;">
                 <strong class="justify-content-center m-auto">
                     {{ row }}
@@ -20,17 +19,33 @@ export default {
                     {{ project.id }}
                 </strong>
             </div>
-            <div class="bg-secondary rounded h-100 ratio ratio-16x9" style="max-width: 100px; height: 75px; min-height: 75px;">
+            <div class="bg-secondary rounded-2 h-100 ratio ratio-16x9 border border-white" style="max-width: 100px; height: 75px; min-height: 75px;">
                 <img :src="project.seo_image_url" alt="project banner" style="object-fit: cover;">
             </div>
             <div class="ms-2 my-auto">
-                <strong class="p-1">{{ project.title }}</strong>
-                <p class="m-0 p-0">/{{ project.slug }}</p>
+                <router-link class="text-decoration-none text-start h-100" style="min-height: 75px;"  :to="{name:'admin-project', params:{slug:project.slug}}">
+                    <strong class="p-1 ps-0 text-capitalize">{{ project.title }}</strong>
+                    <p class="m-0 p-0">/{{ project.slug }}</p>
+                </router-link>
+            </div>
+            <div class="w-100"></div>
+            <div class="d-flex me-2">
+                <button class="btn btn-light d-flex rounded-circle custom-circle-btn p-0 m-auto me-2">
+                    <span class="m-auto justify-content-center">
+                        <i v-if="project.show" class="fa-regular fa-eye"></i>
+                        <i v-else class="fa-regular fa-eye-slash"></i>
+                    </span>
+                </button>
+                <button class="btn btn-light d-flex rounded-circle custom-circle-btn p-0 m-auto me-2"><i class="fa-solid fa-pen-to-square m-auto justify-content-center"></i></button>
+                <button class="btn btn-light d-flex rounded-circle custom-circle-btn p-0 m-auto "><i class="fa-solid fa-trash m-auto justify-content-center"></i></button>
             </div>
         </div>
-    </router-link>
     </div>
 </template>
 
-<style>
+<style scoped>
+.custom-circle-btn{
+    width: 35px;
+    height: 35px;
+}
 </style>

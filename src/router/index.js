@@ -136,6 +136,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/tag/TagEditView.vue'),
       },
       {
+        path: 'resume-edit',
+        name: 'resume-edit',
+        component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/resume/ResumeEdit.vue'),
+      },
+      {
         path: 'todos',
         name: 'todos',
         component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/todo/ToDoView.vue'),

@@ -32,6 +32,11 @@ const admin_aside_routers = ref([
     icon: 'fa-solid fa-tag',
   },
   {
+    route_name: 'resume-edit',
+    label: 'Resume',
+    icon: 'fa-solid fa-file-invoice'
+  },
+  {
     route_name: 'todos',
     label: "todo's",
     icon: 'fa-solid fa-clipboard-check',
@@ -50,9 +55,10 @@ const admin_aside_routers = ref([
  <nav>
   <ul class="list-unstyled" style="min-width: max-content;">
     <li>
-      <div class="btn btn-light w-100 d-flex text-center" @click="toggle_label">
+      <div class="btn btn-light rounded-0 border-0 border-white border-bottom w-100 d-flex text-center" @click="toggle_label">
         <hr v-if="show_label" class="w-100 me-2 my-auto">
-        <i class="fa-solid fa-bars my-auto mx-auto"></i>
+        <span v-if="show_label" class="mx-auto"><i class="fa-solid fa-arrow-left"></i></span>
+        <span v-else class="mx-auto"><i class="fa-solid fa-arrow-right"></i></span>
       </div>
     </li>
     <li 
