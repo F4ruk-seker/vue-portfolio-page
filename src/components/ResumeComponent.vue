@@ -8,9 +8,10 @@ const props = defineProps({
 
 import { marked } from 'marked'
 
+const getHtmlFromMark = (mark) => {
+  return marked.parse(mark);
+}
 
-const markdownText = '# Hello, Markdown!';
-const htmlText = marked.parse(markdownText);
 </script>
 
 <template>
@@ -34,7 +35,7 @@ const htmlText = marked.parse(markdownText);
                                     <a class="resume-link" :href="'mailto: ' + context.contact.mail">{{ context.contact.mail }}</a></li>
 								<li class="mb-2">
                                     <i class="fas fa-globe fa-fw fa-lg me-2"></i>
-                                    <a class="resume-link" :href="context.contact.website">{{ context.contact.website }}</a></li>
+                                    <a class="resume-link" :href="'https://'+context.contact.website" target="_blank">{{ context.contact.website }}</a></li>
 								<li class="mb-0">
                                     <i class="fa-solid fa-globe fa-fw fa-lg me-2"></i>Global</li>
 							</ul>
@@ -49,10 +50,7 @@ const htmlText = marked.parse(markdownText);
 						    <img class="resume-profile-image mb-3 mb-md-0 me-md-5 rounded-circle  ms-md-0 rounded mx-auto" :src="context.picture" alt="image">
 						</div>
 						
-						<div class="col text-start">
-							<p class="mb-0">
-                                {{ context.description }}
-                            </p>
+						<div class="col text-start" v-html="getHtmlFromMark(context.description)">
 						</div><!--//col-->
 					</div>
 				</div><!--//resume-intro-->
