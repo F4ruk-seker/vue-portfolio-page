@@ -55,7 +55,7 @@ const admin_aside_routers = ref([
  <nav>
   <ul class="list-unstyled" style="min-width: max-content;">
     <li>
-      <div class="btn btn-light rounded-0 border-0 border-white border-bottom w-100 d-flex text-center" @click="toggle_label">
+      <div class="btn btn-secondary rounded-0 border-0 border-white border-bottom w-100 d-flex text-center" @click="toggle_label">
         <hr v-if="show_label" class="w-100 me-2 my-auto">
         <span v-if="show_label" class="mx-auto"><i class="fa-solid fa-arrow-left"></i></span>
         <span v-else class="mx-auto"><i class="fa-solid fa-arrow-right"></i></span>
@@ -66,7 +66,7 @@ const admin_aside_routers = ref([
     v-bind:key="index"
     >
     <router-link
-        class="btn btn-light rounded-0 w-100 text-start"
+        class="btn btn-secondary rounded-0 w-100 text-start"
         :to="to_admin_router(admin_router.route_name)"
     >
       <span class="m-auto d-flex">

@@ -1,9 +1,11 @@
 <template>
   <router-view />
+  <notifications />
 </template>
 
 <script>
 import { ref } from 'vue';
+
 
 export default {
   setup() {
@@ -12,12 +14,11 @@ export default {
     function toggleHeatmap() {
       show.value = !show.value;
     }
-
     return {
       show,
       toggleHeatmap
     };
-  }
+  },
 };
 </script>
 

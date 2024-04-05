@@ -4,6 +4,7 @@ import router from './router'
 import { store } from './store'
 import axios from "axios";
 import AuthService from "@/composable/AuthService";
+import Notifications from '@kyvg/vue3-notification'
 
 import heatmap from 'vue-heatmapjs'
 import { Subject } from 'rxjs';
@@ -68,6 +69,7 @@ app.use(head)
 app.use(heatmap, {
     stream,
   })
+app.use(Notifications)
 
 const metaManager = createMetaManager(app);
 

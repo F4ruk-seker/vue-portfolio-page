@@ -1,10 +1,12 @@
 <template>
 <section class="row m-0 h-100">
-    <article class="col-6 p-0 h-100">
-        <textarea class="form-control ubuntu-medium bg-transparent  border-secondary border-0 border-end ps-2 rounded-0" @input="echo_context_sync" v-model="context"></textarea>
+    <article class="col-6 p-0 h-100 position-relative">
+        <button class="btn btn-secondary position-absolute top-0 end-0" @click="show_raw=!show_raw">{{ show_raw ? 'COM': 'RAW' }}</button>
+        <textarea v-if="!show_raw" class="form-control ubuntu-medium bg-transparent  border-secondary border-0 border-end ps-2 rounded-0" @input="echo_context_sync" v-model="context"></textarea>
+        <p v-else class="m-0 p-2 pt-5">{{ marked }}</p>
     </article>
-    <article class="col-6 p-0">
-        <ResumeComponent :context="marked" />
+    <article class="col-6 p-0 overflow-auto h-100">
+        <ResumeComponent :context="marked" :EditMode="true"/>
     </article>
 </section>
 </template>
@@ -13,11 +15,15 @@
 import axios from 'axios'
 import { onMounted, ref } from 'vue';
 import ResumeComponent from '@/components/ResumeComponent.vue'
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify }  = useNotification()
 
 let timerId;
 
 const context = ref('')
 const previous_context = ref('')
+
+const show_raw = ref(false)
 
 const marked = ref('')
 
@@ -41,10 +47,13 @@ function echo_context_sync() {
     timerId = setTimeout(() => {
     if (context.value !== previous_context.value) {
         sync_context()
-        console.log('Güncellenmeye hazır:', {'context':context.value});
+        notify({
+            title: "Sync",
+            text: "Context synced!",
+        });
     }
         previous_context.value = context.value
-    }, 1000);
+    }, 2000);
 }
 
 </script>
