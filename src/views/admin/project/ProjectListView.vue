@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import ProjectPreview from '../../../components/admin/project/ProjectPreview.vue';
 import CreateNewContentModal from '../../../components/admin/project/CreateNewContentModal.vue';
 /*
@@ -17,6 +17,8 @@ const content_create_modal = ref(false)
 
 const search = ref('')
 const selected_content_type = ref('')
+
+const search_id = ref('')
 
 async function get_project_list(){
     const response = await axios.get('/content/edit/')
@@ -125,11 +127,20 @@ watch(selected_content_type, (_)=>{
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
                         </button>
                     </li>
+                    <li><hr class="bg-secondary"></li>
+                    <li>
+                        <button class="w-100 btn btn-danger d-flex ">
+                            <span class="ms-0 ms-md-5">Trash</span>
+                        </button>
+                    </li>
                 </ul>
             </div>
             <div class="col overflow-y-auto " style="max-height: 80vh;">
-                <div class="d-flex bg-light px-1 py-2 rounded mb-2 border-bottom position-sticky top-0 z-1">
-                    <strong class="my-auto text-primary" style="min-width: 50px; max-width:50px;"> row/id</strong>
+                <div class="d-flex bg-secondary-subtle px-1 py-2 rounded mb-2 border-bottom position-sticky top-0 z-1">
+                    <strong class="my-auto text-primary text-center" style="min-width: 50px; max-width:50px;"> row</strong>
+                    <div style="min-width: 50px; max-width:50px;">
+                        <input type="text" class="form-control bg-transparent border border-white" placeholder="id" v-model="search_id">
+                    </div>
                     <div class="my-auto d-flex" style="min-width: 100px; max-width: 100px;">
                         <hr class="w-100 my-auto">
                         <p class="my-auto mx-2 p-0 fw-bold text-secondary">img</p>
@@ -140,7 +151,7 @@ watch(selected_content_type, (_)=>{
                         <button class="btn btn-success btn-sm my-auto fw-bold" @click="content_create_modal=true">ADD</button>
                     </div>
                 </div>
-                <ProjectPreview v-for="(project, index) in projcets_list" v-bind:key="project.id" :project="project" :row="index" />
+                <ProjectPreview v-for="(project, index) in projcets_list" v-bind:key="project.id" :project="project" :row="index + 1" />
             </div>
         </div>
     </article>
