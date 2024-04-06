@@ -71,18 +71,6 @@ async function fetch_projects(search=''){
     // response.data.forEach((project)=>{project.created = new Date(project.created)});projects.value=response.data
       response.data.forEach((project) => {
       project.created = new Date(project.created);
-      // Separate date properties and write as name
-      const day = project.created.getDate();
-      const month = project.created.getMonth() + 1; // Adding 1 because month value is between 0 and 11
-      const year = project.created.getFullYear();
-      // Find the name of the month
-      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',];
-      const monthName = monthNames[month - 1]; // Subtracting 1 because the month names array starts from 0
-      // Update the results
-      project.day = day;
-      project.month = month;
-      project.year = year;
-      project.monthName = monthName;
     });
     projects.value = response.data;
     await new Promise(resolve => setTimeout(resolve, 100));
