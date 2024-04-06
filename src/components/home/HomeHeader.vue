@@ -39,9 +39,6 @@
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="resume.html"><i class="fas fa-file-alt fa-fw me-2"></i>Resume</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="contact.html"><i class="fas fa-envelope-open-text fa-fw me-2"></i>Contact</a>
 						</li>
 						<!--li class="nav-item dropdown">
@@ -103,6 +100,11 @@ const route_links = ref([
 		sr_only: '',
 		icon: 'fas fa-blog fa-fw me-2',
 		link: {name:'blog-list'}
+	},{
+		title: 'Resume',
+		sr_only: '',
+		icon: 'fas fa-file-alt fa-fw me-2',
+		link: {name:'resume'}
 	}
 
 ])

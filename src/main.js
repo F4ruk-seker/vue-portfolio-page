@@ -16,6 +16,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 import '@/assets/css/bootstrap.css'
 import '@/assets/css/style.css'
+import {JsonEditorPlugin} from 'vue3-ts-jsoneditor';
 
 
 import {createHead} from "@vueuse/head";
@@ -74,7 +75,7 @@ app.use(Notifications)
 const metaManager = createMetaManager(app);
 
 app.use(metaManager)
-
+app.use(JsonEditorPlugin)
 router.isReady()
 app.mount('#app')
 

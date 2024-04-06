@@ -20,6 +20,7 @@ const getHtmlFromMark = (mark) => {
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
+
 <div v-else :class="'resume-container ' + (EditMode ? '': 'container px-3 px-lg-5')">
 			<article :class="'resume-wrapper mx-auto theme-bg-light p-5 shadow-lg ' + (EditMode ? '':'mb-5 my-5')">
 				<div class="resume-header">
@@ -32,12 +33,22 @@ const getHtmlFromMark = (mark) => {
 							<ul class="list-unstyled mb-0">
 								<li class="mb-2">
                                     <i class="fas fa-envelope-square fa-fw fa-lg me-2"></i>
-                                    <a class="resume-link" :href="'mailto: ' + context.contact.mail">{{ context.contact.mail }}</a></li>
+                                    <a class="resume-link" :href="'mailto: ' + context.contact.mail">{{ context.contact.mail }}</a>
+								</li>
 								<li class="mb-2">
                                     <i class="fas fa-globe fa-fw fa-lg me-2"></i>
-                                    <a class="resume-link" :href="'https://'+context.contact.website" target="_blank">{{ context.contact.website }}</a></li>
+									<a class="resume-link" :href="context.contact.website" target="_blank">{{ context.contact.website.replace('https://', '') }}</a>
+								</li>
+								<li class="mb-2">
+                                    <i class="fa-brands fa-linkedin-in fa-fw fa-lg me-2"></i>
+									<a class="resume-link" :href="context.contact.linkedin" target="_blank">{{ context.contact.linkedin.replace('https://', '') }}</a>
+								</li>
+								<li class="mb-2">
+                                    <i class="fa-brands fa-github fa-fw fa-lg me-2"></i>
+									<a class="resume-link" :href="context.contact.github" target="_blank">{{ context.contact.github.replace('https://', '') }}</a>
+								</li>
 								<li class="mb-0">
-                                    <i class="fa-solid fa-globe fa-fw fa-lg me-2"></i>Global</li>
+                                    <i class="fa-solid fa-location-dot fa-fw fa-lg me-2"></i>Global</li>
 							</ul>
 						</div><!--//resume-contact-->
 					</div><!--//row-->
@@ -254,5 +265,5 @@ const getHtmlFromMark = (mark) => {
 						</div><!--//resume-footer-->
 					</article>
 					
-				</div>
+	</div>
 </template>
