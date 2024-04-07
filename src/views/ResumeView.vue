@@ -35,7 +35,15 @@ function generatePDF() {
   const currentDate = new Date().toISOString().slice(0, 10);
   const filename = `farukseker-online-resume_${currentDate}.pdf`; 
 
-  html2canvas(document.querySelector("#resume"), { useCORS: true, allowTaint: true }).then(canvas => {
+  const A4_WIDTH = 1424; // px
+
+  html2canvas(document.querySelector("#resume"), {
+    useCORS: true,
+    allowTaint: true,
+    scrollX: 0,
+    scrollY: 0,
+    windowWidth: A4_WIDTH,
+  }).then(canvas => {
     const pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
     pdf.save(filename);
