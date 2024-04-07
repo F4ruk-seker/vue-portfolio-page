@@ -36,8 +36,11 @@ function generatePDF() {
   const filename = `farukseker-online-resume_${currentDate}.pdf`; 
 
   const A4_WIDTH = 1424; // px
-
-  html2canvas(document.querySelector("#resume"), {
+  //shadow-lg
+  
+  const resume = document.querySelector("#resume")
+  resume.firstChild.classList.remove('shadow-lg')
+  html2canvas(resume, {
     useCORS: true,
     allowTaint: true,
     scrollX: 0,
@@ -48,6 +51,7 @@ function generatePDF() {
     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
     pdf.save(filename);
   });
+  resume.firstChild.classList.add('shadow-lg')
 }
 
 function printContent() {
