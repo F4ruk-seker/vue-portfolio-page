@@ -44,12 +44,14 @@
                 <ul class="list-unstyled d-flex fw-semibold">
                     <li class="border-end px-1">{{ index + 1 }}</li>
                     <li class="border-end px-1 w-100">{{ work_experience.title }}</li>
-                    <li class="border-end px-2 link-primary" @click="work_experience.show =! work_experience.show">
+                    <li class="border-end px-2 link-primary" @click="work_experience.show =! work_experience.show; WorkExperiences.update(work_experience)">
                         <i v-if="work_experience.show" class="fa-regular fa-eye"></i>
                         <i v-else class="fa-regular fa-eye-slash"></i>
                     </li>
                     <li class="border-end px-2 link-primary"><i class="fa-regular fa-pen-to-square"></i></li>
-                    <li class="border-end px-2 link-danger"><i class="fa-solid fa-trash"></i></li>
+                    <li class="border-end px-2 link-danger" @click="async ()=>{
+                        await WorkExperiences.remove(work_experience.id); await get_context()
+                    }"><i class="fa-solid fa-trash"></i></li>
                     <li></li>
                 </ul>
             </li>
@@ -69,6 +71,7 @@
 import axios from 'axios'
 import { onMounted, ref } from 'vue';
 import ResumeComponent from '@/components/ResumeComponent.vue'
+import WorkExperiences from '@/composable/WorkExperiencesHelper';
 import { useNotification } from "@kyvg/vue3-notification";
 const { notify }  = useNotification()
 
