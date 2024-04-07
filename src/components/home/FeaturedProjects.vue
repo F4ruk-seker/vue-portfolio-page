@@ -18,7 +18,7 @@
                             <p class="card-text placeholder-glow"><span class="placeholder col-8"></span></p>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

@@ -32,12 +32,15 @@ onMounted(get_context)
 
 
 function generatePDF() {
-      html2canvas(document.querySelector("#resume"), { useCORS: true, allowTaint: true }).then(canvas => {
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
-        pdf.save('content.pdf');
-      });
-    }
+  const currentDate = new Date().toISOString().slice(0, 10);
+  const filename = `farukseker-online-resume_${currentDate}.pdf`; 
+
+  html2canvas(document.querySelector("#resume"), { useCORS: true, allowTaint: true }).then(canvas => {
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
+    pdf.save(filename);
+  });
+}
 
 function printContent() {
       html2canvas(document.querySelector("#resume"), { useCORS: true, allowTaint: true }).then(canvas => {
