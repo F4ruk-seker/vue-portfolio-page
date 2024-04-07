@@ -20,6 +20,7 @@
         </div>
         <label>Description</label>
         <textarea class="form-control" v-model="context.description" placeholder="Description" cols="4" rows="6" @input="echo_context_sync" style="height: 20vh;"></textarea>
+        
         <div class="d-flex"><strong class="text-primary">CONTACT</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
         <label><i class="fa-regular fa-envelope" style="width: 24px;"></i> Mail</label>
         <input type="email" class="form-control" v-model="context.contact.mail" @input="echo_context_sync">
@@ -29,8 +30,31 @@
         <input type="text" class="form-control" v-model="context.contact.linkedin" @input="echo_context_sync">
         <label><i class="fa-brands fa-github" style="width: 24px;"></i> Github</label>
         <input type="text" class="form-control" v-model="context.contact.github" @input="echo_context_sync">
-        
-        <div class="d-flex"><strong class="text-primary">HEAD</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
+
+        <div class="d-flex"><strong class="text-primary" style="min-width: max-content;">WORK EXPERIENCES</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
+        <ul class="list-unstyled">
+            <li>
+                <ul class="list-unstyled d-flex fw-semibold">
+                    <li class="my-auto px-1">#</li>
+                    <li class="w-100 my-auto"><hr class="w-100 text-secondary"></li>
+                    <li class="my-auto fw-bold link-primary">Create</li>
+                </ul>
+            </li>
+            <li v-for="(work_experience, index) in context.work_experiences" :key="index" class="border rounded p-2">
+                <ul class="list-unstyled d-flex fw-semibold">
+                    <li class="border-end px-1">{{ index + 1 }}</li>
+                    <li class="border-end px-1 w-100">{{ work_experience.title }}</li>
+                    <li class="border-end px-2 link-primary" @click="work_experience.show =! work_experience.show">
+                        <i v-if="work_experience.show" class="fa-regular fa-eye"></i>
+                        <i v-else class="fa-regular fa-eye-slash"></i>
+                    </li>
+                    <li class="border-end px-2 link-primary"><i class="fa-regular fa-pen-to-square"></i></li>
+                    <li class="border-end px-2 link-danger"><i class="fa-solid fa-trash"></i></li>
+                    <li></li>
+                </ul>
+            </li>
+        </ul>
+
         <div class="d-flex"><strong class="text-primary">HEAD</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
 
     </div>
