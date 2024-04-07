@@ -1,9 +1,14 @@
 <template>
+<section class="cta-section theme-bg-light py-5">
+    <div class="container text-center single-col-max-width">
+        <h2 class="heading mb-3">Online Resume</h2>
+        <button class="btn btn-primary" @click="generatePDF"><i class="fas fa-file-pdf me-2"></i>Download PDF Version</button>
+    </div><!--//container-->
+</section>
 <section class="w-100 d-flex">
-    <button class="btn btn-danger" @click="generatePDF">BETA TEST PDF</button>
     <article class="justify-content-center m-auto">
         <ResumeComponent id="resume" :context="context" :EditMode="false"/>
-    </article>
+    </article><!--//container-->
 </section>
 </template>
 

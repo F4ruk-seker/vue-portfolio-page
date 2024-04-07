@@ -15,7 +15,10 @@
 				
 				<div id="navigation" class="collapse navbar-collapse flex-column" >
 					<div class="profile-section pt-3 pt-lg-0">
-						<img class="profile-image mb-3 rounded-circle mx-auto" src="https://res.cloudinary.com/dlusw5ukg/image/upload/v1704817666/portfolyo/user/avatar/69114794_2356702264428666_3770381596008868629_n_pnf3ya.jpg" alt="image" >			
+						<img 
+						class="profile-image mb-3 rounded-circle mx-auto"
+						style="object-fit: cover;min-width: 160px;max-width:160px;min-height:160px;max-height:160px;"
+						 src="https://res.cloudinary.com/dlusw5ukg/image/upload/v1704817666/portfolyo/user/avatar/69114794_2356702264428666_3770381596008868629_n_pnf3ya.jpg" alt="image" >			
 						
 						<div class="bio mb-3">
 							Hello! I'm Faruk Şeker, and I'm thrilled to welcome you here. Are you ready to get to know me a little better?
