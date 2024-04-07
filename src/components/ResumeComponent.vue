@@ -69,76 +69,20 @@ const getHtmlFromMark = (mark) => {
 			<div class="resume-main col-12 col-lg-8 col-xl-9   pe-0   pe-lg-5">
 				<section class="work-section py-3">
 					<h3 class="text-uppercase resume-section-heading mb-4">Work Experiences {{ htmlText }}</h3>
-					<div class="item mb-3">
-						<div class="item-heading row align-items-center mb-2">
-							<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Senior Software Engineer</h4>
-							<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Google | 2019 - Present</div>
-							
-						</div>
-						<div class="item-content">
-							<p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo, fringilla vel. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.</p>
-							<ul class="resume-list">
-								<li>Lorem ipsum dolor sit amet, consectetuer.</li>
-								<li>Aenean commodo ligula eget dolor.</li>
-								<li>Etiam ultricies nisi vel augue.</li>
-							</ul>
-						</div>
-					</div><!--//item-->
-					<div class="item mb-3">
-						<div class="item-heading row align-items-center mb-2">
-							<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Lead Software Developer</h4>
-							<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Apple | 2016 - 2019</div>
-							
-						</div>
-						<div class="item-content">
-							<p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo, fringilla vel.</p>
-							<ul class="resume-list">
-								<li>Lorem ipsum dolor sit amet, consectetuer.</li>
-								<li>Aenean commodo ligula eget dolor.</li>
-							</ul>
-						</div>
-					</div><!--//item-->
-					<div class="item mb-3">
-						<div class="item-heading row align-items-center mb-2">
-							<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Senior Software Developer</h4>
-							<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Dropbox | 2014 - 2016</div>
-							
-						</div>
-						<div class="item-content">
-							<p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-						</div>
-					</div><!--//item-->
-					<div class="item">
-						<div class="item-heading row align-items-center mb-2">
-							<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Senior Developer</h4>
-							<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Uber | 2013 - 2014</div>
-							
-						</div>
-						<div class="item-content">
-							<p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus. </p>
-						</div>
-					</div><!--//item-->
-					<div class="item">
-						<div class="item-heading row align-items-center mb-2">
-							<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Backend Developer</h4>
-							<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Amazon | 2014 - 2016</div>
-							
-						</div>
-						<div class="item-content">
-							<p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-						</div>
-					</div><!--//item-->
-					<div class="item">
-						<div class="item-heading row align-items-center mb-2">
-							<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Frontend Developer</h4>
-							<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Startup | 2013 - 2014</div>
-							
-						</div>
-						<div class="item-content">
-							<p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus. </p>
-						</div>
-					</div><!--//item-->
 					
+					<ul class="list-unstyled">
+						<li v-for="(work_experiences, index) in context.work_experiences" :key="index">
+							<div v-if="work_experiences.show" class="item mb-3">
+								<div class="item-heading row align-items-center mb-2">
+									<h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">{{ work_experiences.title }}</h4>
+									<div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">{{ work_experiences.company }} | {{ work_experiences.start_date }} - {{ work_experiences.end_date }}</div>
+									
+								</div>
+								<div class="item-content" v-html="getHtmlFromMark(work_experiences.experience)"></div>
+							</div><!--//item-->
+						</li>
+					</ul>
+
 				</section><!--//work-section-->
 
 				

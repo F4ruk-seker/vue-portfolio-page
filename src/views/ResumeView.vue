@@ -40,6 +40,7 @@ function generatePDF() {
   
   const resume = document.querySelector("#resume")
   resume.firstChild.classList.remove('shadow-lg')
+
   html2canvas(resume, {
     useCORS: true,
     allowTaint: true,
@@ -51,6 +52,7 @@ function generatePDF() {
     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
     pdf.save(filename);
   });
+  
   resume.firstChild.classList.add('shadow-lg')
 }
 
