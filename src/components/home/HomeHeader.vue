@@ -38,9 +38,6 @@
 							<span v-if="route_link.sr_only" class="sr-only">{{ route_link.sr_only }}</span>
 							</router-link>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="contact.html"><i class="fas fa-envelope-open-text fa-fw me-2"></i>Contact</a>
-						</li>
 						<!--li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="fas fa-cogs fa-fw me-2"></i>More Pages
@@ -105,8 +102,13 @@ const route_links = ref([
 		sr_only: '',
 		icon: 'fas fa-file-alt fa-fw me-2',
 		link: {name:'resume'}
+	},{
+		title: 'Contact',
+		sr_only: '',
+		icon: 'fas fa-envelope-open-text fa-fw me-2',
+		link: {name:'contact'}
 	}
-
+	
 ])
 
 </script>
