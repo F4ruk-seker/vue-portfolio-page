@@ -1,41 +1,63 @@
 <template>
     <section class="contact-section px-3 py-5 p-md-5">
 		    <div class="container">
-			    <form id="contact-form" class="contact-form col-lg-8 mx-lg-auto" method="post" action="">
+			    <form id="contact-form" class="contact-form col-lg-8 mx-lg-auto" @submit.prevent="send">
 			        <h3 class="text-center mb-3">Get In Touch</h3>
 			        <div class="row g-3">                                                           
 		                <div class="col-12 col-md-6">
 		                    <label class="sr-only" for="cname">Name</label>
-		                    <input type="text" class="form-control" id="cname" name="name" placeholder="Name" minlength="2" required="" aria-required="true">
+		                    <input type="text" class="form-control" id="cname" name="name" placeholder="Name" minlength="2" required="" aria-required="true" v-model="context.name">
 		                </div>                    
 		                <div class="col-12 col-md-6">
 		                    <label class="sr-only" for="cemail">Email</label>
-		                    <input type="email" class="form-control" id="cemail" name="email" placeholder="Email" required="" aria-required="true">
+		                    <input type="email" class="form-control" id="cemail" name="email" placeholder="Email" required="" aria-required="true" v-model="context.email">
 		                </div>
-		                <div class="col-12">
-			                <select id="services" class="form-select" name="services">
-								<option selected="">Select a service package you're interested in...</option>
-								<option value="basic">Basic</option>
-								<option value="standard">Standard</option>
-								<option value="premium">Premium</option>
-								<option value="not sure">Not sure</option>
-							</select>
-							<div class="mt-2">
-							    <small class="form-text text-muted pt-1"><svg class="svg-inline--fa fa-circle-info me-2 text-primary" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-info" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg><!-- <i class="fas fa-info-circle me-2 text-primary"></i> Font Awesome fontawesome.com -->Want to know what's included in each package? Check the <a class="text-link" href="services.html" target="_blank">Services &amp; Pricing</a> page.</small>
-							</div>
-						</div>
 		                <div class="col-12">
 		                    <label class="sr-only" for="cmessage">Your message</label>
-		                    <textarea class="form-control" id="cmessage" name="message" placeholder="Enter your message" rows="10" required="" aria-required="true"></textarea>
+		                    <textarea class="form-control" id="cmessage" name="message" placeholder="Enter your message" rows="10" required="" aria-required="true" v-model="context.message"></textarea>
 		                </div>
 		                 <div class="form-group col-12">
-		                    <button type="submit" class="btn btn-block btn-primary py-2">Send Now</button>
+		                    <button type="submit" class="btn btn-block btn-primary py-2" :disabled="on_send">
+								<div v-if="on_send" class="spinner-grow spinner-grow-sm" role="status">
+									<span class="sr-only">Loading...</span>
+								</div>
+								<span v-else>Send Now</span>
+							</button>
 		                </div>                           
 		            </div><!--//form-row-->
 		        </form>
+				<div v-if="send_mesage" class="alert alert-primary mt-2">{{ send_mesage }}</div>
 		    </div><!--//container-->
 	    </section>
 </template>
 
 <script setup>
+import axios from 'axios';
+import { ref } from 'vue'
+
+
+
+const context = ref({
+	name:'',
+	email:'',
+	message: ''
+})
+
+const on_send = ref(false)
+const send_mesage = ref('') 
+
+async function send(){
+	on_send.value = true
+	await axios.post('message/create/', context.value)
+	send_mesage.value = 'Your message has been received. We will get back to you via email as soon as possible.'
+	clean_form()
+	on_send.value = false
+}
+
+function clean_form() {
+	context.value.email = ''
+	context.value.message = ''
+	context.value.name = ''
+}
+
 </script>
