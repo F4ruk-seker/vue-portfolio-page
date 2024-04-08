@@ -1,3 +1,75 @@
+
+<script setup>
+import axios from 'axios'
+import { onMounted, ref } from 'vue';
+import ResumeComponent from '@/components/ResumeComponent.vue'
+import WorkExperiences from '@/composable/WorkExperiencesHelper';
+import { useNotification } from "@kyvg/vue3-notification";
+
+import WorkExperiencesForm from '@/components/resume/WorkExperienceComponent.vue'
+
+
+const { notify }  = useNotification()
+
+let timerId;
+
+const context = ref('')
+const previous_context = ref('')
+
+const instance_work_experience = ref({title:'', company:'', start_date:'', end_date:'', experience:'', show:true})
+const show_work_experience_modal = ref(false)
+
+function toggle_work_experience_modal() {
+    show_work_experience_modal.value =! show_work_experience_modal.value
+}
+
+async function get_context() {
+    const response = await axios.get('resume/edit/')
+    context.value = response.data
+}
+
+async function sync_context(){
+    const response = await axios.put('resume/edit/', context.value)
+    context.value = response.data
+}
+
+function updateValue(key, newValue) {
+    context.value[key] = newValue;
+    echo_context_sync()
+}
+
+onMounted(()=>{get_context()})
+
+function echo_context_sync() {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+    if (context.value !== previous_context.value) {
+        sync_context()
+        notify({
+            title: "Sync",
+            text: "Context synced!",
+        });
+    }
+        previous_context.value = context.value
+    }, 2000);
+}
+
+</script>
+
+<style scoped>
+.ubuntu-medium {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.ubuntu-medium{
+    color: teal;
+}
+.dark-mode .ubuntu-medium{
+    color: white;
+}
+</style>
 <template>
 <section class="row m-0 h-100">
     <article class="col-6 overflow-x-hidden overflow-y-auto h-100 pt-2">
@@ -70,79 +142,12 @@
     :instance_exp="instance_work_experience" 
     @toggle_modal="toggle_work_experience_modal"
     @submit="()=>{
-        show_work_experience_modal=false;get_context()
+        show_work_experience_modal=false;
+        get_context();
+        notify(ref({
+            title: 'Sync',
+            text: 'Work Experience'
+        }).value)
     }"
 />
 </template>
-
-<script setup>
-import axios from 'axios'
-import { onMounted, ref } from 'vue';
-import ResumeComponent from '@/components/ResumeComponent.vue'
-import WorkExperiences from '@/composable/WorkExperiencesHelper';
-import { useNotification } from "@kyvg/vue3-notification";
-
-import WorkExperiencesForm from '@/components/resume/WorkExperienceComponent.vue'
-
-
-const { notify }  = useNotification()
-
-let timerId;
-
-const context = ref('')
-const previous_context = ref('')
-
-const instance_work_experience = ref({title:'', company:'', start_date:'', end_date:'', experience:'', show:true})
-const show_work_experience_modal = ref(true)
-
-function toggle_work_experience_modal() {
-    show_work_experience_modal.value =! show_work_experience_modal.value
-}
-
-async function get_context() {
-    const response = await axios.get('resume/edit/')
-    context.value = response.data
-}
-
-async function sync_context(){
-    const response = await axios.put('resume/edit/', context.value)
-    context.value = response.data
-}
-
-function updateValue(key, newValue) {
-    context.value[key] = newValue;
-    echo_context_sync()
-}
-
-onMounted(()=>{get_context()})
-
-function echo_context_sync() {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => {
-    if (context.value !== previous_context.value) {
-        sync_context()
-        notify({
-            title: "Sync",
-            text: "Context synced!",
-        });
-    }
-        previous_context.value = context.value
-    }, 2000);
-}
-
-</script>
-
-<style scoped>
-.ubuntu-medium {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.ubuntu-medium{
-    color: teal;
-}
-.dark-mode .ubuntu-medium{
-    color: white;
-}
-</style>
