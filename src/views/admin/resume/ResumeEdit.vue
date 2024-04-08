@@ -37,7 +37,7 @@
                 <ul class="list-unstyled d-flex fw-semibold">
                     <li class="my-auto px-1">#</li>
                     <li class="w-100 my-auto"><hr class="w-100 text-secondary"></li>
-                    <li class="my-auto fw-bold link-primary">Create</li>
+                    <li class="my-auto fw-bold link-primary" @click="instance_work_experience={title:'', company:'', start_date:'', end_date:'', experience:'', show:true};show_work_experience_modal=true">Create</li>
                 </ul>
             </li>
             <li v-for="(work_experience, index) in context.work_experiences" :key="index" class="border rounded p-2">
@@ -48,7 +48,7 @@
                         <i v-if="work_experience.show" class="fa-regular fa-eye"></i>
                         <i v-else class="fa-regular fa-eye-slash"></i>
                     </li>
-                    <li class="border-end px-2 link-primary"><i class="fa-regular fa-pen-to-square"></i></li>
+                    <li class="border-end px-2 link-primary" @click="instance_work_experience=work_experience;show_work_experience_modal=true"><i class="fa-regular fa-pen-to-square"></i></li>
                     <li class="border-end px-2 link-danger" @click="async ()=>{
                         await WorkExperiences.remove(work_experience.id); await get_context()
                     }"><i class="fa-solid fa-trash"></i></li>
@@ -65,6 +65,14 @@
         <ResumeComponent :context="context" :EditMode="true"/>
     </article>
 </section>
+<WorkExperiencesForm 
+    :show_modal="show_work_experience_modal" 
+    :instance_exp="instance_work_experience" 
+    @toggle_modal="toggle_work_experience_modal"
+    @submit="()=>{
+        show_work_experience_modal=false;get_context()
+    }"
+/>
 </template>
 
 <script setup>
@@ -73,6 +81,10 @@ import { onMounted, ref } from 'vue';
 import ResumeComponent from '@/components/ResumeComponent.vue'
 import WorkExperiences from '@/composable/WorkExperiencesHelper';
 import { useNotification } from "@kyvg/vue3-notification";
+
+import WorkExperiencesForm from '@/components/resume/WorkExperienceComponent.vue'
+
+
 const { notify }  = useNotification()
 
 let timerId;
@@ -80,16 +92,21 @@ let timerId;
 const context = ref('')
 const previous_context = ref('')
 
+const instance_work_experience = ref({title:'', company:'', start_date:'', end_date:'', experience:'', show:true})
+const show_work_experience_modal = ref(true)
+
+function toggle_work_experience_modal() {
+    show_work_experience_modal.value =! show_work_experience_modal.value
+}
+
 async function get_context() {
     const response = await axios.get('resume/edit/')
     context.value = response.data
-    // marked.value = response.data.context
 }
 
 async function sync_context(){
     const response = await axios.put('resume/edit/', context.value)
     context.value = response.data
-    // marked.value = response.data.context
 }
 
 function updateValue(key, newValue) {
