@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, watch, onBeforeUpdate } from 'vue';
+import { defineProps, defineEmits, ref, watch } from 'vue';
 import WorkExperiences from '@/composable/WorkExperiencesHelper';
 
 const props = defineProps({
