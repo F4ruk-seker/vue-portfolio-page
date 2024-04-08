@@ -112,7 +112,7 @@ function echo_context_sync() {
                     <li class="my-auto fw-bold link-primary" @click="instance_work_experience={title:'', company:'', start_date:'', end_date:'', experience:'', show:true};show_work_experience_modal=true">Create</li>
                 </ul>
             </li>
-            <li v-for="(work_experience, index) in context.work_experiences" :key="index" class="border rounded p-2">
+            <li v-for="(work_experience, index) in context.work_experiences" :key="index" class="border rounded p-2 mb-3">
                 <ul class="list-unstyled d-flex fw-semibold">
                     <li class="border-end px-1">{{ index + 1 }}</li>
                     <li class="border-end px-1 w-100">{{ work_experience.title }}</li>
