@@ -79,7 +79,6 @@ function echo_context_sync() {
         </div>
     </div>
     <div v-else>
-        {{ context }}
         <div class="d-flex"><strong class="text-primary">HEAD</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
         <label>Name</label>
         <input type="text" class="form-control" v-model="context.name" @input="echo_context_sync">
