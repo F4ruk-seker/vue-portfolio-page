@@ -240,7 +240,7 @@ export default {
         >
         <div class=" rounded-circle bg-black" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;"></div>
         <p class="p-0 my-auto ms-2 w-100">
-         <span class=" fw-bold text-primary">@{{ comment_obj.user }}:</span> {{ comment_obj.comment }}
+         <span class=" fw-bold text-primary">@{{ comment_obj.name }}:</span> {{ comment_obj.comment }}
         </p>      
         <button class="btn btn-light btn-sm border rounded-circle d-flex" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;" disabled>
           <i class="fa-regular fa-heart justify-content-center m-auto"></i>
