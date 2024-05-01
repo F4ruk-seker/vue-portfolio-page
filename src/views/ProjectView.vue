@@ -3,13 +3,15 @@ import axios from "axios";
 import { VMarkdownView } from 'vue3-markdown'
 import 'vue3-markdown/dist/style.css'
 import { useCookies } from "vue3-cookies";
+import NewCommentForm from "@/components/blog/NewCommentForm.vue";
+
 
 const cookies = useCookies()
 
 
 export default {
   name: 'ProjectView',
-  components: {VMarkdownView},
+  components: {VMarkdownView, NewCommentForm},
   props: ['slug'],
   data:()=>{return{
     md_theme: 'dark',
@@ -18,10 +20,12 @@ export default {
     read_size: 20,
     navbarHeight: 0,
     sectionHeight: 'calc(100vh - 0px)',
-    new_comment: '',
     on_send_comment: ''
   }},
   methods: {
+    add_comment(comment){
+      this.project.comments.push(comment)
+    },
     get_date(date){
       if (date){
       date = new Date(date);
@@ -161,7 +165,7 @@ export default {
       </div>
     </div>
 </section>
-<section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100" style="'max-height:' + sectionHeight">
+<section v-else class="my-0 mx-auto p-0 overflow-y-auto w-100">
  
   <article class="container h-100 mx-auto">
     <div  class="container justify-content-center m-auto">
@@ -225,21 +229,8 @@ export default {
     </strong>    
   </article>
   <article class="container" id="comment">
-    <label class="fw-semibold">Comment:</label>
-    <textarea class="form-control border" type="text" placeholder="something..." v-model="new_comment" maxlength="600"></textarea>
-    <label :class="new_comment.length > 500 ? 'text-danger fw-bold':''">{{new_comment.length}}/500</label>
-    <div class="d-flex mt-2">
-      <div class="w-100 d-flex">
-        <button class=" btn btn-light rounded-circle border d-flex me-2" style="width: 46px; height: 46px;">
-          <i class="fa-solid fa-user justify-content-center m-auto"></i>
-        </button>
-        <button class=" btn btn-light rounded-circle border d-flex" style="width: 46px; height: 46px;">
-          <i class="fa-brands fa-google justify-content-center m-auto"></i>
-        </button>
-      </div>
-      <button class="btn btn-primary fw-bold">Send</button>
-    </div>
-    <hr>
+    <NewCommentForm :slug="slug" @add_comment="add_comment"/>
+    <hr >
     <div v-if="!project.comments" class="alert alert-info">no comment yet</div>
     <ul v-else class=" list-unstyled">
       <li 

@@ -28,8 +28,6 @@ const projects = ref([])
 
 const selected_tags = ref([])
 
-
-
 const search_text = ref('')
 
 watch(search_text, async (new_search_text)=>{
