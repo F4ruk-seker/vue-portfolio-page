@@ -32,6 +32,7 @@ const carrier_switch = 'Bearer'
 
 axios.interceptors.request.use(
     ( config ) => {
+        // config.cookie
         config.headers["Authorization"] = `${carrier_switch} ${AuthService.getAccessToken()}`;
         return config;
     });
@@ -39,22 +40,20 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     (response) =>{
         return response
-    }, error => {
-        // console.error('Error in response:', error);
+    }, async error => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+        if (error.response.status === 401 && originalRequest._retry) {
             originalRequest._retry = true;
-
-            return AuthService.refreshToken()
-                .then((newAccessToken) => {
-                    originalRequest.headers['Authorization'] = `${carrier_switch} ${newAccessToken}` ;
-                    return axios(originalRequest);
-                })
-                .catch((refreshError) => {
-                    AuthService.logout()
-                    return Promise.reject(refreshError); // Reject the promise to propagate the error further
-
-                })
+            const refresh = await AuthService.refreshToken()
+            originalRequest.headers['Authorization'] = `${carrier_switch} ${refresh}` ;
+            console.log(refresh)
+            return axios(originalRequest);
+            
+        }
+        if (error.response.status === 401){
+            originalRequest._retry = false;
+            AuthService.logout()
+            router.push({name:'login'})
         }
         return Promise.reject(error);
     }

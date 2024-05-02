@@ -1,5 +1,6 @@
 // AuthService.js
 import axios from 'axios';
+import { Exception } from 'sass';
 import { useCookies } from "vue3-cookies";
 
 const cookies = useCookies()
@@ -27,6 +28,7 @@ class AuthService {
             )
             if (response.status === 200){
                 const token = await response.data
+                this.logout()
                 if (credentials.remember_me){
                     cookies.cookies.set('remember_me', '1', date)
                     this.save_long_lasting_session(token)
@@ -43,6 +45,7 @@ class AuthService {
     }
     logout() {
         sessionStorage.clear()
+        cookies.cookies.remove('remember_me')
         cookies.cookies.remove('access')
         cookies.cookies.remove('refresh')
     }
@@ -76,17 +79,24 @@ class AuthService {
         return cookies.cookies.get('remember_me') ? cookies.cookies.get('refresh') : sessionStorage.getItem('refresh')
     }
 
-    refreshToken() {
+    async refreshToken() {
         const refreshToken = this.getRefreshToken();
+
         if (!refreshToken) {
             return Promise.reject('No refresh token available');
-        }
-        return axios.post(`auth/token/refresh/`, { refresh: refreshToken })
-            .then(response => {
+        } else {
+        
+        try {
+            const response = await axios.post(`auth/token/refresh/`, { refresh: refreshToken })
+            if (response.status !== 401){
                 const newAccessToken = response.data.access;
-                this.setAccessToken(newAccessToken); // Update the access token
-                return newAccessToken;
-            });
+                this.setAccessToken(newAccessToken); 
+                return newAccessToken
+            } 
+        } catch (e){
+            return Promise.reject()
+        }
+        }
     }
 
     async email_confirmation_token_control(token, census_token) {
