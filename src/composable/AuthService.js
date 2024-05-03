@@ -48,6 +48,7 @@ class AuthService {
         cookies.cookies.remove('remember_me')
         cookies.cookies.remove('access')
         cookies.cookies.remove('refresh')
+        cookies.cookies.remove('retry')
     }
     check_user_status(){
         try {
@@ -79,6 +80,17 @@ class AuthService {
         return cookies.cookies.get('remember_me') ? cookies.cookies.get('refresh') : sessionStorage.getItem('refresh')
     }
 
+    isRetry(){
+        return cookies.cookies.get('retry') === 'true'
+    }
+
+    enable_retry(){
+        cookies.cookies.set('retry' , 'false')
+    }
+    disable_retry(){
+        cookies.cookies.set('retry' , 'true')
+    }
+
     async refreshToken() {
         const refreshToken = this.getRefreshToken();
 
@@ -102,9 +114,6 @@ class AuthService {
     async email_confirmation_token_control(token, census_token) {
         try {
             const response = await axios.get(`confirmation/${token}/?census_token=${census_token}`)
-            console.log(response)
-            console.log(response.data)
-            console.log(response.status)
             return response.status
         } catch (e) {
             return 0

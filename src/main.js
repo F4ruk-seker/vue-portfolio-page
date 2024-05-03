@@ -20,8 +20,9 @@ import {JsonEditorPlugin} from 'vue3-ts-jsoneditor';
 
 
 import {createHead} from "@vueuse/head";
-const head = createHead()
 import { createMetaManager } from 'vue-meta';
+
+const head = createHead()
 
 // import 'vue3-markdown/dist/style.css'
 
@@ -32,26 +33,25 @@ const carrier_switch = 'Bearer'
 
 axios.interceptors.request.use(
     ( config ) => {
-        // config.cookie
         config.headers["Authorization"] = `${carrier_switch} ${AuthService.getAccessToken()}`;
         return config;
     });
 
 axios.interceptors.response.use(
-    (response) =>{
+    (response) => {
         return response
     }, async error => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && originalRequest._retry) {
-            originalRequest._retry = true;
-            const refresh = await AuthService.refreshToken()
-            originalRequest.headers['Authorization'] = `${carrier_switch} ${refresh}` ;
-            console.log(refresh)
-            return axios(originalRequest);
-            
-        }
-        if (error.response.status === 401){
-            originalRequest._retry = false;
+        if (error.response.status === 401 && !error.config.url.endsWith('/refresh/')) {
+            try {
+                const refresh = await AuthService.refreshToken()
+                error.config.headers['Authorization'] = `${carrier_switch} ${refresh}` ;
+                return axios(error.config);
+            } catch (e) {
+                AuthService.logout()
+                router.push({name:'login'})
+            }
+
+        } else if (error.response.status === 401 && error.config.url.endsWith('/refresh/')) {
             AuthService.logout()
             router.push({name:'login'})
         }
