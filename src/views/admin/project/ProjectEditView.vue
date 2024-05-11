@@ -11,17 +11,27 @@ export default{
     components: { VMarkdownEditor },
     data:()=>{return{
         project: ref(''),
+        previous_project: ref(''),
         amit: true,
         selected_programing_languages: [],
         is_new: false,
         //content_type = ''
         //content_types:[],
         content_type_tags: [],
-
+        timerId: 0,
         // -pars
         on_update: false,
     }},
     methods: {
+        echo_context_sync() {
+            clearTimeout(this.timerId);
+            this.timerId = setTimeout(() => {
+            if (this.project !== this.previous_project) {
+                this.update_project()
+            }
+                this.previous_project = this.project
+            }, 2000);
+        },
         async get_project() {
             try {
                 const response = await axios.get(`content/edit/${this.slug}/`)
@@ -135,7 +145,7 @@ export default{
         
         <button 
             :class="'w-100 mt-2 btn ' + (project.show ? 'btn-primary': 'btn-outline-primary')"
-            @click="project.show = !project.show">{{ project.show ? 'Hide' : 'Show' }}
+            @click="project.show = !project.show;update_project()">{{ project.show ? 'Hide' : 'Show' }}
         </button>
         
         <div class="mx-2" name="edit">
@@ -196,7 +206,7 @@ export default{
             v-model="project.text"
             locale="en"
             :fullscreen="amit"
-            
+            :onkeyup="echo_context_sync"            
         />
     </article>
 </section>
