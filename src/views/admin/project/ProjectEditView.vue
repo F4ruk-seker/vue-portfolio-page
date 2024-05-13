@@ -27,9 +27,9 @@ export default{
             clearTimeout(this.timerId);
             this.timerId = setTimeout(() => {
             if (this.project !== this.previous_project) {
-                this.update_project()
+                const update_response = this.update_project()
+                this.previous_project = update_response.data
             }
-                this.previous_project = this.project
             }, 2000);
         },
         async get_project() {
@@ -70,8 +70,9 @@ export default{
             try {
                 this.on_update = true
                 this.tagic()
-                await axios.put(`content/edit/${this.slug}/`, this.project)
+                const pyload = await axios.put(`content/edit/${this.slug}/`, this.project)
                 this.on_update = false
+                return pyload
             } catch (error) {
 //                if (error.response.status === 400){
 //              }
