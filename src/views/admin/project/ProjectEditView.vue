@@ -70,7 +70,7 @@ export default{
             try {
                 this.on_update = true
                 this.tagic()
-                await axios.put(`content/edit/${this.slug}/`, this.project).then((response)=>{this.project = response.data})
+                await axios.put(`content/edit/${this.slug}/`, this.project)
                 this.on_update = false
             } catch (error) {
 //                if (error.response.status === 400){
