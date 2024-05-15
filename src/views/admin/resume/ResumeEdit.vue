@@ -4,10 +4,13 @@ import axios from 'axios'
 import { onMounted, ref } from 'vue';
 import ResumeComponent from '@/components/ResumeComponent.vue'
 import WorkExperiences from '@/composable/WorkExperiencesHelper';
+import ProjectExperiences from '@/composable/ProjectExperiencesHelper';
 import { useNotification } from "@kyvg/vue3-notification";
 
 import WorkExperiencesForm from '@/components/resume/WorkExperienceComponent.vue'
-
+import ProjectExperiencesForm from '@/components/resume/ProjectExperienceComponent.vue'
+import { VMarkdownEditor } from 'vue3-markdown'
+import 'vue3-markdown/dist/style.css'
 
 const { notify }  = useNotification()
 
@@ -21,6 +24,20 @@ const show_work_experience_modal = ref(false)
 
 function toggle_work_experience_modal() {
     show_work_experience_modal.value =! show_work_experience_modal.value
+}
+
+
+const instance_project_experience = ref({
+    "title": "",
+    "link": "",
+    "experience": "",
+    "show": true,
+    "project_type": ""
+})
+const show_project_experience_modal = ref(false)
+
+function toggle_project_experience_modal() {
+    show_project_experience_modal.value =! show_project_experience_modal.value
 }
 
 async function get_context() {
@@ -127,10 +144,40 @@ function echo_context_sync() {
                 </ul>
             </li>
         </ul>
-
-        <div class="d-flex"><strong class="text-primary">HEAD</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
-
+        <div class="d-flex"><strong class="text-primary">Projects</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
+        <ul class="list-unstyled">
+            <li>
+                <ul class="list-unstyled d-flex fw-semibold">
+                    <li class="my-auto px-1">#</li>
+                    <li class="w-100 my-auto"><hr class="w-100 text-secondary"></li>
+                    <li class="my-auto fw-bold link-primary" @click="instance_project_experience={title:'', company:'', start_date:'', end_date:'', experience:'', show:true};show_project_experience_modal=true">Create</li>
+                </ul>
+            </li>
+            <li v-for="(project_experience, index) in context.project_experiences" :key="index" class="border rounded p-2 mb-3">
+                <ul class="list-unstyled d-flex fw-semibold">
+                    <li class="border-end px-1">{{ index + 1 }}</li>
+                    <li class="border-end px-1 w-100">{{ project_experience.title }}</li>
+                    <li class="border-end px-2 link-primary" @click="project_experience.show =! project_experience.show; ProjectExperiences.update(project_experience)">
+                        <i v-if="project_experience.show" class="fa-regular fa-eye"></i>
+                        <i v-else class="fa-regular fa-eye-slash"></i>
+                    </li>
+                    <li class="border-end px-2 link-primary" @click="instance_project_experience=project_experience;show_project_experience_modal=true"><i class="fa-regular fa-pen-to-square"></i></li>
+                    <li class="border-end px-2 link-danger" @click="async ()=>{
+                        await ProjectExperiences.remove(project_experience.id); await get_context()
+                    }"><i class="fa-solid fa-trash"></i></li>
+                    <li></li>
+                </ul>
+            </li>
+        </ul>
     </div>
+    <div class="d-flex"  style="min-width: max-content"><strong class="text-primary" style="min-width: max-content" >Right Side</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
+    <VMarkdownEditor
+            v-model="context.right_side"
+            locale="en"
+            :fullscreen="amit"
+            :onkeyup="echo_context_sync"     
+            style="height: 20vh;"       
+        />
     </article>
     <article class="col-6 overflow-y-auto h-100">
         <ResumeComponent :context="context" :EditMode="true"/>
@@ -146,6 +193,19 @@ function echo_context_sync() {
         notify(ref({
             title: 'Sync',
             text: 'Work Experience'
+        }).value)
+    }"
+/>
+<ProjectExperiencesForm 
+    :show_modal="show_project_experience_modal" 
+    :instance_exp="instance_project_experience" 
+    @toggle_modal="toggle_project_experience_modal"
+    @submit="()=>{
+        show_project_experience_modal=false;
+        get_context();
+        notify(ref({
+            title: 'Sync',
+            text: 'Project Experience'
         }).value)
     }"
 />
