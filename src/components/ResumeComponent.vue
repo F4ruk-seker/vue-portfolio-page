@@ -83,7 +83,7 @@ const getProjectType = (project_type) => {
 		<div class="row">
 			<div class="resume-main col-12 col-lg-8 col-xl-9   pe-0   pe-lg-5">
 				
-				<section class="work-section py-3">
+				<section v-if="context.work_experiences" class="work-section py-3">
 					<h3 class="text-uppercase resume-section-heading mb-4">Work Experiences</h3>
 					
 					<ul class="list-unstyled">
@@ -101,9 +101,8 @@ const getProjectType = (project_type) => {
 
 				</section><!--//work-section-->
 				
-				<section class="project-section py-3">
-					<h3 class="text-uppercase resume-section-heading mb-4">Work Experiences</h3>
-					
+				<section v-if="context.project_experiences" class="project-section py-3">
+					<h3 class="text-uppercase resume-section-heading mb-4">Project Experiences</h3>
 					<ul class="list-unstyled">
 						<li v-for="(project_experience, index) in context.project_experiences" :key="index">
 							<div v-if="project_experience.show" class="item mb-3">
