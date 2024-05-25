@@ -3,19 +3,23 @@ import axios from 'axios';
 import { VMarkdownView } from 'vue3-markdown'
 import 'vue3-markdown/dist/style.css'
 import { useCookies } from "vue3-cookies";
+import NewCommentForm from '@/components/blog/NewCommentForm.vue';
 
 const cookies = useCookies()
 
 export default {
     name: 'BlogContentView',
     props: ['slug'],
-    components:{VMarkdownView},
+    components:{VMarkdownView, NewCommentForm},
     data: ()=>{return{
     project: null,
     md_theme: 'dark',
 
     }},
     methods: {
+      add_comment(comment){
+      this.project.comments.push(comment)
+    },
       blog_ticker(){
         if (this.project.ticket){
           axios.post(`analytical/content/${this.project.ticket}`)
@@ -111,6 +115,24 @@ export default {
     <hr>
     <article class="container">
         <VMarkdownView :content="project?.text" class="w-100" :mode="md_theme" />
+        <hr>
+        <NewCommentForm :slug="slug" @add_comment="add_comment" />
+        <div v-if="!project?.comments" class="alert alert-info">no comment yet</div>
+    <ul v-else class=" list-unstyled">
+      <li 
+        class="d-flex border my-2 py-2 px-1 rounded-2" 
+        v-for="comment_obj in project?.comments" 
+        v-bind:key="comment_obj.id"
+        >
+        <div class=" rounded-circle bg-black" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;"></div>
+        <p class="p-0 my-auto ms-2 w-100">
+         <span class=" fw-bold text-primary">@{{ comment_obj.name }}:</span> {{ comment_obj.comment }}
+        </p>      
+        <button class="btn btn-light btn-sm border rounded-circle d-flex" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;" disabled>
+          <i class="fa-regular fa-heart justify-content-center m-auto"></i>
+        </button>
+      </li>
+    </ul>
     </article>
 </section>
 </template>

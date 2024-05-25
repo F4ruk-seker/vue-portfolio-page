@@ -56,6 +56,9 @@ async function sendNewComment() {
     }).then(response =>{
       if (response.status === 201){
         emit('add_comment', response.data)
+        name.value = ''
+        email.value = ''
+        comment.value = ''
       }
     }).catch(e => {
       handle_error.value = e.response.data
