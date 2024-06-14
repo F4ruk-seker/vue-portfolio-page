@@ -22,8 +22,8 @@ export default {
             <div class="bg-secondary rounded-2 h-100 ratio ratio-16x9 border border-white" style="max-width: 100px; height: 75px; min-height: 75px;">
                 <img :src="project.seo_image_url" alt="project banner" style="object-fit: cover;">
             </div>
-            <div class="ms-2 my-auto">
-                <router-link class="text-decoration-none text-start h-100" style="min-height: 75px;"  :to="{name:'admin-project', params:{slug:project.slug}}">
+            <div class="ms-2 my-auto" style="min-width: max-content;">
+                <router-link class="text-decoration-none text-start h-100 " style="min-height: 75px; min-width: max-content;"  :to="{name:'admin-project', params:{slug:project.slug}}">
                     <strong class="p-1 ps-0 text-capitalize">{{ project.title }}</strong>
                     <p class="m-0 p-0">/{{ project.slug }}</p>
                 </router-link>
