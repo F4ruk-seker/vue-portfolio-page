@@ -153,7 +153,7 @@ const routes = [
       {
         path: 'todos',
         name: 'todos',
-        component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/todo/ToDoView.vue'),
+        component: () => import(/* webpackChunkName: "project-edit" */ '../views/admin/todo/AdvanceTodoView.vue'),
       },
       {
         path: 'otp',

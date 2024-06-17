@@ -63,7 +63,7 @@ function get_todo_list() {
         // completion rate calculation
         let docount = 0 
         todo_list.value.forEach((todo)=>{
-            if (todo.is_to_do === true){docount ++}
+            if (todo.is_to_do){docount ++}
         })
         completion_rate.value = 100 - ((todo_list.value.length - docount ) / todo_list.value.length * 100)      
     }))
