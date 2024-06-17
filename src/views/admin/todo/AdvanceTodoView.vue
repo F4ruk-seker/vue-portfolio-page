@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-3 m-0 p-0 border-0 border-start h-100 ">
+        <div class="col-3 m-0 p-0 border-0 border-start h-100 overflow-x-auto">
             <SelectedTodoCard :td="selected_todo"/>
         </div>
     </div>

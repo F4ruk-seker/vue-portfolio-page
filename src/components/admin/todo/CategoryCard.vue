@@ -1,5 +1,5 @@
 <template>
-    <div class="border-white rounded shadow-sm">
+    <div class="border-white rounded shadow-sm" id="TodoCategory">
         <div class="d-flex p-3 pb-2">
             <strong class="w-100 pe-1 fw-bold">{{cate.title}}</strong>
             <span :class="'rounded-circle ' + (cate.is_done ? 'bg-success': 'bg-danger')" style="min-width: 24px; height: 24px;"></span>
@@ -17,3 +17,10 @@
 <script setup>
 defineProps({cate:Object})
 </script>
+
+<style scoped>
+.dark-mode #TodoCategory{
+    box-shadow: 1px 2px 4px 4px rgba(211, 209, 209, 0.1)!important;
+    color: var(--bs-white);
+}
+</style>
