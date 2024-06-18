@@ -14,11 +14,15 @@ class TodoManager{
         await axios.delete(`todo/${todo.id}`)
     }
 
-    /*
     async addCategory(name){
-        const response = await axios.post(`todo/add/todo/`, {task: text,detail: '',category: category_id})
+        const response = await axios.post(`todo/add/category/`, {title: name, detail: ''})
+        if (response.status === 201){return response.data}
     }
-    */
+    
+    async removeCategory(category_id) {
+        const response = await axios.delete(`todo/category/${category_id}`)
+        if (response.status === 204){return response.data}
+    }
 }
 
 

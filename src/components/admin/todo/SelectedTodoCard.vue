@@ -1,5 +1,5 @@
 <template>
-<div class="shadow m-3 p-3 rounded shadow mt-5" v-if="td" id="SelectedTodo">
+<div class="shadow m-3 p-3 rounded mt-5" v-if="td" id="SelectedTodo">
     <cite contenteditable="true" @input="taskEdit">
         <h2 class="fw-bold" ref="taskRef">{{ td.task }}</h2>
     </cite>
@@ -14,10 +14,6 @@
     <div class="d-flex">
         <p class="m-auto p-0 fw-semibold">Detail</p>
         <hr class="w-100 mx-2 my-auto bg-secondary">
-
-        <!--button class="btn btn-light shadow-sm rounded-circle d-flex p-0 m-0 " style="min-width: 36px; max-width: 36px; min-height: 36px; max-height: 36px;" >
-            <i class="fa-solid fa-pencil justify-content-center m-auto"></i>
-        </button-->
     </div>
     <textarea v-if="edit_detail" class="form-control my-1 p-1" @input="echo_todo_sync" v-model="$props.td.detail" style="height: 250px;"></textarea>
     <div  v-else class="border p-1 my-1 rounded" @click="edit_detail=true" v-html="getHtmlFromMark(td.detail)" style="height: 250px;"></div>
@@ -31,16 +27,16 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created" disabled>
+            <input type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created.split('T')[0]" disabled>
         </div>
     </div>
     <div class="form-group mb-3">
-        <label for="death_of_line">Death line;</label>
+        <label class="" for="death_of_line">{{$props.td.death_of_line===null ? 'No has ':'' }}Death line;</label>
         <div class="input-group">
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="date" class="form-control" id="death_of_line" placeholder="death_of_line" v-model="$props.td.death_of_line">
+            <input type="date"  class="form-control" id="death_of_line" placeholder="death_of_line" v-model="$props.td.death_of_line" @input="sync_todo">
         </div>
     </div>
     <div class="form-group mb-3">
@@ -49,7 +45,7 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="date" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date">
+            <input type="date" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date.split('T')[0]" @input="sync_todo">
         </div>
     </div>
     <div class="d-flex">

@@ -1,9 +1,12 @@
 <template>
     <div class="row m-0 p-0 h-100">
-        <div class="col-2 m-0 p-0">
-            <form @submit.prevent class="p-2 pe-0 pt-3">
-                <input class="form-control shadow-sm" type="text" placeholder="New Category">
+        <div class="col-2 m-0 p-0 h-100 overflow-x-auto">
+            <form @submit.prevent="new_category" class="p-2 pe-0 pt-3">
+                <input v-model="new_category_text" :class="'form-control shadow-sm ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
             </form>
+            
+            <SelectedCategory :cate="selected_category" />
+        
             <ul class="list-unstyled">
                 <li 
                     class="p-2 pe-0"
@@ -57,9 +60,15 @@ import { computed, ref, onMounted } from 'vue';
 import CategoryCard from '@/components/admin/todo/CategoryCard.vue'
 import TodoCard from '@/components/admin/todo/TodoCard.vue'
 import SelectedTodoCard from '@/components/admin/todo/SelectedTodoCard.vue'
+import SelectedCategory from '@/components/admin/todo/SelectedCategory.vue'
+import { useNotification } from "@kyvg/vue3-notification";
+
+const { notify }  = useNotification()
 
 const categories = ref()
 const selected_category = ref()
+const new_category_text = ref('')
+const new_category_is_invaild = ref(false)
 
 const todos = ref([])
 const selected_todo = ref()
@@ -132,6 +141,26 @@ const new_todo = async () => {
         new_todo_is_invaild.value = true
         setTimeout(() => {
             new_todo_is_invaild.value = false
+        }, 1500)
+    }
+}
+
+const new_category = async () => {
+    if (new_category_text.value.length >= 3){
+        const new_category = await TodoService.addCategory(new_category_text.value)
+        if (new_category) {
+            categories.value.push(new_category)
+            new_category_text.value = ''
+            notify(
+                {title: "Sync", text: "New category created!",}
+            );
+        } else {
+            alert('bilinmeyen hata')
+        }
+    } else {
+        new_category_is_invaild.value = true
+        setTimeout(() => {
+            new_category_is_invaild.value = false
         }, 1500)
     }
 }
