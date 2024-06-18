@@ -27,7 +27,9 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created.split('T')[0]" disabled>
+            <input v-if="$props.td.created" type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created.split('T')[0]" disabled>
+            <input v-else type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created" disabled>
+            
         </div>
     </div>
     <div class="form-group mb-3">
@@ -36,7 +38,7 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="date"  class="form-control" id="death_of_line" placeholder="death_of_line" v-model="$props.td.death_of_line" @input="sync_todo">
+            <input type="date" class="form-control" id="death_of_line" placeholder="death_of_line" v-model="$props.td.death_of_line" @input="sync_todo">
         </div>
     </div>
     <div class="form-group mb-3">
@@ -45,7 +47,8 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="date" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date.split('T')[0]" @input="sync_todo">
+            <input v-if="$props.td.end_date" type="date" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date.split('T')[0]" @input="sync_todo">
+            <input v-else type="date" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date" @input="sync_todo">
         </div>
     </div>
     <div class="d-flex">
@@ -79,6 +82,14 @@ onBeforeUpdate(()=>{
 
 const getHtmlFromMark = (mark) => {
   return marked.parse(mark);
+}
+
+const getTime = (_time) => {
+    if (_time === null){
+        return _time
+    } else {
+        return _time.split('T')[0]
+    }
 }
 
 function echo_todo_sync() {
