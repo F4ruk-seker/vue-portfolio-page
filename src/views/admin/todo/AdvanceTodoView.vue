@@ -37,7 +37,7 @@
                         @click="selected_todo=todo" 
                         :draggable="true"
                         @dragstart="startDrag($event, todo)"
-                        :class="'rounded mb-2 shdow-sm user-select-none drag-el border' + (selected_todo === todo ? 'border border-primary':'')"
+                        :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'')"
                         style="cursor: pointer;">
                         <TodoCard :td="todo" />
                     </div>

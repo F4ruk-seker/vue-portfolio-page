@@ -15,12 +15,12 @@
         <p class="m-auto p-0 fw-semibold">Detail</p>
         <hr class="w-100 mx-2 my-auto bg-secondary">
 
-        <button class="btn btn-light shadow-sm rounded-circle d-flex p-0 m-0 " style="min-width: 36px; max-width: 36px; min-height: 36px; max-height: 36px;" @click="edit_detail=!edit_detail">
+        <!--button class="btn btn-light shadow-sm rounded-circle d-flex p-0 m-0 " style="min-width: 36px; max-width: 36px; min-height: 36px; max-height: 36px;" >
             <i class="fa-solid fa-pencil justify-content-center m-auto"></i>
-        </button>
+        </button-->
     </div>
-    <textarea v-if="edit_detail" class="form-control my-1 p-1" v-model="$props.td.detail" style="height: 250px;"></textarea>
-    <div  v-else class="border p-1 my-1 rounded" v-html="getHtmlFromMark(td.detail)" style="height: 250px;"></div>
+    <textarea v-if="edit_detail" class="form-control my-1 p-1" @input="echo_todo_sync" v-model="$props.td.detail" style="height: 250px;"></textarea>
+    <div  v-else class="border p-1 my-1 rounded" @click="edit_detail=true" v-html="getHtmlFromMark(td.detail)" style="height: 250px;"></div>
     <div class="d-flex">
         <p class="m-0 me-2 p-0 fw-semibold" style="min-width: max-content;">Time Flow</p>
         <hr class="w-100 my-auto bg-secondary">
@@ -111,6 +111,7 @@ async function sync_todo () {
     onsync.value = true
     await TodoService.todoUpdate(props.td)
     onsync.value = false
+    edit_detail.value = false
     notify({
             title: "Sync",
             text: "Todo synced!",
