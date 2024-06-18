@@ -8,8 +8,14 @@
                 <li 
                     v-for="category, index in categories"  v-bind:key="index" >
                     <div 
-                        :class="'rounded mb-3' + (hoveredCategoryId===category.id ? 'border border-primary':'')"
-                        @click="todos=category.todos;selected_category=category"
+                        :class="'rounded mb-3 ' + (hoveredCategoryId===category.id ? 'border border-secondary':'') + (category.id === selected_category?.id ? 'border border-primary':'')"
+                        @click="()=>{
+                            todos=category.todos;
+                            if (category.id !== selected_category?.id){
+                                selected_todo = null
+                            }
+                            selected_category=category;
+                        }"
                         style="cursor: pointer;"
                         @drop="handleDrop($event, category.id);hoveredCategoryId=null"
                         :dropzone="true"
@@ -122,6 +128,7 @@ const handleDrop = (event, category_id) => {
     }
     const updateTodo = dragedTodo.value
     updateTodo.category = category_id
+    selected_todo.value = null
     TodoService.todoUpdate(updateTodo)
 } 
  
@@ -130,6 +137,7 @@ const new_todo = async () => {
         const new_todo = await TodoService.addTodo(new_todo_text.value, selected_category.value.id)
         if (new_todo) {
             selected_category.value.todos.push(new_todo)
+            // selected_todo.value = new_todo
             new_todo_text.value = ''
         } else {
             alert('bilinmeyen hata')
