@@ -1,11 +1,13 @@
 <template>
 <div class="shadow m-3 p-3 rounded shadow mt-5" v-if="td" id="SelectedTodo">
-    <h2 class="fw-bold">{{ td.task }}</h2>
-    <div v-if="td.is_to_do" class="alert alert-success p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
+    <cite contenteditable="true" @input="taskEdit">
+        <h2 class="fw-bold" ref="taskRef">{{ td.task }}</h2>
+    </cite>
+    <div v-if="td.is_to_do" @click="toggleTodo" class="alert alert-success p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
         <i class="fa-solid fa-check m-auto pe-2"></i>
         Done
     </div>
-    <div v-else class="alert alert-danger p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
+    <div v-else @click="toggleTodo" class="alert alert-danger p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
         <i class="fa-solid fa-xmark m-auto pe-2"></i>
         Ongoing
     </div>
@@ -29,16 +31,16 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="text" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created" disabled>
+            <input type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.td.created" disabled>
         </div>
     </div>
-    <div class="form-group mb-3" v-show="$props.td.death_of_line">
+    <div class="form-group mb-3">
         <label for="death_of_line">Death line;</label>
         <div class="input-group">
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="text" class="form-control" id="death_of_line" placeholder="death_of_line" v-model="$props.td.death_of_line">
+            <input type="date" class="form-control" id="death_of_line" placeholder="death_of_line" v-model="$props.td.death_of_line">
         </div>
     </div>
     <div class="form-group mb-3">
@@ -47,24 +49,84 @@
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
             </div>
-            <input type="text" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date">
+            <input type="date" class="form-control" id="end_date" placeholder="end_date" v-model="$props.td.end_date">
         </div>
     </div>
-    {{ td }}
+    <div class="d-flex">
+        <button class="btn btn-danger fw-bold" @click="TodoService.todoDelete($props.td); $emit('syncTodo', null)">Delete</button>
+        <div class="w-100"></div>
+        <button class="btn btn-success fw-bold" disabled>{{ onsync ? 'saveing': 'saved'}}</button>
+    
+    </div>
 </div>
 </template>
 
 <script setup>
 import { marked } from 'marked'
-import { ref } from 'vue';
+import { onMounted, onBeforeUpdate, ref, watch } from 'vue';
+import TodoService from '@/composable/TodoService';
+import { useNotification } from "@kyvg/vue3-notification";
 
+const { notify }  = useNotification()
+
+let timerId;
 const edit_detail = ref(false)
+const props = defineProps({td:{type:Object,required: true}})
+const emit = defineEmits(['syncTodo'])
+const previous_todo = ref()
+const taskRef = ref(null)
+const onsync = ref(false)
+
+onBeforeUpdate(()=>{
+    previous_todo.value=props.td
+})
 
 const getHtmlFromMark = (mark) => {
   return marked.parse(mark);
 }
 
-defineProps({td:Object})
+function echo_todo_sync() {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+    if (props.td.value !== previous_todo.value) {
+        sync_todo()
+    }
+    previous_todo.value = props.td.value
+    }, 2000);
+}
+
+const taskEdit = () => {
+    // eslint-disable-next-line
+    props.td.task = taskRef.value.innerText
+    echo_todo_sync()
+}
+
+const toggleTodo = () => {
+    // eslint-disable-next-line
+    props.td.is_to_do = !props.td.is_to_do
+    sync_todo()
+}
+
+async function sync_todo () {
+    onsync.value = true
+    await TodoService.todoUpdate(props.td)
+    onsync.value = false
+    notify({
+            title: "Sync",
+            text: "Todo synced!",
+        });
+    emit('syncTodo', props.td)
+}
+
+/*
+ watch: {
+    td: {
+      handler(newVal) {
+        this.localTask = newVal.task;
+      },
+      deep: true
+    }
+     */
 </script>
 
 <style scoped>

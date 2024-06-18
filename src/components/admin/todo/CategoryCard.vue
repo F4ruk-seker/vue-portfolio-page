@@ -2,7 +2,7 @@
     <div class="border-white rounded shadow-sm p-1" id="TodoCategory">
         <div class="d-flex p-2">
             <strong class="w-100 pe-1 fw-bold">{{cate.title}}</strong>
-            <span :class="'rounded-circle ' + (cate.is_done ? 'bg-success': 'bg-danger')" style="min-width: 24px; height: 24px;"></span>
+            <span :class="'rounded-circle ' + ($props.cate.todos.length === $props.cate.todos.filter(todo => todo.is_to_do).length ? 'bg-success': 'bg-danger')" style="min-width: 24px; height: 24px;"></span>
         </div>
         <hr class="mx-1 bg-secondary">
         <div class="d-flex p-2">
