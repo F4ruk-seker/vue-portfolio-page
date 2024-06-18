@@ -1,5 +1,5 @@
 <template>
-<div class="m-2 me-0 p-2 shadow-sm rounded">
+<div class="p-2">
     <h4>{{ cate.title }}</h4>
     <div name="status" class="user-select-none">
         <div class="alert alert-success p-1 text-center fw-bold d-flex ms-0 m-2">

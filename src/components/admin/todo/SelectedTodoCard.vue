@@ -1,5 +1,5 @@
 <template>
-<div class="shadow m-3 p-3 rounded mt-5" v-if="td" id="SelectedTodo">
+<div class="p-3" v-if="td" id="SelectedTodo">
     <cite contenteditable="true" @input="taskEdit">
         <h2 class="fw-bold" ref="taskRef">{{ td.task }}</h2>
     </cite>

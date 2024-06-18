@@ -1,18 +1,14 @@
 <template>
-    <div class="row m-0 p-0 h-100">
-        <div class="col-2 m-0 p-0 h-100 overflow-x-auto">
-            <form @submit.prevent="new_category" class="p-2 pe-0 pt-3">
-                <input v-model="new_category_text" :class="'form-control shadow-sm ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
+    <div class="row m-0 p-0 h-100 pt-2">
+        <div class="col-2 h-100 overflow-x-auto">
+            <form @submit.prevent="new_category" class="p-2 mb-3 rounded shadow-sm" >
+                <input v-model="new_category_text" :class="'form-control ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
             </form>
-            
-            <SelectedCategory :cate="selected_category" />
-        
             <ul class="list-unstyled">
                 <li 
-                    class="p-2 pe-0"
                     v-for="category, index in categories"  v-bind:key="index" >
                     <div 
-                        :class="'rounded ' + (hoveredCategoryId===category.id ? 'border border-primary':'')"
+                        :class="'rounded mb-3' + (hoveredCategoryId===category.id ? 'border border-primary':'')"
                         @click="todos=category.todos;selected_category=category"
                         style="cursor: pointer;"
                         @drop="handleDrop($event, category.id);hoveredCategoryId=null"
@@ -25,16 +21,16 @@
                 </li>
             </ul>
         </div>
-        <div class="col m-0 p-0 h-100 overflow-x-auto">
-            <form @submit.prevent="new_todo" class="sticky-top bg-white px-2 pt-3 pb-2">
-                <div class="form-group mb-2">
+        <div class="col h-100 overflow-x-auto">
+            <form @submit.prevent="new_todo" class="sticky-top p-2 rounded shadow-sm mb-3" id="newTodo">
+                <div class="form-group">
                     <input 
                         :class="'form-control shdow-sm ' + ( new_todo_is_invaild ? 'border-2 border-danger shake': '')"
                         type="text" placeholder="New Todo" :disabled="!selected_category" v-model="new_todo_text"
                         >
                 </div>
             </form>
-            <ul class="list-unstyled px-2">
+            <ul class="list-unstyled">
                 <li v-for="todo, index in todos" v-bind:key="index">
                     <div 
                         @click="selected_todo=todo" 
@@ -47,8 +43,10 @@
                 </li>
             </ul>
         </div>
-        <div class="col-3 m-0 p-0 border-0 border-start h-100 overflow-x-auto">
-            <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
+        <div class="col-3 h-100 overflow-x-auto">
+            <div class="shadow-sm me-2 rounded">
+                <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
+            </div>
         </div>
     </div>
 </template>
@@ -56,11 +54,10 @@
 <script setup>
 import TodoService from '@/composable/TodoService';
 import axios from 'axios';
-import { computed, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import CategoryCard from '@/components/admin/todo/CategoryCard.vue'
 import TodoCard from '@/components/admin/todo/TodoCard.vue'
 import SelectedTodoCard from '@/components/admin/todo/SelectedTodoCard.vue'
-import SelectedCategory from '@/components/admin/todo/SelectedCategory.vue'
 import { useNotification } from "@kyvg/vue3-notification";
 
 const { notify }  = useNotification()
@@ -218,5 +215,13 @@ async function add_todo(){
   60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+#newTodo{
+    background-color: var(--bs-white);
+}
+.dark-mode #newTodo{
+    box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
+    color: var(--bs-white);
+    background-color: #151e29!important;
 }
 </style>
