@@ -1,6 +1,6 @@
 <template>
     <div class="row m-0 p-0 h-100 pt-2">
-        <div class="col-2 h-100 overflow-x-auto">
+        <div class="col-3 h-100 overflow-x-auto">
             <form @submit.prevent="new_category" class="p-2 mb-3 rounded shadow-sm dark-shadow"  >
                 <input v-model="new_category_text" :class="'form-control dark-input ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
             </form>
@@ -49,7 +49,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-3 h-100 overflow-x-auto">
+        <div class="col-4 h-100 overflow-x-auto">
             <div class="shadow-sm me-2 rounded">
                 <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
             </div>
