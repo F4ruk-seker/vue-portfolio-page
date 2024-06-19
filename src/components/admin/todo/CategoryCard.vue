@@ -3,7 +3,7 @@
         <div class="d-flex p-2">
           <span :class="'rounded-circle me-2 ' + ($props.cate.todos.length === $props.cate.todos.filter(todo => todo.is_to_do).length ? 'bg-success': 'bg-danger')" style="min-width: 24px; height: 24px;"></span>
           <strong class="w-100 pe-1 fw-bold my-auto">
-            <cite contenteditable="true" @input="categoryEdit">
+            <cite :contenteditable="expend_menu" @input="categoryEdit">
               <p class="w-100 p-0 m-0" ref="categoryTitleRef">{{cate.title}}</p>
             </cite>
             <span v-if="$props.cate.todos.length !== $props.cate.todos.filter(todo => todo.is_to_do).length">
