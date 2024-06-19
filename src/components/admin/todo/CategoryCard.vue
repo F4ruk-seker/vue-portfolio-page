@@ -54,7 +54,7 @@
                     <input v-else type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.cate.created" disabled>
                   </div>
                   <div class="form-group mb-3">
-                    <label>{{$props.cate.death_of_line===null ? 'No has ':'' }}Death Line</label>
+                    <label>{{$props.cate.death_of_line===null ? 'No has ':'' }}Deadline</label>
                     <input @input="sync_category" v-if="$props.cate.death_of_line" type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.cate.death_of_line.split('T')[0]">
                     <input @input="sync_category" v-else type="date" class="form-control" id="cteatedTime" placeholder="Created" v-model="$props.cate.death_of_line">
                   </div>

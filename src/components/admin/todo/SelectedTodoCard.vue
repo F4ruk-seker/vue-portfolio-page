@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="form-group mb-3">
-        <label class="" for="death_of_line">{{$props.td.death_of_line===null ? 'No has ':'' }}Death line;</label>
+        <label class="" for="death_of_line">{{$props.td.death_of_line===null ? 'No has ':'' }}Deadline;</label>
         <div class="input-group">
             <div class="input-group-text bg-secondary-subtle text-light fw-bold bprder-0">
                 <i class="fa-regular fa-clock"></i>
