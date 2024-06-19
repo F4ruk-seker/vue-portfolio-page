@@ -16,7 +16,7 @@
         <hr class="w-100 mx-2 my-auto bg-secondary">
     </div>
     <textarea v-if="edit_detail" class="form-control my-1 p-1" @input="echo_todo_sync" v-model="$props.td.detail" style="height: 250px;"></textarea>
-    <div  v-else class="border p-1 my-1 rounded" @click="edit_detail=true" v-html="getHtmlFromMark(td.detail)" style="height: 250px;"></div>
+    <div  v-else class="border p-1 my-1 rounded overflow-auto" @click="edit_detail=true" v-html="getHtmlFromMark(td.detail)" style="height: 250px;"></div>
     <div class="d-flex">
         <p class="m-0 me-2 p-0 fw-semibold" style="min-width: max-content;">Time Flow</p>
         <hr class="w-100 my-auto bg-secondary">
@@ -54,15 +54,18 @@
     <div class="d-flex">
         <button class="btn btn-danger fw-bold" @click="TodoService.todoDelete($props.td); $emit('syncTodo', null)">Delete</button>
         <div class="w-100"></div>
-        <button class="btn btn-success fw-bold" disabled>{{ onsync ? 'saveing': 'saved'}}</button>
-    
+        <div class="my-auto">
+            <div v-if="onsync" class="spinner-border text-success my-auto" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     </div>
 </div>
 </template>
 
 <script setup>
 import { marked } from 'marked'
-import { onMounted, onBeforeUpdate, ref, watch } from 'vue';
+import { onBeforeUpdate, ref } from 'vue';
 import TodoService from '@/composable/TodoService';
 import { useNotification } from "@kyvg/vue3-notification";
 
@@ -75,6 +78,7 @@ const emit = defineEmits(['syncTodo'])
 const previous_todo = ref()
 const taskRef = ref(null)
 const onsync = ref(false)
+const sync_time = ref(3000)
 
 onBeforeUpdate(()=>{
     previous_todo.value=props.td
@@ -84,14 +88,6 @@ const getHtmlFromMark = (mark) => {
   return marked.parse(mark);
 }
 
-const getTime = (_time) => {
-    if (_time === null){
-        return _time
-    } else {
-        return _time.split('T')[0]
-    }
-}
-
 function echo_todo_sync() {
     clearTimeout(timerId);
     timerId = setTimeout(() => {
@@ -99,7 +95,7 @@ function echo_todo_sync() {
         sync_todo()
     }
     previous_todo.value = props.td.value
-    }, 2000);
+    }, sync_time.value);
 }
 
 const taskEdit = () => {
@@ -122,6 +118,7 @@ async function sync_todo () {
     notify({
             title: "Sync",
             text: "Todo synced!",
+            position: 'bottom right'
         });
     emit('syncTodo', props.td)
 }

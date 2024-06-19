@@ -22,7 +22,7 @@
                         @dragover.prevent="hoveredCategoryId=category.id"
                         @dragleave.prevent="hoveredCategoryId=null"
                         @dragenter.prevent>
-                        <CategoryCard :cate="category" />
+                        <CategoryCard @remove_category="removeCategory" :cate="category" />
                     </div>
                 </li>
             </ul>
@@ -60,7 +60,7 @@
 <script setup>
 import TodoService from '@/composable/TodoService';
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import CategoryCard from '@/components/admin/todo/CategoryCard.vue'
 import TodoCard from '@/components/admin/todo/TodoCard.vue'
 import SelectedTodoCard from '@/components/admin/todo/SelectedTodoCard.vue'
@@ -69,7 +69,7 @@ import { useNotification } from "@kyvg/vue3-notification";
 const { notify }  = useNotification()
 
 const categories = ref()
-const selected_category = ref()
+const selected_category = ref(null)
 const new_category_text = ref('')
 const new_category_is_invaild = ref(false)
 
@@ -80,6 +80,21 @@ const hoveredCategoryId = ref()
 const dragedTodo = ref()
 const new_todo_text = ref('')
 const new_todo_is_invaild = ref(false)
+
+const removeCategory = async (category_id) => {
+    await TodoService.removeCategory(category_id)
+    selected_category.value = null
+    const category_index = categories.value.findIndex(category => category.id === category_id)
+    if (category_index !== -1) {
+        categories.value.splice(category_index, 1);
+        selected_todo.value = null
+        flush_todos()
+    }
+}
+
+const flush_todos = () => {
+    todos.value.splice(0, todos.value.length)
+}
 
 const sync_selected_todo = (todo) => {
     if (todo === null){
@@ -171,27 +186,6 @@ const new_category = async () => {
 }
 
 onMounted(fetch_categories)
-
-
-
-/*
-async function add_todo(){
-    if (new_task.value.length > 0){
-        on_add.value = true
-        await axios.post('todo/add/',{
-            task:new_task.value
-        })
-        new_task.value = ''
-        get_todo_list() // update todo list
-        on_add.value = false
-    } else {
-        new_task_is_empty.value = true
-        setTimeout(() => {
-            new_task_is_empty.value = false
-        }, 1500)
-    }
-}
-*/
 
 </script>
 
