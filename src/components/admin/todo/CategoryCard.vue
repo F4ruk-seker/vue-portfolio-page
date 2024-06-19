@@ -1,14 +1,14 @@
 <template>
-    <div class="border-white rounded shadow-sm p-1" id="TodoCategory">
+    <div class="border-white rounded shadow-sm p-1" id="TodoCategory" @dblclick="expend_menu=true">
         <div class="d-flex p-2">
           <span :class="'rounded-circle me-2 ' + ($props.cate.todos.length === $props.cate.todos.filter(todo => todo.is_to_do).length ? 'bg-success': 'bg-danger')" style="min-width: 24px; height: 24px;"></span>
-          <strong class="w-100 pe-1 fw-bold my-auto">
-            <cite :contenteditable="expend_menu" @input="categoryEdit">
-              <p class="w-100 p-0 m-0" ref="categoryTitleRef">{{cate.title}}</p>
-            </cite>
-            <span v-if="$props.cate.todos.length !== $props.cate.todos.filter(todo => todo.is_to_do).length">
+          <strong class="w-100 d-flex pe-1 fw-bold my-auto">
+            <span class="me-2" style="max-width: min-content;" v-if="$props.cate.todos.length !== $props.cate.todos.filter(todo => todo.is_to_do).length">
               (<span class="text-danger">{{ $props.cate.todos.filter(todo => !todo.is_to_do).length }}</span>)
             </span>
+            <cite class="w-100" :contenteditable="expend_menu" @input="categoryEdit">
+              <p class="w-100 p-0 m-0" ref="categoryTitleRef">{{cate.title}}</p>
+            </cite>
           </strong>
           <p class="m-0 p-0 my-auto" style="width: 18px; height: 18px;" @click="expend_menu=!expend_menu">
               <span v-if="!expend_menu"><i class="fa-solid fa-sliders"></i></span>
