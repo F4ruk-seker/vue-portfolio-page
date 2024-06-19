@@ -1,8 +1,8 @@
 <template>
     <div class="row m-0 p-0 h-100 pt-2">
         <div class="col-2 h-100 overflow-x-auto">
-            <form @submit.prevent="new_category" class="p-2 mb-3 rounded shadow-sm dark-input " >
-                <input v-model="new_category_text" :class="'form-control ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
+            <form @submit.prevent="new_category" class="p-2 mb-3 rounded shadow-sm dark-shadow"  >
+                <input v-model="new_category_text" :class="'form-control dark-input ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
             </form>
             <ul class="list-unstyled">
                 <li 
@@ -235,5 +235,9 @@ onMounted(fetch_categories)
     box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
     background-color: var(--bs-secondary)!important;
     color: var(--bs-white);
+}
+
+.dark-mode .dark-shadow {
+    box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
 }
 </style>
