@@ -2,7 +2,7 @@
     <div class="row m-0 p-0 h-100 pt-2">
         <div class="col-2 h-100 overflow-x-auto">
             <form @submit.prevent="new_category" class="p-2 mb-3 rounded shadow-sm" >
-                <input v-model="new_category_text" :class="'form-control ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
+                <input v-model="new_category_text" :class="'form-control dark-input ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
             </form>
             <ul class="list-unstyled">
                 <li 
@@ -31,7 +31,7 @@
             <form @submit.prevent="new_todo" class="sticky-top p-2 rounded shadow-sm mb-3" id="newTodo">
                 <div class="form-group">
                     <input 
-                        :class="'form-control shdow-sm ' + ( new_todo_is_invaild ? 'border-2 border-danger shake': '')"
+                        :class="'form-control shdow-sm dark-input ' + ( new_todo_is_invaild ? 'border-2 border-danger shake': '')"
                         type="text" placeholder="New Todo" :disabled="!selected_category" v-model="new_todo_text"
                         >
                 </div>
@@ -225,5 +225,15 @@ onMounted(fetch_categories)
     box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
     color: var(--bs-white);
     background-color: #151e29!important;
+}
+.dark-mode .dark-input{
+    box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
+    background-color: transparent!important;
+    color: var(--bs-white);
+}
+.dark-mode .dark-input:disabled{
+    box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
+    background-color: var(--bs-secondary)!important;
+    color: var(--bs-white);
 }
 </style>

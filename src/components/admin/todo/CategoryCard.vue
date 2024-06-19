@@ -17,16 +17,16 @@
         </div>
         <div v-if="expend_menu">
             <div name="status" class="user-select-none p-2">
-                <div 
+                <span 
                 v-if="$props.cate.todos.length === $props.cate.todos.filter(todo => todo.is_to_do).length" 
                 class="alert alert-success p-1 text-center fw-bold d-flex mb-0">
                     <i class="fa-solid fa-check my-auto ms-2"></i>
                     <p class="my-auto mx-2">All Todo's Done</p>
-                </div>
-                <div v-else class="alert alert-danger p-1 text-center fw-bold d-flex ms-0 m-2">
+                </span>
+                <span v-else class="alert alert-danger p-1 text-center fw-bold d-flex ms-0 m-2">
                     <i class="fa-solid fa-xmark my-auto ms-2"></i>
                     <p class="my-auto mx-2">Todo's not done</p>
-                </div>
+                </span>
             </div>
 
             <div name="detail">
@@ -135,3 +135,10 @@ const categoryEdit = () => {
   echo_category_sync()
 }
 </script>
+
+<style scoped>
+.dark-mode #TodoCategory{
+  box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
+  color: white!important;
+}
+</style>
