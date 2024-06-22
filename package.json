@@ -28,7 +28,8 @@
     "vue3-markdown": "^1.1.9",
     "vue3-ts-jsoneditor": "^2.11.2",
     "vuex": "^4.0.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

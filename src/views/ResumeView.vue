@@ -35,7 +35,9 @@ function generatePDF() {
   const currentDate = new Date().toISOString().slice(0, 10);
   const filename = `farukseker-online-resume_${currentDate}.pdf`; 
 
-  const A4_WIDTH = 1424; // px
+  //const A4_WIDTH = 1424; // px
+  const A4_WIDTH = 2480; // px
+  const A4_HEIGHT = 3508; // px
   //shadow-lg
   
   const resume = document.querySelector("#resume")
@@ -49,6 +51,7 @@ function generatePDF() {
     scrollX: 0,
     scrollY: 0,
     windowWidth: A4_WIDTH,
+    windowHeight:A4_HEIGHT,
   }).then(canvas => {
     const pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
