@@ -108,7 +108,7 @@ const getProjectType = (project_type) => {
 							<div v-if="project_experience.show" class="item mb-3">
 								<div class="item-heading row align-items-center mb-2">
 									<h4 v-if="project_experience.link" class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">
-										<a href="#" class="text-decoration-none">{{ project_experience.title }}</a>
+										<a :href="project_experience.link" class="text-decoration-none">{{ project_experience.title }}</a>
 									</h4>
 									<h4 v-else class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">{{ project_experience.title }}</h4>
 
