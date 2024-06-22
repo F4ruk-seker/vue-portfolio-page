@@ -39,6 +39,8 @@ function generatePDF() {
   //shadow-lg
   
   const resume = document.querySelector("#resume")
+  resume.classList.remove('px-3')
+  resume.classList.remove('px-lg-5')
   resume.firstChild.classList.remove('shadow-lg')
 
   html2canvas(resume, {
@@ -54,6 +56,8 @@ function generatePDF() {
   });
   
   resume.firstChild.classList.add('shadow-lg')
+  resume.classList.add('px-3')
+  resume.classList.add('px-lg-5')
 }
 
 function printContent() {
