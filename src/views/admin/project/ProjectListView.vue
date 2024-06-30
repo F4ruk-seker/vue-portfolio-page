@@ -161,7 +161,9 @@ watch(selected_content_type, (_)=>{
                         <button class="btn btn-success btn-sm my-auto fw-bold" @click="content_create_modal=true">ADD</button>
                     </div>
                 </div>
-                <ProjectPreview v-for="(project, index) in projcets_list" v-bind:key="project.id" :project="project" :row="index + 1" />
+                <div class="overflow-y-auto">
+                    <ProjectPreview v-for="(project, index) in projcets_list" v-bind:key="project.id" :project="project" :row="index + 1" />
+                </div>
             </div>
         </div>
     </article>

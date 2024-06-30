@@ -11,7 +11,7 @@ import AdminASide from "@/components/admin/AdminASide.vue";
   class="d-flex justify-content-center p-5 panel-main text-white fw-semibold"
   style="background-color: #413f3f4b!important;"
   >
-  <main class="d-flex m-md-5 rounded border p-2 w-100 shadow" style="backdrop-filter:blur(4px);">
+  <main class="d-flex m-md-5 rounded-2 p-2 w-100 shadow" style="backdrop-filter:blur(4px);">
     <article class="" style="min-width: max-content;">
       <admin-a-side class="pe-2" />
     </article>
