@@ -105,26 +105,34 @@ watch(selected_content_type, (_)=>{
 </script>
 
 <template>
-<section class="d-flex h-100">
-    <article class="container justify-content-center my-auto">
-        <div class="row border p-3 shadow rounded overflow-y-auto mh-100">
-            <div class="col-2 col-md-4 pt-3 rounded-1 border">
+<section class="d-flex w-100 h-100">
+    <article class="w-100 justify-content-center my-auto">
+        <div class="row w-100 mh-100 p-3 shadow rounded overflow-y-auto">
+            <div class="col-1 col-md-2 pt-3 rounded-1">
                 <div class="w-100 d-flex justify-content-between">
-                    <h4 class="my-auto fw-bold">Content Type</h4>
+                    <h4 class="my-auto fw-bold text-light">Content Type</h4>
                 </div>
-                <hr class="bg-secondary">
+                <hr style="background-color: #2f2f2f61;">
                 <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
                     <li class="">
-                        <button :class="'text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-secondary ' + (selected_content_type == '' ? 'active': '')" @click="selected_content_type=''">
+                        <div 
+                            :class="'text-start shdow d-flex rounded mb-2 w-100 fw-semibold p-2 ' + (selected_content_type == '' ? 'active': '')" 
+                            @click="selected_content_type=''"
+                            style="background-color: #2f2f2f61;"
+                            >
                             <span class="ms-0 ms-md-5">All</span>
-                        </button>
+                        </div>
                     </li>
                     <li 
                         v-for="content_type in content_types" v-bind:key="content_type.id"
                     >
-                        <button :class="'text-start border-bottom d-flex rounded mb-2 w-100 fw-semibold btn btn-secondary ' + (selected_content_type == content_type.name ? 'active': '')" @click="selected_content_type=content_type.name">
+                        <div 
+                            :class="'text-start shdow d-flex rounded mb-2 w-100 fw-semibold p-2 ' + (selected_content_type == content_type.name ? 'active': '')" 
+                            @click="selected_content_type=content_type.name"
+                            style="background-color: #2f2f2f61;"
+                            >
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
-                        </button>
+                        </div>
                     </li>
                     <li><hr class="bg-secondary"></li>
                     <li>
@@ -134,11 +142,14 @@ watch(selected_content_type, (_)=>{
                     </li>
                 </ul>
             </div>
-            <div class="col overflow-y-auto " style="max-height: 80vh;">
-                <div class="d-flex bg-secondary-subtle px-1 py-2 rounded mb-2 border-bottom position-sticky top-0 z-1">
+            <div class="col overflow-y-auto">
+                <div 
+                    class="d-flex shadow-sm w-100 px-1 py-2 rounded mb-2 position-sticky top-0 z-1"
+                    style="background-color: #ffffff75;"
+                    >
                     <strong class="my-auto text-primary text-center" style="min-width: 50px; max-width:50px;"> row</strong>
                     <div style="min-width: 50px; max-width:50px;">
-                        <input type="text" class="form-control bg-transparent border border-white" placeholder="id" v-model="search_id">
+                        <input type="text" class="form-control bg-transparent" placeholder="id" v-model="search_id">
                     </div>
                     <div class="my-auto d-flex" style="min-width: 100px; max-width: 100px;">
                         <hr class="w-100 my-auto">
@@ -146,7 +157,7 @@ watch(selected_content_type, (_)=>{
                         <hr class="w-100 my-auto">
                     </div>
                     <div class="w-100 px-1 my-auto d-flex justify-content-between">
-                        <input type="text" class="form-control me-2 bg-transparent border border-white" placeholder="Search" v-model="search">
+                        <input type="text" class="form-control me-2 bg-transparent" placeholder="Search" v-model="search">
                         <button class="btn btn-success btn-sm my-auto fw-bold" @click="content_create_modal=true">ADD</button>
                     </div>
                 </div>

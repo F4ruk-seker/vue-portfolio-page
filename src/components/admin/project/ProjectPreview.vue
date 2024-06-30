@@ -8,7 +8,9 @@ export default {
 
 <template>
     <div class="content" :id="'content_' + project.id">
-        <div class="bg-secondary text-light fw-semibold rounded border-secondary-subtle p-1 w-100 my-1 d-flex py-2" style="height: max-content;">
+        <div 
+            class="text-light fw-semibold rounded border-secondary-subtle p-1 w-100 my-1 d-flex py-2" 
+            style="height: max-content;background-color: #2f2f2f61;">
             <div class="d-flex" style="min-width: 50px;">
                 <strong class="justify-content-center m-auto">
                     {{ row }}
