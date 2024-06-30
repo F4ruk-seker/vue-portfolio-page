@@ -49,9 +49,7 @@ async function send_login() {
       <hr class="w-100 text-light opacity-25">
     </div>
   <router-link :to="{name:'login'}" type="button" class="btn btn-success w-100 shadow border" style="border-color: rgba(43, 184, 66, 0.53)!important;">LOGIN</router-link>
-
   </form>
-
 </template>
 
 <style scoped>

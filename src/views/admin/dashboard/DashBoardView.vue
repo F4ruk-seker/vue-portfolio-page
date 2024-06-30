@@ -1,52 +1,112 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import axios from "axios";
 import {onMounted} from 'vue'
+import VueApexCharts from 'vue3-apexcharts'
 
 const page_list = ref(null)
+const selected_page = ref(null)
 
+const pagedetail = ref(null)
+
+watch(selected_page, async (new_page) => {
+  pagedetail.value = await get_page_detail(new_page)
+})
 
 onMounted(() => {
   fetch_page_list()
 })
 
 function fetch_page_list(){
-  axios.get('admin/page/').then((response)=>{
-    page_list.value = response.data
-  })
+  axios.get('admin/page/').then((response)=>{page_list.value = response.data})
 }
+
+const get_page_detail = async(name) => {
+      try {
+        const response = await axios.get('admin/page/' + name + '/analytics/' )
+        const page = response.data
+        page.view.reverse();
+        return page
+      } catch (e) {
+        Promise.reject(e)
+      }
+    }
+
+function generateData(count, options) {
+  const { min, max } = options;
+  const data = [];
+  for (let i = 0; i < count; i++) {
+    data.push(Math.floor(Math.random() * (max - min + 1)) + min);
+  }
+  return data;
+}
+
+const series = [{
+              name: "Desktops",
+              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          }]
+
+
+const chartOptions = {
+            chart: {
+              height: 350,
+              type: 'line',
+              background: '#fffff',
+              zoom: {
+                enabled: false
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'straight'
+            },
+            title: {
+              text: 'Product Trends by Month',
+              align: 'left'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+              },
+            },
+            xaxis: {
+              categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+            }
+          }
+   
 </script>
 
 <template>
-  <div v-for="page in page_list" v-bind:key="page.name" class="container d-flex row mx-auto my-3 p-0">
-    <div class="col-2">
-      <img v-if="page.image" class="ratio ratio-1x1 rounded" :src="page.image" alt="page">
-      <div v-else class="bg-secondary ratio ratio-1x1 rounded"></div>
+<section class="d-flex p-2 h-100">
+  <article name="page list" class="col-2 h-100 pe-2">
+    <ul class="list-unstyled">
+      <li 
+        class="d-flex w-100 p-2 shadow-sm border border-light rounded mb-2"
+        v-for="page in page_list" v-bind:key="page.name"
+        @click="selected_page=page.name"
+      >
+        <div class="d-flex my-auto me-2">
+          <img v-if="page.image" class="h-100 w-100 rounded" :src="page.image" alt="page" style="min-width: 36px; max-width: 36px; min-height: 36px; max-height: 36px;">
+          <div v-else class="d-flex justify-content-center h-100 w-100 bg-secondary rounded" style="min-width: 36px; max-width: 36px; min-height: 36px; max-height: 36px;">
+            <i class="fa-regular fa-image m-auto"></i>
+          </div>
+        </div>
+        <strong class="my-auto">Page</strong>
+      </li>
+    </ul>
+  </article>
+  <article name="page detail" class="d-flex w-100 h-100">
+    <div class="rounded shadow w-100 h-100 my-auto p-2">
+      <h1>Page</h1>
+      <hr>hourly_plot
+      <VueApexCharts type="line" height="350" :options="chartOptions" :series="series"></VueApexCharts>
     </div>
-    <div class="col d-flex my-auto">
-      <ul class="fw-bold list-unstyled justify-content-start">
-        <li style="font-size: 36px">{{page.name}}</li>
-        <li style="font-size: 24px">{{page.title}}</li>
-        <li style="font-size: 18px">{{page.view}}</li>
-        <li>
-          <router-link
-              class="btn btn-outline-primary fw-bold mt-1"
-              :to="{ name: 'admin-dashboard-page', params:{page_name: page.name}}"
-          >
-            Detaylar
-          </router-link>
-        </li>
-      </ul>
-    </div>
-  </div>
-<!--  <hr class="m-1" style="">-->
-<!--  <ul class="list-unstyled justify-content-start p-0 d-flex my-1 w-100">-->
-<!--    <li class="rounded-start non-color" style="height: 26px; width: 36px"></li>-->
-<!--    <li class="first-color" style="height: 26px; width: 36px"></li>-->
-<!--    <li class="second-color " style="height: 26px; width: 36px"></li>-->
-<!--    <li class="third-color " style="height: 26px; width: 36px"></li>-->
-<!--    <li class="rounded-end fourth-color " style="height: 26px; width: 36px"></li>-->
-<!--  </ul>-->
+  </article>
+</section>
+<code>{{ pagedetail }}</code>
 </template>
 
 <style scoped>

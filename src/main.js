@@ -70,6 +70,11 @@ app.use(heatmap, {
     stream,
   })
 app.use(Notifications)
+/*
+import VueApexCharts from 'vue-apexcharts'
+app.use(VueApexCharts)
+*/
+
 
 const metaManager = createMetaManager(app);
 
