@@ -102,7 +102,9 @@ const chartOptions = {
     <div class="rounded shadow w-100 h-100 my-auto p-2">
       <h1>Page</h1>
       <hr>hourly_plot
-      <VueApexCharts type="line" height="350" :options="chartOptions" :series="series"></VueApexCharts>
+      <div class="bg-white p-2 rounded text-info">
+        <VueApexCharts type="line" height="350" :options="chartOptions" :series="series"></VueApexCharts>
+      </div>
     </div>
   </article>
 </section>
