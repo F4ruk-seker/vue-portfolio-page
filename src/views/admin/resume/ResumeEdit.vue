@@ -179,7 +179,7 @@ function echo_context_sync() {
             style="height: 20vh;"       
         />
     </article>
-    <article class="col-6 overflow-y-auto h-100">
+    <article class="col-6 mx-0 ps-1 pe-0 overflow-y-auto h-100">
         <ResumeComponent :context="context" :EditMode="true"/>
     </article>
 </section>

@@ -34,6 +34,27 @@ import AdminASide from "@/components/admin/AdminASide.vue";
 .active{
   background-color: var(--bs-primary) !important;
   border: 1px solid rgba(var(--bs-primary-rgb), 0,4);
-  color: white; 
+  color: rgba(228, 228, 228, 0.753); 
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f123;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #88888881;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5353536e;
 }
 </style>
