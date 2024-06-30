@@ -37,21 +37,27 @@
                         >
                 </div>
             </form>
-            <ul class="list-unstyled">
-                <li v-for="todo, index in todos" v-bind:key="index">
-                    <div 
-                        @click="selected_todo=todo" 
-                        :draggable="true"
-                        @dragstart="startDrag($event, todo)"
-                        :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'')"
-                        style="cursor: pointer;">
-                        <TodoCard :td="todo" />
-                    </div>
-                </li>
-            </ul>
+        <Transition>
+            <div v-if="todos.length > 0">
+                <ul class="list-unstyled">
+                    <li v-for="todo, index in todos" v-bind:key="index">
+                        <div 
+                            @click="selected_todo=todo" 
+                            :draggable="true"
+                            @dragstart="startDrag($event, todo)"
+                            :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'')"
+                            style="cursor: pointer;">
+                            <TodoCard :td="todo" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </Transition>
         </div>
         <div class="col-4 d-flex h-100 overflow-x-auto">
-            <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
+            <Transition>
+                <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
+            </Transition>
         </div>
     </div>
     </Transition>
