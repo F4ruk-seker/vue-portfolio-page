@@ -1,5 +1,6 @@
 <template>
-    <div class="row m-0 p-0 h-100 pt-2">
+    <Transition>
+        <div v-if="loaded" class="row m-0 p-0 h-100 py-2">
         <div class="col-3 h-100 overflow-x-auto">
             <form @submit.prevent="new_category" class="p-2 mb-3 rounded shadow-sm dark-shadow"  >
                 <input v-model="new_category_text" :class="'form-control dark-input ' + ( new_category_is_invaild ? 'border-2 border-danger shake': '')" type="text" placeholder="New Category">
@@ -27,8 +28,8 @@
                 </li>
             </ul>
         </div>
-        <div class="col h-100 overflow-x-auto">
-            <form @submit.prevent="new_todo" class="sticky-top p-2 rounded shadow-sm mb-3 bg-transparent" id="newTodo">
+        <div class="col h-100 overflow-x-auto ">
+            <form @submit.prevent="new_todo" class="sticky-top p-2 rounded shadow-sm mb-3 bg-transparent border border-light" id="newTodo">
                 <div class="form-group">
                     <input 
                         :class="'form-control shdow-sm dark-input bg-transparent ' + ( new_todo_is_invaild ? 'border-2 border-danger shake': '')"
@@ -42,19 +43,18 @@
                         @click="selected_todo=todo" 
                         :draggable="true"
                         @dragstart="startDrag($event, todo)"
-                        :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'border border-light')"
+                        :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'')"
                         style="cursor: pointer;">
                         <TodoCard :td="todo" />
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="col-4 h-100 overflow-x-auto">
-            <div class="border shadow-sm rounded">
-                <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
-            </div>
+        <div class="col-4 d-flex h-100 overflow-x-auto">
+            <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
         </div>
     </div>
+    </Transition>
 </template>
 
 <script setup>
@@ -185,8 +185,9 @@ const new_category = async () => {
     }
 }
 
-onMounted(fetch_categories)
 
+const loaded = ref(false)
+onMounted(()=>{fetch_categories();loaded.value=true})
 </script>
 
 <style scoped>
@@ -239,5 +240,15 @@ onMounted(fetch_categories)
 
 .dark-mode .dark-shadow {
     box-shadow: 1px 1px 10px 5px rgba(211, 209, 209, 0.1)!important;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

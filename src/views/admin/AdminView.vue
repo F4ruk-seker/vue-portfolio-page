@@ -13,7 +13,7 @@ import AdminASide from "@/components/admin/AdminASide.vue";
   >
   <main class="d-flex m-md-5 rounded border p-2 w-100 shadow" style="backdrop-filter:blur(4px);">
     <article class="" style="min-width: max-content;">
-      <admin-a-side  class="pe-2" />
+      <admin-a-side class="pe-2" />
     </article>
     <article class=" w-100 overflow-y-auto position-relative">
       <router-view class="rounded" />

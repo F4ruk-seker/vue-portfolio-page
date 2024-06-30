@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import AuthService from '@/composable/AuthService';
+import router from "@/router";
 
 const show_label = ref(false)
 
@@ -11,6 +13,11 @@ function to_admin_router(patternd){return {'name':patternd}}
 
 
 const admin_aside_routers = ref([
+  {
+    route_name: 'admin-home',
+    label: 'Home',
+    icon: 'fa-solid fa-plane-up',
+  },
   {
     route_name: 'admin-page',
     label: 'Page',
@@ -47,6 +54,8 @@ const admin_aside_routers = ref([
     icon: 'fa-solid fa-eye-low-vision',
   }
 ])
+
+const dashboard_msg = ref('Faruk')
 </script>
 
 <template>
@@ -86,39 +95,38 @@ const admin_aside_routers = ref([
     </li>
   
     <li class="
-        d-flex position-absolute bottom-0 rounded-2 text-center justify-content-center rounded-0 w-100 text-start">
-        <ul class="list-unstyled w-100">
-          <Transition>
-            <li v-show="show_label">quit</li>
-          </Transition>
-          <li class="d-flex w-100">
-            <div
-              :class="'rounded-circle shadow-sm ' + (show_label ? 'my-auto':'m-auto')"
-              style="
-                min-width: 42px; 
-                max-width: 42px; 
-                min-height: 42px; 
-                max-height: 42px;
-                background-image: url('https://i.pinimg.com/564x/05/dd/09/05dd09abaf805d22d2adb83691ab5d9b.jpg');
-                background-position: center;
-                background-size: cover;
-                background-repeat: no-repeat;
-              "
-            >
-              <p class="d-flex p-0 justify-content-center text-center user-select-none" 
-              style="
-                min-width: 42px; 
-                max-width: 42px; 
-                min-height: 42px; 
-                max-height: 42px;">
-                <i class="fa-solid fa-gear m-auto"></i>
-              </p>
-           </div>
-          <Transition>
-            <span v-if="show_label" class="d-none d-md-block my-auto text-success w-100" style="text-shadow: 2px red; font-size: 16px; cursor: pointer;">Faruk</span>
-          </Transition>
-          </li>
-        </ul>
+        d-flex position-absolute bottom-0 rounded-2 text-center justify-content-center rounded-0 w-100 text-start"
+        @click="AuthService.logout;router.push({name:'login'})"
+        >
+        <div
+          :class="'rounded-circle shadow-sm ' + (show_label ? 'my-auto':'m-auto')"
+          style="
+            min-width: 42px; 
+            max-width: 42px; 
+            min-height: 42px; 
+            max-height: 42px;
+            background-image: url('https://i.pinimg.com/564x/05/dd/09/05dd09abaf805d22d2adb83691ab5d9b.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+          "
+        >
+          <p class="d-flex p-0 justify-content-center text-center user-select-none" 
+          style="
+            min-width: 42px; 
+            max-width: 42px; 
+            min-height: 42px; 
+            max-height: 42px;">
+            <i class="fa-solid fa-arrow-right-from-bracket text-danger m-auto"></i>
+          </p>
+        </div>
+      <Transition>
+        <span v-if="show_label" 
+        @mouseenter="dashboard_msg='Exit'" 
+        @mouseleave="dashboard_msg='Faruk'"
+        :class="'d-none d-md-block my-auto w-100 ms-2 text-start ' + (dashboard_msg === 'Faruk' ? 'text-success':'text-danger')"
+        style="text-shadow: 2px red; font-size: 16px; cursor: pointer;"> {{dashboard_msg}} </span>
+      </Transition>
     </li>
   </ul>
 </nav>

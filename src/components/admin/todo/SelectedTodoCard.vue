@@ -1,15 +1,19 @@
 <template>
-<div class="p-3" v-if="td" id="SelectedTodo">
+<div class="p-3 border rounded h-100 m-auto pb-3 w-100 h-100 shadow-sm" v-if="td" id="SelectedTodo">
     <cite contenteditable="true" @input="taskEdit">
         <h2 class="fw-bold" ref="taskRef">{{ td.task }}</h2>
     </cite>
-    <div v-if="td.is_to_do" @click="toggleTodo" class="alert alert-success p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
-        <i class="fa-solid fa-check m-auto pe-2"></i>
-        Done
-    </div>
-    <div v-else @click="toggleTodo" class="alert alert-danger p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
-        <i class="fa-solid fa-xmark m-auto pe-2"></i>
-        Ongoing
+    <div style="height: 40px;">
+        <Transition >
+            <div v-if="td.is_to_do" @click="toggleTodo" class="alert alert-success p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
+                <i class="fa-solid fa-check m-auto pe-2"></i>
+                Done
+            </div>
+            <div v-else @click="toggleTodo" class="alert alert-danger p-1 text-center fw-bold d-flex ms-0 m-2" style="max-width: min-content; cursor: pointer;">
+                <i class="fa-solid fa-xmark m-auto pe-2"></i>
+                Ongoing
+            </div>
+        </Transition>        
     </div>
     <div class="d-flex">
         <p class="m-auto p-0 fw-semibold">Detail</p>
