@@ -176,10 +176,12 @@ function echo_context_sync() {
             locale="en"
             :fullscreen="amit"
             :onkeyup="echo_context_sync"     
-            style="height: 20vh;"       
+            style="
+            height: 40vh;
+            "       
         />
     </article>
-    <article class="col-6 mx-0 ps-1 pe-0 overflow-y-auto h-100">
+    <article class="col-6 mx-0 px-0 overflow-y-auto h-100">
         <ResumeComponent :context="context" :EditMode="true"/>
     </article>
 </section>
@@ -210,3 +212,19 @@ function echo_context_sync() {
     }"
 />
 </template>
+
+<style>
+.vmd-body textarea{
+    background-color: rgba(100, 100, 100, 0.336)!important;
+    font-weight: 600!important;
+    color: var(--bs-white);
+}
+
+.vmd-toolbar {
+    background-color: rgba(100, 100, 100, 0.336)!important;
+    color: red;
+}
+.vmd-toolbar-icon {
+    color: white;
+}
+</style>

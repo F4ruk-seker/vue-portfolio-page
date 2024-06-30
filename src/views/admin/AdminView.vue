@@ -35,17 +35,18 @@ import AdminASide from "@/components/admin/AdminASide.vue";
   background-color: var(--bs-primary) !important;
   border: 1px solid rgba(var(--bs-primary-rgb), 0,4);
   color: rgba(228, 228, 228, 0.753); 
+
 }
 
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
-  border-radius: 10%;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f123;
+  /*border-radius: 5px;*/
 }
 
 /* Handle */
