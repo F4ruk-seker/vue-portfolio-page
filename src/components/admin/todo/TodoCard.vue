@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex rounded shadow-sm px-2 py-1" id="TodoCard">
+    <div class="d-flex rounded shadow-sm px-2 py-2" id="TodoCard">
         <p class="p-0 pe-2 m-0">
             <span v-if="td.is_to_do">
                 <i class="fa-solid fa-check text-success"></i>

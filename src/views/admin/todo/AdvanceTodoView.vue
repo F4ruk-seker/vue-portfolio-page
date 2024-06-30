@@ -8,7 +8,7 @@
                 <li 
                     v-for="category, index in categories"  v-bind:key="index" >
                     <div 
-                        :class="'rounded mb-3 ' + (hoveredCategoryId===category.id ? 'border border-secondary':'') + (category.id === selected_category?.id ? 'border border-primary':'')"
+                        :class="'rounded mb-3 ' + (hoveredCategoryId===category.id ? 'border border-secondary':'border ') + (category.id === selected_category?.id ? 'border border-primary':'')"
                         @click="()=>{
                             todos=category.todos;
                             if (category.id !== selected_category?.id){
@@ -28,10 +28,10 @@
             </ul>
         </div>
         <div class="col h-100 overflow-x-auto">
-            <form @submit.prevent="new_todo" class="sticky-top p-2 rounded shadow-sm mb-3" id="newTodo">
+            <form @submit.prevent="new_todo" class="sticky-top p-2 rounded shadow-sm mb-3 bg-transparent" id="newTodo">
                 <div class="form-group">
                     <input 
-                        :class="'form-control shdow-sm dark-input ' + ( new_todo_is_invaild ? 'border-2 border-danger shake': '')"
+                        :class="'form-control shdow-sm dark-input bg-transparent ' + ( new_todo_is_invaild ? 'border-2 border-danger shake': '')"
                         type="text" placeholder="New Todo" :disabled="!selected_category" v-model="new_todo_text"
                         >
                 </div>
@@ -42,7 +42,7 @@
                         @click="selected_todo=todo" 
                         :draggable="true"
                         @dragstart="startDrag($event, todo)"
-                        :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'')"
+                        :class="'rounded mb-2 shdow-sm user-select-none drag-el ' + (selected_todo === todo ? 'border border-primary':'border border-light')"
                         style="cursor: pointer;">
                         <TodoCard :td="todo" />
                     </div>
@@ -50,7 +50,7 @@
             </ul>
         </div>
         <div class="col-4 h-100 overflow-x-auto">
-            <div class="shadow-sm rounded">
+            <div class="border shadow-sm rounded">
                 <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
             </div>
         </div>

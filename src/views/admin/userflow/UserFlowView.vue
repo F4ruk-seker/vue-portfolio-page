@@ -32,7 +32,7 @@
 
 </style>
 <template>
-<section class="d-flex" style="height: 100vh;">
+<section class="d-flex h-100 my-auto">
     <article class="container justify-content-center m-auto">
         <div class="w-100">
             <form class="d-flex" @submit.prevent="get_ip_flow">
@@ -56,7 +56,7 @@
 
         </div>
         <hr>
-        <div v-if="!on_load" class="border rounded p-1 overflow-y-auto" style="height: 60vh;">
+        <div v-if="!on_load" class="border rounded p-1 overflow-y-auto shadow" style="height: 40vh;">
             <ul class="d-flex list-unstyled overflow-y-auto" v-for="(fd,index) in flow_data" v-bind:key="index">
                 <li style="width: 30px;"><i :class="fd.icon"></i></li>
                 <li class="fw-bold text-primary">-{{ fd.id }}-</li>

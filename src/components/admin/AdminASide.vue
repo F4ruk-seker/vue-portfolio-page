@@ -71,39 +71,54 @@ const admin_aside_routers = ref([
         :to="to_admin_router(admin_router.route_name)"
     >
       <span class="m-auto d-flex">
-        <span class="text-center" :style="show_label ? 'width: 25px;': 'width:100%; margin-right:.25rem; margin-left:.25rem'">
+        <span class="text-center" style="width: 25px;">
           <i :class="admin_router.icon"></i>
         </span>
         <p :class="'d-none d-md-block my-auto ' + (show_label ? 'ms-1':'')">
-          <span v-if="show_label">
-            {{admin_router.label}}
-          </span>
+          <Transition>
+            <span v-if="show_label">
+              {{admin_router.label}}
+            </span>
+          </Transition>
         </p>
       </span>
     </router-link>
     </li>
+  
     <li class="
-        d-flex position-absolute bottom-0 p-2 fw-semibold rounded-2 text-center justify-content-center rounded-0 w-100 text-start">
-      <div
-        :class="'rounded-circle shadow-sm ' + (show_label ? 'my-auto':'m-auto')"
-        style="
-          min-width: 42px; 
-          max-width: 42px; 
-          min-height: 42px; 
-          max-height: 42px;
-          background-image: url('https://i.pinimg.com/564x/05/dd/09/05dd09abaf805d22d2adb83691ab5d9b.jpg');
-          background-position: center;
-          background-size: cover;
-          background-repeat: no-repeat;
-        "
-      >
-        <p class="p-0 justify-content-center text-center m-auto" 
-        style="          min-width: 42px; 
-          max-width: 42px; 
-          min-height: 42px; 
-          max-height: 42px;">x</p>
-      </div>
-      <span v-if="show_label" class="d-none d-md-block my-auto text-danger w-100" style="text-shadow: 2px red; font-size: 20px;">Quit</span>
+        d-flex position-absolute bottom-0 rounded-2 text-center justify-content-center rounded-0 w-100 text-start">
+        <ul class="list-unstyled w-100">
+          <Transition>
+            <li v-show="show_label">quit</li>
+          </Transition>
+          <li class="d-flex w-100">
+            <div
+              :class="'rounded-circle shadow-sm ' + (show_label ? 'my-auto':'m-auto')"
+              style="
+                min-width: 42px; 
+                max-width: 42px; 
+                min-height: 42px; 
+                max-height: 42px;
+                background-image: url('https://i.pinimg.com/564x/05/dd/09/05dd09abaf805d22d2adb83691ab5d9b.jpg');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+              "
+            >
+              <p class="d-flex p-0 justify-content-center text-center user-select-none" 
+              style="
+                min-width: 42px; 
+                max-width: 42px; 
+                min-height: 42px; 
+                max-height: 42px;">
+                <i class="fa-solid fa-gear m-auto"></i>
+              </p>
+           </div>
+          <Transition>
+            <span v-if="show_label" class="d-none d-md-block my-auto text-success w-100" style="text-shadow: 2px red; font-size: 16px; cursor: pointer;">Faruk</span>
+          </Transition>
+          </li>
+        </ul>
     </li>
   </ul>
 </nav>
@@ -111,11 +126,26 @@ const admin_aside_routers = ref([
 </template>
 
 <style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
 
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 .active{
   outline: 1px solid var(--bs-light)!important;
   background-color: #292929a1 !important;
   color: var(--bs-light)!important;
 }
-
+li div p {
+  opacity: 0;
+  transition-delay: 100ms;
+}
+li div:hover p {
+  opacity: 1;
+  cursor: pointer;
+}
 </style>
