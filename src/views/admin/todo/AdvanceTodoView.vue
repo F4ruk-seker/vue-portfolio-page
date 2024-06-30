@@ -50,7 +50,7 @@
             </ul>
         </div>
         <div class="col-4 h-100 overflow-x-auto">
-            <div class="shadow-sm me-2 rounded">
+            <div class="shadow-sm rounded">
                 <SelectedTodoCard v-if="selected_todo" :td="selected_todo" @syncTodo="sync_selected_todo"/>
             </div>
         </div>
