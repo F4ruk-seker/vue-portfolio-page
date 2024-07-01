@@ -118,7 +118,7 @@ watch(selected_content_type, (_)=>{
                         <div 
                             :class="'text-start shdow d-flex rounded mb-2 w-100 fw-semibold p-2 ' + (selected_content_type == '' ? 'active': '')" 
                             @click="selected_content_type=''"
-                            style="background-color: #2f2f2f61;"
+                            style="background-color: #2f2f2f61;cursor: pointer;"
                             >
                             <span class="ms-0 ms-md-5">All</span>
                         </div>
@@ -129,7 +129,7 @@ watch(selected_content_type, (_)=>{
                         <div 
                             :class="'text-start shdow d-flex rounded mb-2 w-100 fw-semibold p-2 ' + (selected_content_type == content_type.name ? 'active': '')" 
                             @click="selected_content_type=content_type.name"
-                            style="background-color: #2f2f2f61;"
+                            style="background-color: #2f2f2f61;cursor: pointer;"
                             >
                             <span class="ms-0 ms-md-5">{{ content_type.name }}</span>
                         </div>
@@ -171,6 +171,8 @@ watch(selected_content_type, (_)=>{
 <CreateNewContentModal :show_modal="content_create_modal" :content_types="content_types" @toggle_modal="content_create_modal_toggle"  @submit="create_new_content"/>
 </template>
 
-<style>
-
+<style scoped>
+.active {
+    background-color: #54b68886!important;
+}
 </style>

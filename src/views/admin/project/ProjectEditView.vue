@@ -29,6 +29,7 @@ export default{
             if (this.project !== this.previous_project) {
                 const update_response = this.update_project()
                 this.previous_project = update_response.data
+                //this.project.update = this.previous_project.update
             }
             }, 2000);
         },
@@ -131,25 +132,30 @@ export default{
       document.removeEventListener("keydown", this.keyboard_on_save);
     }
 }
-
+''.toString
 </script>
 
 <template>
-<section class="row m-0 p-0 h-100">
-    <article class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 position-relative">
+<section class="row m-0 p-2 h-100">
+    <article class="col-12 col-md-4 col-lg-3 col-xl-2 position-relative h-100 overflow-y-scroll">
         <button class="btn btn-lg btn-success w-100 rounded-0 border-0" @click="update_project" :disabled="on_update">
-        <span v-if="!on_update">{{this.is_new ? 'Create' : 'Save'}}</span>
-        <div v-else class="spinner-border text-light" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
+            <span v-if="!on_update">{{this.is_new ? 'Create' : 'Save'}}</span>
+            <div v-else class="spinner-border text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </button>
-        
+        <div class="row m-1 p-1 shadow-sm rounded">
+            <div class="col-2 d-flex"><i class="fa-regular fa-calendar m-auto justify-content-center"></i></div>
+            <div class="col-10">{{ project.update?.split('T')[0] }}</div>
+            <div class="col-2 d-flex"><i class="fa-solid fa-clock m-auto justify-content-center"></i></div>
+            <div class="col-10">{{ project.update?.split('T')[1] }}</div>
+        </div>        
         <button 
             :class="'w-100 mt-2 btn ' + (project.show ? 'btn-primary': 'btn-outline-primary')"
             @click="project.show = !project.show;update_project()">{{ project.show ? 'Hide' : 'Show' }}
         </button>
         
-        <div class="mx-2" name="edit">
+        <div class="" name="edit">
             <hr>
             <div class="mb-3">
             <label class="fw-semibold ms-2">
@@ -196,14 +202,11 @@ export default{
                 >{{ tag.name }}</li>
             </ul>
         </div>
-
-        <div class="text-info text-center fw-bold bg-secondary-subtle start-0 bottom-0 position-absolute w-100">
-            {{ project.update }}
-        </div>
     </article>
-    <article class="col m-0 p-0">
+    <article class="col me-0 pe-0 shadow-sm">
         <div v-if="!project" class="bg-success fw-bold">LOADING...</div>
         <VMarkdownEditor v-else
+            class="rounded"
             v-model="project.text"
             locale="en"
             :fullscreen="amit"
@@ -214,4 +217,12 @@ export default{
 </template>
 
 <style>
+.vmd-toolbar {
+    border-top-left-radius: var(--bs-border-radius) !important;
+    border-top-right-radius: var(--bs-border-radius) !important;
+}
+.vmd-body {
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+}
 </style>
