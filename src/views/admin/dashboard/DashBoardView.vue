@@ -6,8 +6,9 @@ import VueApexCharts from 'vue3-apexcharts'
 
 const page_list = ref(null)
 const selected_page = ref(null)
-
 const pagedetail = ref(null)
+const selected_tab = ref('settings')
+
 
 watch(selected_page, async (new_page) => {
   pagedetail.value = await get_page_detail(new_page)
@@ -84,7 +85,7 @@ const chartOptions = {
   <article name="page list" class="col-2 h-100 pe-2">
     <ul class="list-unstyled">
       <li 
-        class="d-flex w-100 p-2 shadow-sm border border-light rounded mb-2"
+        :class="'d-flex w-100 p-2 shadow-sm border border-light rounded mb-2 ' + (selected_page===page.name ? 'active':'')"
         v-for="page in page_list" v-bind:key="page.name"
         @click="selected_page=page.name"
       >
@@ -98,19 +99,32 @@ const chartOptions = {
       </li>
     </ul>
   </article>
-  <article name="page detail" class="d-flex w-100 h-100">
-    <div class="rounded shadow w-100 h-100 my-auto p-2">
+  <article name="page detail" class="w-100 h-100 rounded shadow">
+    <div class="d-flex wrapper">
+      <div class="p-2 w-100 text-center btn-transparent rounded-top rounded-end-0" @click="selected_tab='settings'">Settings</div>
+      <div class="p-2 w-100 text-center btn-transparent" @click="selected_tab='analytics'">Analytics</div>
+      <div class="p-2 w-100 text-center btn-transparent rounded-top rounded-start-0" @click="selected_tab='visits'">Visits</div>
+    </div>
+    <section v-if="selected_tab==='settings'">
+      settings
+    </section>
+    <section v-else-if="selected_tab=='analytics'" class="my-auto p-2">
       <h1>Page</h1>
       <hr>hourly_plot
       <div class="bg-white p-2 rounded text-info">
         <VueApexCharts type="line" height="350" :options="chartOptions" :series="series"></VueApexCharts>
       </div>
-    </div>
+    </section>
+    <section v-else-if="selected_tab==='visits'">
+      vh
+    </section>
   </article>
 </section>
-<code>{{ pagedetail }}</code>
 </template>
 
 <style scoped>
-
+.btn-transparent:hover {
+  background-color: rgba(255, 255, 255, 0.527);
+  cursor: pointer;
+}
 </style>

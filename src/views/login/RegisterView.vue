@@ -27,11 +27,11 @@ async function send_login() {
     </div>
     <div class="mb-3">
       <label for="username_input" class="form-label fw-bold">Username<span class="text-danger ms-1">*</span></label>
-      <input v-model="username" type="text" autocapitalize="off" autofocus autocomplete="on" class="form-control text-light fw-bold shadow" id="username_input" placeholder="username" required  style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
+      <input v-model="username" type="text" autocapitalize="off" autofocus autocomplete="on" class="form-control text-light fw-bold shadow" id="username_input" placeholder="username" required style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
     </div>
     <div class="mb-3">
       <label for="email_input" class="form-label fw-bold">Email<span class="text-danger ms-1">*</span></label>
-      <input v-model="username" type="email" autocapitalize="off" autofocus autocomplete="on" class="form-control text-light fw-bold shadow" id="email_input" placeholder="username" required  style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
+      <input v-model="username" type="email" autocapitalize="off" autofocus autocomplete="on" class="form-control text-light fw-bold shadow" id="email_input" placeholder="username" required style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
     </div>
     <div class="mb-3">
       <label for="password_input" class="form-label fw-bold">Password<span class="text-dangertext-light fw-bold ms-1">*</span></label>
@@ -39,7 +39,7 @@ async function send_login() {
     </div>
     <div class="mb-3">
       <label for="password_input" class="form-label fw-bold">Password Confirm<span class="text-dangertext-light fw-bold ms-1">*</span></label>
-      <input v-model="password" type="password" class="form-control text-light fw-bold shadow" id="password_input" placeholder="password" required name="password" autocomplete="on" style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;">
+      <input v-model="password" type="password" class="form-control text-light fw-bold shadow" id="password_input" placeholder="password" name="password" autocomplete="on" style="border-color: rgba(255,255,255,0.53)!important;background: transparent!important;" required>
     </div>
     <hr>
     <button class="btn btn-primary w-100 shadow border" type="submit" style="border-color: rgba(255,255,255,0.53)!important;">REGISTER</button>
