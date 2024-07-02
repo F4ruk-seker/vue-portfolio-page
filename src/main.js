@@ -47,7 +47,7 @@ axios.interceptors.response.use(
                 error.config.headers['Authorization'] = `${carrier_switch} ${refresh}` ;
                 return axios(error.config);
             } catch (e) {
-                console.error(e)
+                //console.error(e)
                 //AuthService.logout()
                 //router.push({name:'login'})
             }
