@@ -2,8 +2,7 @@
 import { ref, watch } from 'vue'
 import axios from "axios";
 import {onMounted} from 'vue'
-import PlotComp from '@/components/admin/dashboard/PlotComp.vue';
-
+import AnalyticsChartManage from '@/components/admin/dashboard/AnalyticsChartManage.vue'
 const page_list = ref(null)
 const selected_page = ref(null)
 const pagedetail = ref(null)
@@ -39,6 +38,8 @@ const get_page_detail = async(name) => {
         Promise.reject(e)
       }
     }
+
+const show = ref(true)
 //matrix/<name>/years
 // api/analytical/matrix/Page/2024/4/26
 </script>
@@ -72,17 +73,7 @@ const get_page_detail = async(name) => {
       settings
     </section>
     <section v-else-if="selected_tab=='analytics'" class="my-auto p-2">
-      <div class="w-100 h-100 p-2 rounded shadow-sm" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.527);">
-        <div class="d-flex">
-          <i class="fa-solid fa-calendar-days my-auto me-2"></i>
-          <strong class="my-auto" style="min-width: max-content;">Date : </strong>
-          <input type="date" class="ms-2 form-control bg-transparent fw-semibold text-white">
-        </div>
-        <hr>
-        
-      </div>
-      <div class="p-2 rounded text-info">
-      </div>
+      <AnalyticsChartManage :page_name="selected_page" />
     </section>
     <section v-else-if="selected_tab==='visits'">
       vh
