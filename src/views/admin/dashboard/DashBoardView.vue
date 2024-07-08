@@ -2,13 +2,20 @@
 import { ref, watch } from 'vue'
 import axios from "axios";
 import {onMounted} from 'vue'
-import VueApexCharts from 'vue3-apexcharts'
+import PlotComp from '@/components/admin/dashboard/PlotComp.vue';
 
 const page_list = ref(null)
 const selected_page = ref(null)
 const pagedetail = ref(null)
-const selected_tab = ref('settings')
+const selected_tab = ref('analytics')
 
+const tab_chart = ref('day')
+/*
+günlük (sat dilimi)
+haftalık
+aylık
+yıllık
+*/
 
 watch(selected_page, async (new_page) => {
   pagedetail.value = await get_page_detail(new_page)
@@ -32,52 +39,8 @@ const get_page_detail = async(name) => {
         Promise.reject(e)
       }
     }
-
-function generateData(count, options) {
-  const { min, max } = options;
-  const data = [];
-  for (let i = 0; i < count; i++) {
-    data.push(Math.floor(Math.random() * (max - min + 1)) + min);
-  }
-  return data;
-}
-
-const series = [{
-              name: "Desktops",
-              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-          }]
-
-
-const chartOptions = {
-            chart: {
-              height: 350,
-              type: 'line',
-              background: '#fffff',
-              zoom: {
-                enabled: false
-              }
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'straight'
-            },
-            title: {
-              text: 'Product Trends by Month',
-              align: 'left'
-            },
-            grid: {
-              row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                opacity: 0.5
-              },
-            },
-            xaxis: {
-              categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
-            }
-          }
-   
+//matrix/<name>/years
+// api/analytical/matrix/Page/2024/4/26
 </script>
 
 <template>
@@ -100,7 +63,7 @@ const chartOptions = {
     </ul>
   </article>
   <article name="page detail" class="w-100 h-100 rounded shadow">
-    <div class="d-flex wrapper">
+    <div class="d-flex wrapper border-bottom">
       <div class="p-2 w-100 text-center btn-transparent rounded-top rounded-end-0" @click="selected_tab='settings'">Settings</div>
       <div class="p-2 w-100 text-center btn-transparent" @click="selected_tab='analytics'">Analytics</div>
       <div class="p-2 w-100 text-center btn-transparent rounded-top rounded-start-0" @click="selected_tab='visits'">Visits</div>
@@ -109,10 +72,16 @@ const chartOptions = {
       settings
     </section>
     <section v-else-if="selected_tab=='analytics'" class="my-auto p-2">
-      <h1>Page</h1>
-      <hr>hourly_plot
-      <div class="bg-white p-2 rounded text-info">
-        <VueApexCharts type="line" height="350" :options="chartOptions" :series="series"></VueApexCharts>
+      <div class="w-100 h-100 p-2 rounded shadow-sm" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.527);">
+        <div class="d-flex">
+          <i class="fa-solid fa-calendar-days my-auto me-2"></i>
+          <strong class="my-auto" style="min-width: max-content;">Date : </strong>
+          <input type="date" class="ms-2 form-control bg-transparent fw-semibold text-white">
+        </div>
+        <hr>
+        
+      </div>
+      <div class="p-2 rounded text-info">
       </div>
     </section>
     <section v-else-if="selected_tab==='visits'">

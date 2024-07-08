@@ -105,7 +105,7 @@ watch(selected_content_type, (_)=>{
 </script>
 
 <template>
-<section class="d-flex w-100 h-100">
+<section class="d-flex w-100 ">
     <article class="w-100 justify-content-center my-auto">
         <div class="row w-100 mh-100 p-3 shadow rounded overflow-y-auto">
             <div class="col-1 col-md-2 pt-3 rounded-1">
@@ -113,7 +113,7 @@ watch(selected_content_type, (_)=>{
                     <h4 class="my-auto fw-bold text-light">Content Type</h4>
                 </div>
                 <hr style="background-color: #2f2f2f61;">
-                <ul class="list-unstyled overflow-y-auto" style="height: 65vh;">
+                <ul class="list-unstyled overflow-y-auto">
                     <li class="">
                         <div 
                             :class="'text-start shdow d-flex rounded mb-2 w-100 fw-semibold p-2 ' + (selected_content_type == '' ? 'active': '')" 
@@ -142,7 +142,7 @@ watch(selected_content_type, (_)=>{
                     </li>
                 </ul>
             </div>
-            <div class="col overflow-y-auto">
+            <div class="col overflow-y-scroll h-100">
                 <div 
                     class="d-flex shadow-sm w-100 px-1 py-2 rounded mb-2 position-sticky top-0 z-1"
                     style="background-color: #ffffff75;"
@@ -161,7 +161,7 @@ watch(selected_content_type, (_)=>{
                         <button class="btn btn-success btn-sm my-auto fw-bold" @click="content_create_modal=true">ADD</button>
                     </div>
                 </div>
-                <div class="overflow-y-auto">
+                <div class="h-100">
                     <ProjectPreview v-for="(project, index) in projcets_list" v-bind:key="project.id" :project="project" :row="index + 1" />
                 </div>
             </div>

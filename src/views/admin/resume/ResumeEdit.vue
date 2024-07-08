@@ -55,7 +55,9 @@ function updateValue(key, newValue) {
     echo_context_sync()
 }
 
-onMounted(()=>{get_context()})
+
+const loaded = ref(false)
+onMounted(()=>{get_context();loaded.value=true})
 
 function echo_context_sync() {
     clearTimeout(timerId);
@@ -88,7 +90,8 @@ function echo_context_sync() {
 }
 </style>
 <template>
-<section class="row m-0 h-100">
+<Transition>
+<section v-if="loaded" class="row m-0 h-100">
     <article class="col-6 overflow-x-hidden overflow-y-auto h-100 pt-2">
     <div v-if="!context" class="h-100 d-flex">
             <div class="spinner-border m-auto justify-content-center" role="status">
@@ -98,26 +101,26 @@ function echo_context_sync() {
     <div v-else>
         <div class="d-flex"><strong class="text-primary">HEAD</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
         <label>Name</label>
-        <input type="text" class="form-control" v-model="context.name" @input="echo_context_sync">
+        <input type="text" class="form-control bg-transparent fw-semibold text-white" v-model="context.name" @input="echo_context_sync">
         <label>Job Title</label>
-        <input type="text" class="form-control" v-model="context.job_title" @input="echo_context_sync">
+        <input type="text" class="form-control bg-transparent fw-semibold text-white" v-model="context.job_title" @input="echo_context_sync">
         <label>Picture</label>
         <div class="d-flex">
-            <input type="text" class="form-control" v-model="context.picture" @input="echo_context_sync">
+            <input type="text" class="form-control bg-transparent fw-semibold text-white" v-model="context.picture" @input="echo_context_sync">
             <button class="btn btn-primary ms-2 disabled" disabled>Upload</button>
         </div>
         <label>Description</label>
-        <textarea class="form-control" v-model="context.description" placeholder="Description" cols="4" rows="6" @input="echo_context_sync" style="height: 20vh;"></textarea>
+        <textarea class="form-control bg-transparent fw-semibold text-white" v-model="context.description" placeholder="Description" cols="4" rows="6" @input="echo_context_sync" style="height: 20vh;"></textarea>
         
         <div class="d-flex"><strong class="text-primary">CONTACT</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
         <label><i class="fa-regular fa-envelope" style="width: 24px;"></i> Mail</label>
-        <input type="email" class="form-control" v-model="context.contact.mail" @input="echo_context_sync">
+        <input type="email" class="form-control bg-transparent fw-semibold text-white" v-model="context.contact.mail" @input="echo_context_sync">
         <label><i class="fa-solid fa-globe" style="width: 24px;"></i> Website</label>
-        <input type="url" class="form-control" v-model="context.contact.website" @input="echo_context_sync">
+        <input type="url" class="form-control bg-transparent fw-semibold text-white" v-model="context.contact.website" @input="echo_context_sync">
         <label><i class="fa-brands fa-linkedin-in" style="width: 24px;"></i> Linkedin</label>
-        <input type="text" class="form-control" v-model="context.contact.linkedin" @input="echo_context_sync">
+        <input type="text" class="form-control bg-transparent fw-semibold text-white" v-model="context.contact.linkedin" @input="echo_context_sync">
         <label><i class="fa-brands fa-github" style="width: 24px;"></i> Github</label>
-        <input type="text" class="form-control" v-model="context.contact.github" @input="echo_context_sync">
+        <input type="text" class="form-control bg-transparent fw-semibold text-white" v-model="context.contact.github" @input="echo_context_sync">
 
         <div class="d-flex"><strong class="text-primary" style="min-width: max-content;">WORK EXPERIENCES</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
         <ul class="list-unstyled">
@@ -170,7 +173,7 @@ function echo_context_sync() {
             </li>
         </ul>
     </div>
-    <div class="d-flex"  style="min-width: max-content"><strong class="text-primary" style="min-width: max-content" >Right Side</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
+    <div class="d-flex text-dark"  style="min-width: max-content"><strong class="text-primary" style="min-width: max-content" >Right Side</strong><hr class="w-100 bg-secondary ms-2 my-auto"></div>
     <VMarkdownEditor
             v-model="context.right_side"
             locale="en"
@@ -181,10 +184,11 @@ function echo_context_sync() {
             "       
         />
     </article>
-    <article class="col-6 mx-0 px-0 overflow-y-auto h-100">
+    <article class="col-6 mx-0 px-0 overflow-y-auto h-100 text-secondary">
         <ResumeComponent :context="context" :EditMode="true"/>
     </article>
 </section>
+</Transition>
 <WorkExperiencesForm 
     :show_modal="show_work_experience_modal" 
     :instance_exp="instance_work_experience" 
@@ -226,5 +230,18 @@ function echo_context_sync() {
 }
 .vmd-toolbar-icon {
     color: white;
+}
+.p {
+    color: var(--bs-dark)!important;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
