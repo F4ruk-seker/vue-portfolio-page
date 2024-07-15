@@ -5,6 +5,8 @@ import { ref, watch } from 'vue';
 
 import AllYears from '@/components/admin/dashboard/plots/AllYears.vue'
 import YearlyPlot from '@/components/admin/dashboard/plots/YearlyPlot.vue'
+import MonthlyPlot from '@/components/admin/dashboard/plots/MonthlyPlot.vue'
+
 
 const selectedYear = ref(null)
 const selectedMonth = ref(null)
@@ -39,6 +41,13 @@ const get_monthly_visit_list = async () => {
     monthly_visit_list.value = response.data
 }
 
+
+const monthly_list = ref()
+const get_monthly_list = async () => {
+    const response = await axios.get(`analytical/matrix/${pageName.value}/${selectedYear.value}/${selectedMonth.value}`)
+    monthly_list.value = response.data
+}
+
 const plot_tab = ref('allyear')
 
 watch(selectedYear, newSelectedYear => {
@@ -48,12 +57,13 @@ watch(selectedYear, newSelectedYear => {
     } else {
         plot_tab.value = 'allyear'
     }
-    
-
 })
 
 watch(selectedMonth, newSelectedMonth => {
     plot_tab.value = newSelectedMonth !== null ? 'month': ''
+    if (plot_tab.value == 'month') {
+        get_monthly_list()
+    }
 })
 
 /*
@@ -76,7 +86,7 @@ year month day - pie
           <div class="input-group">
             <select class="form-select bg-transparent fw-semibold text-white rounded" placeholder="Year" v-model="selectedMonth">
                 <option class="bg-transparent text-dark" value="-1" selected disabled>Mounth</option>
-                <option class="bg-transparent text-dark" v-for="month, index in months" :value="index">{{ month }} {{ monthly_visit_list[index]==0 ? '':`(${monthly_visit_list[index].reduce((a, b) => a + b, 0)})` }}</option>
+                <option class="bg-transparent text-dark" v-for="month, index in months" :value="index+1">{{ month }} {{ monthly_visit_list[index]==0 ? '':`(${monthly_visit_list[index].reduce((a, b) => a + b, 0)})` }}</option>
             </select>
           </div>
           <div class="input-group">
@@ -93,6 +103,7 @@ year month day - pie
             >
                 <AllYears v-if="plot_tab == 'allyear'" :years="yearly_visit_list" />
                 <YearlyPlot v-else-if="plot_tab == 'yearly'" :month_list="monthly_visit_list" />
+                <MonthlyPlot v-else-if="plot_tab == 'month'" :monthly="monthly_list" />
             </Transition>
         </div>
 
