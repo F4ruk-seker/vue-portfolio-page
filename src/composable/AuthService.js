@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { Exception } from 'sass';
 import { useCookies } from "vue3-cookies";
+import router from './../router'
 
 const cookies = useCookies()
 
@@ -95,19 +96,17 @@ class AuthService {
         const refreshToken = this.getRefreshToken();
 
         if (!refreshToken) {
+            router.push({name:'login'})
             return Promise.reject('No refresh token available');
         } else {
         
-        try {
             const response = await axios.post(`auth/token/refresh/`, { refresh: refreshToken })
             if (response.status !== 401){
                 const newAccessToken = response.data.access;
                 this.setAccessToken(newAccessToken); 
                 return newAccessToken
             } 
-        } catch (e){
-            return Promise.reject()
-        }
+ 
         }
     }
 

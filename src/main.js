@@ -42,16 +42,9 @@ axios.interceptors.response.use(
         return response
     }, async error => {
         if (error.response.status === 401 && !error.config.url.endsWith('/refresh/')) {
-            try {
-                const refresh = await AuthService.refreshToken()
-                error.config.headers['Authorization'] = `${carrier_switch} ${refresh}` ;
-                return axios(error.config);
-            } catch (e) {
-                //console.error(e)
-                //AuthService.logout()
-                //router.push({name:'login'})
-            }
-
+            const refresh = await AuthService.refreshToken()
+            error.config.headers['Authorization'] = `${carrier_switch} ${refresh}` ;
+            return axios(error.config);
         } else if (error.response.status === 401 && error.config.url.endsWith('/refresh/')) {
             AuthService.logout()
             router.push({name:'login'})
