@@ -3,10 +3,12 @@ import { ref, watch } from 'vue'
 import axios from "axios";
 import {onMounted} from 'vue'
 import AnalyticsChartManage from '@/components/admin/dashboard/AnalyticsChartManage.vue'
+import VisitsAgent from '@/components/admin/dashboard/VisitsAgent.vue'
+
 const page_list = ref(null)
 const selected_page = ref(null)
 const pagedetail = ref(null)
-const selected_tab = ref('analytics')
+const selected_tab = ref('visits')
 
 const tab_chart = ref('day')
 /*
@@ -76,7 +78,7 @@ const show = ref(true)
       <AnalyticsChartManage :page_name="selected_page" />
     </section>
     <section v-else-if="selected_tab==='visits'">
-      vh
+      <VisitsAgent :page_name="selected_page" />
     </section>
   </article>
 </section>
