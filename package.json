@@ -10,7 +10,7 @@
   "dependencies": {
     "@kyvg/vue3-notification": "^3.2.1",
     "@vueuse/head": "^2.0.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.4",
     "bootstrap": "^5.3.2",
     "core-js": "^3.8.3",
     "heatmapjs-vue": "^0.0.5",
