@@ -64,7 +64,7 @@
                         </span>
                         <span v-else><hr class="w-100 bg-danger" style="height: 3px;"></span>
                     </td>
-                    <td>{{ new TarihFormatlayici(visit.visit_time).tarihOkunabilir() }}</td>
+                    <td>{{ cutedate(visit.visit_time) }}</td>
                     <td>
                         <span v-if="visit.is_i_am"><i class="fa-solid fa-check"></i></span>
                         <span v-else><i class="fa-solid fa-xmark"></i></span>
@@ -82,6 +82,10 @@
 import axios from 'axios';
 import { ref, watch } from 'vue'
 import TarihFormatlayici from '@/composable/TarihFormatlayici'
+
+const cutedate = d => {
+    return new TarihFormatlayici(d).tarihOkunabilir() 
+}
 
 // const query_limit = ref
 // api/analytical/page/Page/2 # 2 count border
