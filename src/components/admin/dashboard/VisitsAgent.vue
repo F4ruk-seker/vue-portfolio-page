@@ -3,7 +3,7 @@
     <article class="d-flex p-2 border-success-subtle border-bottom shadow rounded">
         <input 
             class="form-control bg-transparent fw-bold text-white" 
-            placeholder="IP, user agent,"
+            placeholder="'user_agent', 'ip_address', 'ip_data', 'visit_time>2024-08-23'"
             @input="getVisitsAgents"
             v-model="search_text"
             >
@@ -38,6 +38,15 @@
                     <th>City</th>
                     <th>Type</th>
                     <th>IP</th>
+                    <th>
+                        Date 
+                        <span v-if="order_param !='visit_time'" @click="order_param='visit_time'" >
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </span>
+                        <span v-else-if="order_param !='-visit_time'" @click="order_param='-visit_time'">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </th>
                     <th>Known</th>
                     <th>Duration</th>
                     <th>OHAC</th>
@@ -55,6 +64,7 @@
                         </span>
                         <span v-else><hr class="w-100 bg-danger" style="height: 3px;"></span>
                     </td>
+                    <td>{{ new TarihFormatlayici(visit.visit_time).tarihOkunabilir() }}</td>
                     <td>
                         <span v-if="visit.is_i_am"><i class="fa-solid fa-check"></i></span>
                         <span v-else><i class="fa-solid fa-xmark"></i></span>
@@ -71,23 +81,27 @@
 <script setup>
 import axios from 'axios';
 import { ref, watch } from 'vue'
+import TarihFormatlayici from '@/composable/TarihFormatlayici'
 
 // const query_limit = ref
 // api/analytical/page/Page/2 # 2 count border
 
-
 const hide_ip = ref(false)
 const search_text = ref('')
 
+// reload_count_in_a_clock
+// visit_time
+const order_param = ref('')
 
-//
 const props = defineProps({
     page_name:String
 })
 
 const pageName = ref(props.page_name)
 const query_count_limit = ref(20)
-
+watch(order_param, new_order_param =>{
+    getVisitsAgents()
+})
 watch(props, new_props => {
     pageName.value = new_props.page_name
     getVisitsAgents()
@@ -96,9 +110,7 @@ watch(props, new_props => {
 const data = ref()
 // http://127.0.0.1:8000/api/analytical/visitors/Page/?ordering=reload_count_in_a_clock&search=127.0.0.1
 const getVisitsAgents = async () => {
-    const response = await axios.get(`analytical/visitors/${pageName.value}/?search=${search_text.value}`)
-    console.log(response)
-    console.log(response.status)
+    const response = await axios.get(`analytical/visitors/${pageName.value}/?search=${search_text.value}&ordering=${order_param.value}`)
     if (response.status === 200) {
         data.value = response.data
     }
