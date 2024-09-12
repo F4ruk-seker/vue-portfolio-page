@@ -34,6 +34,11 @@ const admin_aside_routers = ref([
     icon: 'fa-solid fa-tarp',
   },
   {
+    route_name: 'analytic-media',
+    label: 'Analytic Media',
+    icon: 'fa-solid fa-shuffle',
+  },
+  {
     route_name: 'admin-tag-manage',
     label: "tag's",
     icon: 'fa-solid fa-tag',

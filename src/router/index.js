@@ -163,6 +163,11 @@ const routes = [
         path: 'userflow',
         name: 'user-flow',
         component: () => import(/* webpackChunkName: "userflow" */ '../views/admin/userflow/UserFlowView.vue'),
+      },{
+        path: 'analytic-media',
+        name: 'analytic-media',
+        component: () => import(/* webpackChunkName: "analytic-media" */ '../views/admin/analytic_media/analytic_media_manager_view.vue'),
+      
       }
     ]
   },
