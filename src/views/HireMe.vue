@@ -1,14 +1,13 @@
 <template>
 <section class="container d-flex m-auto">
     <article class="w-100 my-auto"><hr></article>
-    <article><h1 class="text-center justify-content-center m-auto">PLATFORMS</h1></article>
+    <article><h1 class="text-center justify-content-center m-auto">{{ user_is_language_Turkish ? 'PLATFORMS':'PLATFORUMLAR' }}</h1></article>
     <article class="w-100 my-auto"><hr></article>
 </section>
 <section class="container d-flex m-auto">
-    <p v-if="user_is_language_Turkish">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima id fugiat quo, dolore quibusdam maiores in minus eos, praesentium magnam assumenda molestias esse quis corrupti quia ea inventore, provident quaerat.
+    <p v-if="user_is_language_Turkish">
     </p>
     <p v-else>
-        provident quaerat.
     </p>
 </section>
 <section class="container row m-auto p-0 dark-mode.text-danger">
