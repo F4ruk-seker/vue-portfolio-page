@@ -1,7 +1,7 @@
 <template>
 <section class="container d-flex m-auto">
     <article class="w-100 my-auto"><hr></article>
-    <article><h1 class="text-center justify-content-center m-auto">{{ user_is_language_Turkish ? 'PLATFORMS':'PLATFORUMLAR' }}</h1></article>
+    <article><h1 class="text-center justify-content-center m-auto">{{ user_is_language_Turkish ? 'PLATFORUMLAR':'PLATFORMS' }}</h1></article>
     <article class="w-100 my-auto"><hr></article>
 </section>
 <section class="container d-flex m-auto">
