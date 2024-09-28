@@ -55,7 +55,9 @@
 					</ul>
 					
 					<div class="my-2">
-						<a class="btn btn-primary" href="contact.html" target="_blank"><i class="fas fa-paper-plane me-2"></i>Hire Me</a>
+						<button class="btn btn-primary" @click="go_hire_page()">
+							<i class="fas fa-paper-plane me-2"></i>Hire Me
+						</button>
 					</div>
 
 					<DarkModeToggleButton :hide_title="false"/>
@@ -68,8 +70,15 @@
 
 <script setup>
 import { ref } from 'vue';
-import DarkModeToggleButton from '@/components/DarkModeToggleButton.vue'
 
+import DarkModeToggleButton from '@/components/DarkModeToggleButton.vue'
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+const go_hire_page = () => {
+	router.push({name:'hire'})
+}
 
 const header_links = ref([
 	{
