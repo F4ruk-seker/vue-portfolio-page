@@ -18,7 +18,7 @@ export default {
     }},
     methods: {
       add_comment(comment){
-      this.project.comments.push(comment)
+        this.project.comments.push(comment)
     },
       blog_ticker(){
         if (this.project.ticket){
@@ -118,21 +118,21 @@ export default {
         <hr>
         <NewCommentForm :slug="slug" @add_comment="add_comment" />
         <div v-if="!project?.comments" class="alert alert-info">no comment yet</div>
-    <ul v-else class=" list-unstyled">
-      <li 
-        class="d-flex border my-2 py-2 px-1 rounded-2" 
-        v-for="comment_obj in project?.comments" 
-        v-bind:key="comment_obj.id"
-        >
-        <div class=" rounded-circle bg-black" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;"></div>
-        <p class="p-0 my-auto ms-2 w-100">
-         <span class=" fw-bold text-primary">@{{ comment_obj.name }}:</span> {{ comment_obj.comment }}
-        </p>      
-        <button class="btn btn-light btn-sm border rounded-circle d-flex" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;" disabled>
-          <i class="fa-regular fa-heart justify-content-center m-auto"></i>
-        </button>
-      </li>
-    </ul>
+        <ul v-else class=" list-unstyled">
+          <li 
+            class="d-flex border my-2 py-2 px-1 rounded-2" 
+            v-for="comment_obj in project?.comments" 
+            v-bind:key="comment_obj.id"
+            >
+            <div class=" rounded-circle bg-black" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;"></div>
+            <p class="p-0 my-auto ms-2 w-100">
+            <span class=" fw-bold text-primary">@{{ comment_obj.name }}:</span> {{ comment_obj.comment }}
+            </p>      
+            <button class="btn btn-light btn-sm border rounded-circle d-flex" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;" disabled>
+              <i class="fa-regular fa-heart justify-content-center m-auto"></i>
+            </button>
+          </li>
+        </ul>
     </article>
 </section>
 </template>

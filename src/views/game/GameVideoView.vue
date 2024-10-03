@@ -1,11 +1,13 @@
 
 <script>
 import axios from 'axios';
+import NewCommentForm from '@/components/blog/NewCommentForm.vue';
 
 
 export default {
     name: 'GameVideoView',
     props: ['slug'],
+    components: {NewCommentForm},
     data: ()=>{
         let context = {
             game: 'game',
@@ -30,6 +32,9 @@ export default {
         context: context
     }},
     methods: {
+        add_comment(comment){
+            this.game.comments.push(comment)
+        },
         async fetch_video(){
             this.$store.dispatch('showProgress')
             this.$store.dispatch('updateProgressStatus', 40)
@@ -115,7 +120,7 @@ export default {
             </div>
         </div>
         <div class="col-12 col-md-3 row m-0 p-0 h-100 d-flex">
-            <div class="justify-content-center m-auto">
+            <!--div class="justify-content-center m-auto">
                 <h3><strong>{{ context.comments }}</strong></h3>
                 <hr class="w-100">
                 <div class="form-group mb-2">
@@ -127,7 +132,24 @@ export default {
                     <textarea class="form-control bg-transparent" name="" id="" cols="30" rows="5"></textarea>
                 </div>
                 <hr>
-            </div>
+            </div-->
+            <NewCommentForm :slug="slug" @add_comment="add_comment" />
+            <div v-if="!game?.comments" class="alert alert-info">no comment yet</div>
+            <ul v-else class=" list-unstyled">
+            <li 
+                class="d-flex border my-2 py-2 px-1 rounded-2" 
+                v-for="comment_obj in game?.comments" 
+                v-bind:key="comment_obj.id"
+                >
+                <div class=" rounded-circle bg-black" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;"></div>
+                <p class="p-0 my-auto ms-2 w-100">
+                <span class=" fw-bold text-primary">@{{ comment_obj.name }}:</span> {{ comment_obj.comment }}
+                </p>      
+                <button class="btn btn-light btn-sm border rounded-circle d-flex" style="min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px;" disabled>
+                <i class="fa-regular fa-heart justify-content-center m-auto"></i>
+                </button>
+            </li>
+            </ul>
         </div>
     </div>
     <div v-else class="text-light">
