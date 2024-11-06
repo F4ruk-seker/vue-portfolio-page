@@ -36,14 +36,14 @@
     <h2 class="name font-weight-bold mb-1">Faruk Şeker</h2>
     <div class="tagline mb-3">Software Engineer</div>
     <p>
-        I am a software developer who believes that there is no limit to the experiences and knowledge one can gain in the world of software,
-        and that something new blossoms every day. Although I started my journey in 2021, I've been around computers since childhood.
-        Just like a child playing soccer in the street and taking steps towards becoming a professional,
-        I am progressing in the field of software development.
-
-        My main focus is web development, especially web backend and API integrations. From time to time,
-        I also work on data scraping and desktop applications. I'm someone who takes daily problems to heart and constantly seeks solutions.
-        If you're considering including me in your projects, I would be happy to listen to your ideas and work together to create solutions.    
+        I am a software developer who believes that there is no limit to the experiences and knowledge one can gain in the world of software, <br>
+        and that something new blossoms every day. Although I started my journey in 2021, I've been around computers since childhood. <br>
+        Just like a child playing soccer in the street and taking steps towards becoming a professional, <br>
+        I am progressing in the field of software development. <br>
+        <br>
+        My main focus is web development, especially web backend and API integrations. From time to time, <br>
+        I also work on data scraping and desktop applications. I'm someone who takes daily problems to heart and constantly seeks solutions. <br>
+        If you're considering including me in your projects, I would be happy to listen to your ideas and work together to create solutions. <br>  
     </p>
     <hr>
     I have a <router-link class="text-link" :to="{name:'blog-list'}">blog</router-link> where I share my development process. 
