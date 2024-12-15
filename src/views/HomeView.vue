@@ -65,7 +65,7 @@ export default {
         PageManager.load_page_context()
         this.page = PageManager.get_context()
       })
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 350));
       this.$store.dispatch('updateProgressStatus', 100)
       await new Promise(resolve => setTimeout(resolve, 100));
       this.on_load = false
